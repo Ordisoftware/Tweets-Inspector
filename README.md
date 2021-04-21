@@ -20,10 +20,12 @@ A libre and open-source software written in C# that allows to view and delete Tw
 
 ## Functionalities
 
-- Load tweets from the `tweets.js` file of a Twitter archive.
+- Load tweets from the `tweet.js` file of a Twitter archive.
 - Display tweets dispatched in three views : main, replies and retweets.
-- Search/filter a term and/or a user name.
-- Delete (destroy) selected tweets.
+- Filter and search using a term and/or a user name.
+- Open a tweet in browser.
+- Delete i.e. destroy selected tweets.
+- Export tweets to CSV.
 - English, French.
 
 ## Requirements
