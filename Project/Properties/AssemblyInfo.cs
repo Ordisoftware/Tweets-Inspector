@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Twitter's tweets viewer and deleter")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ordisoftware")]
-[assembly: AssemblyProduct("www.ordisoftware.com/projects/hebrew-calendar")]
+[assembly: AssemblyProduct("www.ordisoftware.com/projects/twitter-manager")]
 [assembly: AssemblyCopyright("Copyright 2021 Olivier Rogier")]
 [assembly: AssemblyTrademark("www.ordisoftware.com")]
 [assembly: AssemblyCulture("")]
