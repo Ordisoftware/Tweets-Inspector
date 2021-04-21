@@ -1,4 +1,4 @@
-﻿namespace TwitterManager
+﻿namespace Ordisoftware.TwitterManager
 {
   partial class TweetsControl
   {

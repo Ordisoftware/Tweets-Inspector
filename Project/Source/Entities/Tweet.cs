@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Ordisoftware.Core;
 
-namespace TwitterManager
+namespace Ordisoftware.TwitterManager
 {
 
   public enum TweetType { Main, Reply, RT };

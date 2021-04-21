@@ -7,7 +7,7 @@ using CoreTweet;
 using Ordisoftware.Core;
 using System.Drawing;
 
-namespace TwitterManager
+namespace Ordisoftware.TwitterManager
 {
 
   public partial class MainForm : Form

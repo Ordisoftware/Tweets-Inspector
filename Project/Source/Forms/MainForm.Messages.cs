@@ -2,7 +2,7 @@
 using System.Text;
 using System.Windows.Forms;
 
-namespace TwitterManager
+namespace Ordisoftware.TwitterManager
 {
 
   public partial class MainForm

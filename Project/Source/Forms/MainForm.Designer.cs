@@ -1,4 +1,4 @@
-﻿namespace TwitterManager
+﻿namespace Ordisoftware.TwitterManager
 {
   partial class MainForm
   {
@@ -37,7 +37,7 @@
       this.TabControl = new System.Windows.Forms.TabControl();
       this.TabPageTweets = new System.Windows.Forms.TabPage();
       this.SplitContainerMain = new System.Windows.Forms.SplitContainer();
-      this.TweetsControl = new TwitterManager.TweetsControl();
+      this.TweetsControl = new Ordisoftware.TwitterManager.TweetsControl();
       this.ListBoxAllRecipients = new System.Windows.Forms.ListBox();
       this.PanelBottom = new System.Windows.Forms.Panel();
       this.ProgressBar = new System.Windows.Forms.ProgressBar();
@@ -293,8 +293,8 @@
       // EditDeleteOnlyLocal
       // 
       this.EditDeleteOnlyLocal.AutoSize = true;
-      this.EditDeleteOnlyLocal.Checked = global::TwitterManager.Properties.Settings.Default.DeleteOnlyLocalMode;
-      this.EditDeleteOnlyLocal.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TwitterManager.Properties.Settings.Default, "DeleteOnlyLocalMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.EditDeleteOnlyLocal.Checked = global::Ordisoftware.TwitterManager.Properties.Settings.Default.DeleteOnlyLocalMode;
+      this.EditDeleteOnlyLocal.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TwitterManager.Properties.Settings.Default, "DeleteOnlyLocalMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
       this.EditDeleteOnlyLocal.Location = new System.Drawing.Point(330, 9);
       this.EditDeleteOnlyLocal.Name = "EditDeleteOnlyLocal";
       this.EditDeleteOnlyLocal.Size = new System.Drawing.Size(133, 17);
@@ -305,9 +305,9 @@
       // EditSearchResultsShowInForm
       // 
       this.EditSearchResultsShowInForm.AutoSize = true;
-      this.EditSearchResultsShowInForm.Checked = global::TwitterManager.Properties.Settings.Default.MainFormEditSearchResultsShowInForm;
+      this.EditSearchResultsShowInForm.Checked = global::Ordisoftware.TwitterManager.Properties.Settings.Default.MainFormEditSearchResultsShowInForm;
       this.EditSearchResultsShowInForm.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.EditSearchResultsShowInForm.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TwitterManager.Properties.Settings.Default, "MainFormEditSearchResultsShowInForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.EditSearchResultsShowInForm.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TwitterManager.Properties.Settings.Default, "MainFormEditSearchResultsShowInForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
       this.EditSearchResultsShowInForm.Location = new System.Drawing.Point(330, 38);
       this.EditSearchResultsShowInForm.Name = "EditSearchResultsShowInForm";
       this.EditSearchResultsShowInForm.Size = new System.Drawing.Size(95, 17);

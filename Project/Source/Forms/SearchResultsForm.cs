@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace TwitterManager
+namespace Ordisoftware.TwitterManager
 {
 
   public partial class SearchResultForm : Form

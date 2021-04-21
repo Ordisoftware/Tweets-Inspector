@@ -6,7 +6,7 @@ using Ordisoftware.Core;
 using System.Threading;
 using System.ComponentModel;
 
-namespace TwitterManager
+namespace Ordisoftware.TwitterManager
 {
 
   public partial class ListTweets : UserControl

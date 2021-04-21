@@ -2,7 +2,7 @@
 using System.Data.Odbc;
 using Ordisoftware.Core;
 
-namespace TwitterManager
+namespace Ordisoftware.TwitterManager
 {
 
   public partial class MainForm

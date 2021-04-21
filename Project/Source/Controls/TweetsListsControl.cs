@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
 
-namespace TwitterManager
+namespace Ordisoftware.TwitterManager
 {
 
   public partial class TweetsControl : UserControl
