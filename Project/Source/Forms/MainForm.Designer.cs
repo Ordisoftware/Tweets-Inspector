@@ -37,7 +37,6 @@
       this.TabControl = new System.Windows.Forms.TabControl();
       this.TabPageTweets = new System.Windows.Forms.TabPage();
       this.SplitContainerMain = new System.Windows.Forms.SplitContainer();
-      this.TweetsControl = new Ordisoftware.TwitterManager.TweetsControl();
       this.ListBoxAllRecipients = new System.Windows.Forms.ListBox();
       this.PanelBottom = new System.Windows.Forms.Panel();
       this.ProgressBar = new System.Windows.Forms.ProgressBar();
@@ -58,6 +57,9 @@
       this.ActionLoadTweestFromJS = new System.Windows.Forms.Button();
       this.ActionSaveTweets = new System.Windows.Forms.Button();
       this.TabPageMessages = new System.Windows.Forms.TabPage();
+      this.ActionGetFollowers = new System.Windows.Forms.Button();
+      this.TweetsControl = new Ordisoftware.TwitterManager.TweetsControl();
+      this.ActionGetFellowing = new System.Windows.Forms.Button();
       this.TabControl.SuspendLayout();
       this.TabPageTweets.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.SplitContainerMain)).BeginInit();
@@ -151,14 +153,6 @@
       this.SplitContainerMain.SplitterWidth = 10;
       this.SplitContainerMain.TabIndex = 9;
       // 
-      // TweetsControl
-      // 
-      this.TweetsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.TweetsControl.Location = new System.Drawing.Point(0, 0);
-      this.TweetsControl.Name = "TweetsControl";
-      this.TweetsControl.Size = new System.Drawing.Size(849, 528);
-      this.TweetsControl.TabIndex = 0;
-      // 
       // ListBoxAllRecipients
       // 
       this.ListBoxAllRecipients.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -189,6 +183,8 @@
       // 
       // PanelTweetsTop
       // 
+      this.PanelTweetsTop.Controls.Add(this.ActionGetFellowing);
+      this.PanelTweetsTop.Controls.Add(this.ActionGetFollowers);
       this.PanelTweetsTop.Controls.Add(this.label4);
       this.PanelTweetsTop.Controls.Add(this.LabelCountAllRecipients);
       this.PanelTweetsTop.Controls.Add(this.label3);
@@ -377,6 +373,34 @@
       this.TabPageMessages.TabIndex = 0;
       this.TabPageMessages.Text = "Messages";
       // 
+      // ActionGetFollowers
+      // 
+      this.ActionGetFollowers.Location = new System.Drawing.Point(630, 7);
+      this.ActionGetFollowers.Name = "ActionGetFollowers";
+      this.ActionGetFollowers.Size = new System.Drawing.Size(88, 23);
+      this.ActionGetFollowers.TabIndex = 8;
+      this.ActionGetFollowers.Text = "Get Followers";
+      this.ActionGetFollowers.UseVisualStyleBackColor = true;
+      this.ActionGetFollowers.Click += new System.EventHandler(this.ActionGetFollowers_Click);
+      // 
+      // TweetsControl
+      // 
+      this.TweetsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.TweetsControl.Location = new System.Drawing.Point(0, 0);
+      this.TweetsControl.Name = "TweetsControl";
+      this.TweetsControl.Size = new System.Drawing.Size(849, 528);
+      this.TweetsControl.TabIndex = 0;
+      // 
+      // ActionGetFellowing
+      // 
+      this.ActionGetFellowing.Location = new System.Drawing.Point(536, 6);
+      this.ActionGetFellowing.Name = "ActionGetFellowing";
+      this.ActionGetFellowing.Size = new System.Drawing.Size(88, 23);
+      this.ActionGetFellowing.TabIndex = 8;
+      this.ActionGetFellowing.Text = "Get Fellowing";
+      this.ActionGetFellowing.UseVisualStyleBackColor = true;
+      this.ActionGetFellowing.Click += new System.EventHandler(this.ActionGetFellowing_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -435,6 +459,8 @@
     private System.Windows.Forms.CheckBox EditDeleteOnlyLocal;
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.Label LabelCountAllRecipients;
+    private System.Windows.Forms.Button ActionGetFollowers;
+    private System.Windows.Forms.Button ActionGetFellowing;
   }
 }
 
