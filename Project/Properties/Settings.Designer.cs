@@ -94,5 +94,41 @@ namespace Ordisoftware.TwitterManager.Properties {
                 this["DeleteOnlyLocalMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ConsumerKey {
+            get {
+                return ((string)(this["ConsumerKey"]));
+            }
+            set {
+                this["ConsumerKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ConsumerSecret {
+            get {
+                return ((string)(this["ConsumerSecret"]));
+            }
+            set {
+                this["ConsumerSecret"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OAuthCallback {
+            get {
+                return ((string)(this["OAuthCallback"]));
+            }
+            set {
+                this["OAuthCallback"] = value;
+            }
+        }
     }
 }
