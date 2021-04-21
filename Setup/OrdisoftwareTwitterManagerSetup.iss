@@ -1,4 +1,4 @@
-#define MyAppVersion "5.2"
+#define MyAppVersion "1.0"
 #define MyAppName "Twitter Manager"
 #define MyAppNameNoSpace "TwitterManager"
 #define MyAppExeName "Ordisoftware.TwitterManager.exe"
