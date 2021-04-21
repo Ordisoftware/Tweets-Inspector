@@ -2,7 +2,7 @@
 
 > Licensed under the terms of the [Mozilla Public License 2.0](LICENSE)<br/>
 > This project follows the [Manufacturing Software Guidelines](https://github.com/Ordisoftware/Guidelines).<br/>
-> [Website](https://www.ordisoftware.com/projects/hebrew-letters)<br/>
+> [Website](https://www.ordisoftware.com/projects/twitter-manager)<br/>
 > [Twitter](https://twitter.com/ordisoftware)<br/>
 
 A libre and open-source software written in C# that allows to view and delete Twitter's tweets.
