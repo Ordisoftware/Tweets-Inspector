@@ -70,5 +70,29 @@ namespace TwitterManager.Properties {
                 this["MainFormEditSearchResultsShowInForm"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Dsn=Twitter-Manager")]
+        public string ConnectionString {
+            get {
+                return ((string)(this["ConnectionString"]));
+            }
+            set {
+                this["ConnectionString"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DeleteOnlyLocalMode {
+            get {
+                return ((bool)(this["DeleteOnlyLocalMode"]));
+            }
+            set {
+                this["DeleteOnlyLocalMode"] = value;
+            }
+        }
     }
 }

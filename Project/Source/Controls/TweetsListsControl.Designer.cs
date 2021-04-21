@@ -128,8 +128,8 @@
 
     private System.Windows.Forms.SplitContainer splitContainerTweetsAndRT;
     private System.Windows.Forms.SplitContainer SplitContainerTweetsMainAndReplies;
-    internal ListTweets ListTweetsMain;
-    internal ListTweets ListTweetsReplies;
-    internal ListTweets ListTweetsRTs;
+    public ListTweets ListTweetsMain;
+    public ListTweets ListTweetsReplies;
+    public ListTweets ListTweetsRTs;
   }
 }

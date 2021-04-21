@@ -15,7 +15,9 @@ namespace TwitterManager
 
     static internal Tokens TwitterTokens;
 
-    private readonly List<Tweet> Tweets = new List<Tweet>();
+    static internal readonly List<Tweet> Tweets = new List<Tweet>();
+
+    internal readonly Properties.Settings Settings = Properties.Settings.Default;
 
     public MainForm()
     {
@@ -23,9 +25,16 @@ namespace TwitterManager
       SystemManager.TryCatch(() => { Icon = new Icon(Globals.ApplicationIconFilePath); });
     }
 
+    private void MainForm_Load(object sender, EventArgs e)
+    {
+      CreateSchemaIfNotExists();
+      LoadData();
+      UpdateListViews();
+    }
+
     private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
     {
-      Properties.Settings.Default.Save();
+      Settings.Save();
     }
 
     private void ActionOpenMessages_Click(object sender, EventArgs e)
@@ -58,7 +67,7 @@ namespace TwitterManager
 
     private void ActionLoadTweestFromJS_Click(object sender, EventArgs e)
     {
-      DoLoadTweestFromJS();
+      DoLoadTweetsFromJS();
       UpdateListViews();
     }
 
@@ -67,6 +76,10 @@ namespace TwitterManager
       TweetsControl.Populate(Tweets);
       var array = Tweets.SelectMany(t => t.RecipientsAsList).Distinct().OrderBy(recipient => recipient).ToArray();
       ListBoxAllRecipients.Items.AddRange(array);
+      LabelCountTweetsMain.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
+      LabelCountTweetsReplies.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
+      LabelCountTweetsRTs.Text = TweetsControl.ListTweetsRTs.DataGridView.RowCount.ToString();
+      LabelCountAllRecipients.Text = array.Length.ToString();
     }
 
     private void ActionSearch_Click(object sender, EventArgs e)
@@ -84,12 +97,11 @@ namespace TwitterManager
       if ( EditSearchResultsShowInForm.Checked )
       {
         var query = from tweet in Tweets
-                    where tweet.Id == term
+                    where tweet.Id.ToString() == term
                        || tweet.Recipients.Contains(term)
                        || tweet.Message.Contains(term)
                     select tweet;
-        SearchResultForm.Run(query);
-        if (TweetsControl.Modified)
+        if ( SearchResultForm.Run(query) )
           UpdateListViews();
       }
       else

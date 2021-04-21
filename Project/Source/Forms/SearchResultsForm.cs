@@ -8,11 +8,12 @@ namespace TwitterManager
   public partial class SearchResultForm : Form
   {
 
-    static public void Run(IEnumerable<Tweet> tweets)
+    static public bool Run(IEnumerable<Tweet> tweets)
     {
       var form = new SearchResultForm();
       form.TweetsControl.Populate(tweets);
       form.ShowDialog();
+      return form.TweetsControl.Modified;
     }
 
     private SearchResultForm()

@@ -244,10 +244,13 @@
       <DependentUpon>TweetsListControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\Entities\Tweet.cs" />
+    <Compile Include="Source\Forms\MainForm.DB.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Source\Forms\MainForm.Messages.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Forms\MainForm.LoadTweets.cs">
+    <Compile Include="Source\Forms\MainForm.LoadTweetsFromJS.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Source\Forms\MainForm.cs">
@@ -366,6 +369,7 @@
     <None Include="Dependencies\Windows Global Hotkey\Windows-Global-Hotkey-master-modified-2020.12.19.zip" />
     <None Include="Dependencies\Windows Global Hotkey\Windows-Global-Hotkey-master.zip" />
     <None Include="Packages.config" />
+    <None Include="Properties\DataSources\Tweet.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

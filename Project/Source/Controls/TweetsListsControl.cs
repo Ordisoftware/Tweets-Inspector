@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace TwitterManager
 {
@@ -18,9 +19,11 @@ namespace TwitterManager
 
     public void Populate(IEnumerable<Tweet> tweets)
     {
-      ListTweetsMain.Populate(tweets.Where(t => t.Type == TweetType.Main));
-      ListTweetsReplies.Populate(tweets.Where(t => t.Type == TweetType.Reply));
-      ListTweetsRTs.Populate(tweets.Where(t => t.Type == TweetType.RT));
+      ListTweetsMain.DataGridView.DataSource = select(TweetType.Main);
+      ListTweetsReplies.DataGridView.DataSource = select(TweetType.Reply);
+      ListTweetsRTs.DataGridView.DataSource = select(TweetType.RT);
+      //
+      BindingList<Tweet> select(TweetType type) => new BindingList<Tweet>(tweets.Where(t => t.Type == type).ToList());
     }
 
   }

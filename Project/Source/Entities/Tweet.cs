@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using Ordisoftware.Core;
 
 namespace TwitterManager
 {
@@ -9,9 +10,11 @@ namespace TwitterManager
 
   public class Tweet
   {
+    public string ScreenName => MainForm.TwitterTokens == null || MainForm.TwitterTokens.ScreenName.IsNullOrEmpty()
+                                ? "ordisoftware"
+                                : MainForm.TwitterTokens.ScreenName;
     public TweetType Type { get; set; }
-    public string ScreenName { get; set; }
-    public string Id { get; set; }
+    public long Id { get; set; }
     public string Date { get; set; }
     public string Message { get; set; }
     public string Recipients { get; set; }

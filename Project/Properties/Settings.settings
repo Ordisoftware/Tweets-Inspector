@@ -14,5 +14,11 @@
     <Setting Name="MainFormEditSearchResultsShowInForm" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="ConnectionString" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Dsn=Twitter-Manager</Value>
+    </Setting>
+    <Setting Name="DeleteOnlyLocalMode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
