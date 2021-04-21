@@ -10,19 +10,17 @@ A libre and open-source software written in C# that allows to view and delete Tw
 ## Table of content
 
 1. [Functionalities](#Functionalities)
-2. [Review](#Review)
-3. [Requirements](#Requirements)
-4. [Download](#Download)
-5. [Screenshots](#Screenshots)
-6. [Videos](#Videos)
-7. [Frequently asked questions](#Frequently-asked-questions)
-8. [Keyboard shortcuts](#Keyboard-shortcuts)
-9. [Future improvements](#Future-improvements)
-10. [Changelog](#Changelog)
+2. [Requirements](#Requirements)
+3. [Download](#Download)
+4. [Screenshots](#Screenshots)
+5. [Frequently asked questions](#Frequently-asked-questions)
+6. [Keyboard shortcuts](#Keyboard-shortcuts)
+7. [Future improvements](#Future-improvements)
+8. [Changelog](#Changelog)
 
 ## Functionalities
 
-- Load tweets from the tweets.js file of a Twitter archive.
+- Load tweets from the `tweets.js` file of a Twitter archive.
 - Display tweets dispatched in three views : main, replies and retweets.
 - Search/filter a term and/or a user name.
 - Delete (destroy) selected tweets.
@@ -39,7 +37,7 @@ A libre and open-source software written in C# that allows to view and delete Tw
 
 **What's new in the latest version**
 
-- Initial version.
+- In progress.
 
 [Last release](https://github.com/Ordisoftware/Twitter-Manage/releases/latest)
 
@@ -102,8 +100,6 @@ The software verifies the validity of the certificate of the update server in ad
 
 
 ## Changelog
-
-
 
 #### Im progress - Version 1.0
 
