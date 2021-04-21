@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1500
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twitter Manager (vs2017)", "Twitter Manager (vs2017).csproj", "{1ED45F34-0CD1-42B3-A65B-28B15693AB27}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1ED45F34-0CD1-42B3-A65B-28B15693AB27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ED45F34-0CD1-42B3-A65B-28B15693AB27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ED45F34-0CD1-42B3-A65B-28B15693AB27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ED45F34-0CD1-42B3-A65B-28B15693AB27}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C2DC273A-7231-48D1-85EB-5831277C10AE}
+	EndGlobalSection
+EndGlobal
