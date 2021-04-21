@@ -29,6 +29,28 @@ namespace Ordisoftware.TwitterManager
                                           Message TEXT DEFAULT '' NOT NULL,
                                           PRIMARY KEY(Id)
                                         )");
+        LockFileConnection.CheckTable(@"Following",
+                                      @"CREATE TABLE Following
+                                        ( 
+                                          Id INTEGER NOT NULL,
+                                          ScreenName TEXT DEFAULT '' NOT NULL,
+                                          DateInserted TEXT DEFAULT '' NOT NULL,
+                                          DateRemoved TEXT DEFAULT '' NOT NULL,
+                                          PRIMARY KEY(Id)
+                                        )");
+        LockFileConnection.CheckTable(@"Followers",
+                                      @"CREATE TABLE Followers
+                                        ( 
+                                          Id INTEGER NOT NULL,
+                                          ScreenName TEXT DEFAULT '' NOT NULL,
+                                          DateInserted TEXT DEFAULT '' NOT NULL,
+                                          DateRemoved TEXT DEFAULT '' NOT NULL,
+                                          PRIMARY KEY(Id)
+                                        )");
+        LockFileConnection.CheckIndex(@"idx_following_screenname",
+                                      @"CREATE UNIQUE INDEX idx_following_screenname ON Following(ScreenName)");
+        LockFileConnection.CheckIndex(@"idx_followers_screenname",
+                                      @"CREATE UNIQUE INDEX idx_followers_screenname ON Followers(ScreenName)");
       });
     }
 
