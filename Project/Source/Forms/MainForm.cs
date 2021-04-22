@@ -135,6 +135,20 @@ namespace Ordisoftware.TwitterManager
       LabelCountAllRecipients.Text = array.Length.ToString();
     }
 
+    private void ActionSelectAll_Click(object sender, EventArgs e)
+    {
+      TweetsControl.ListTweetsMain.ActionSelectAll.PerformClick();
+      TweetsControl.ListTweetsReplies.ActionSelectAll.PerformClick();
+      TweetsControl.ListTweetsRTs.ActionSelectAll.PerformClick();
+    }
+
+    private void ActionSelectNone_Click(object sender, EventArgs e)
+    {
+      TweetsControl.ListTweetsMain.ActionSelectNone.PerformClick();
+      TweetsControl.ListTweetsReplies.ActionSelectNone.PerformClick();
+      TweetsControl.ListTweetsRTs.ActionSelectNone.PerformClick();
+    }
+
     private void ActionFilterClear_Click(object sender, EventArgs e)
     {
       EditSearch.Text = "";
@@ -180,6 +194,16 @@ namespace Ordisoftware.TwitterManager
         users.AddRange(list.ToList());
       }
       DisplayManager.Show(string.Join(", ", users.Select(user => user.ScreenName)));
+    }
+
+    private void ActionGetLikes_Click(object sender, EventArgs e)
+    {
+      var list = TwitterTokens.Favorites.List(TwitterTokens.UserId, count: 200);
+      foreach ( var item in list )
+      {
+        if ( item.User.ScreenName.ToLower().Contains("") )
+          ;
+      }
     }
 
   }

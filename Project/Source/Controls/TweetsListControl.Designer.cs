@@ -250,10 +250,7 @@
     private System.Windows.Forms.DataGridViewTextBoxColumn ColumnRecipients;
     private System.Windows.Forms.DataGridViewTextBoxColumn ColumnMessage;
     private System.Windows.Forms.Panel PanelBottom;
-    private System.Windows.Forms.Button ActionSelectAll;
-    private System.Windows.Forms.Button ActionSelectNone;
     public System.Windows.Forms.Label LabelTitle;
-    private System.Windows.Forms.Button ActionFilterClear;
     private Data.DataSet DataSet;
     private System.Windows.Forms.BindingSource TweetsBindingSource;
     private Data.DataSetTableAdapters.TweetsTableAdapter TweetsTableAdapter;
@@ -264,5 +261,8 @@
     private System.Windows.Forms.DataGridViewTextBoxColumn recipientsDataGridViewTextBoxColumn;
     private System.Windows.Forms.DataGridViewTextBoxColumn messageDataGridViewTextBoxColumn;
     public System.Windows.Forms.TextBox EditFilter;
+    public System.Windows.Forms.Button ActionSelectAll;
+    public System.Windows.Forms.Button ActionSelectNone;
+    public System.Windows.Forms.Button ActionFilterClear;
   }
 }

@@ -40,6 +40,7 @@
       this.SplitContainerMain = new System.Windows.Forms.SplitContainer();
       this.ListBoxAllRecipients = new System.Windows.Forms.ListBox();
       this.PanelTweetsTop = new System.Windows.Forms.Panel();
+      this.ActionFilterClear = new System.Windows.Forms.Button();
       this.ActionGetFellowing = new System.Windows.Forms.Button();
       this.ActionGetFollowers = new System.Windows.Forms.Button();
       this.EditDeleteOnlyLocal = new System.Windows.Forms.CheckBox();
@@ -64,8 +65,10 @@
       this.TableAdapterManager = new Ordisoftware.TwitterManager.Data.DataSetTableAdapters.TableAdapterManager();
       this.TweetsBindingSourceReplies = new System.Windows.Forms.BindingSource(this.components);
       this.TweetsBindingSourceRTs = new System.Windows.Forms.BindingSource(this.components);
+      this.ActionSelectAll = new System.Windows.Forms.Button();
+      this.ActionSelectNone = new System.Windows.Forms.Button();
       this.TweetsControl = new Ordisoftware.TwitterManager.TweetsControl();
-      this.ActionFilterClear = new System.Windows.Forms.Button();
+      this.ActionGetLikes = new System.Windows.Forms.Button();
       this.TabControl.SuspendLayout();
       this.TabPageTweets.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.SplitContainerMain)).BeginInit();
@@ -177,6 +180,9 @@
       // PanelTweetsTop
       // 
       this.PanelTweetsTop.AutoScroll = true;
+      this.PanelTweetsTop.Controls.Add(this.ActionGetLikes);
+      this.PanelTweetsTop.Controls.Add(this.ActionSelectAll);
+      this.PanelTweetsTop.Controls.Add(this.ActionSelectNone);
       this.PanelTweetsTop.Controls.Add(this.ActionFilterClear);
       this.PanelTweetsTop.Controls.Add(this.ActionGetFellowing);
       this.PanelTweetsTop.Controls.Add(this.ActionGetFollowers);
@@ -190,6 +196,17 @@
       this.PanelTweetsTop.Name = "PanelTweetsTop";
       this.PanelTweetsTop.Size = new System.Drawing.Size(956, 65);
       this.PanelTweetsTop.TabIndex = 5;
+      // 
+      // ActionFilterClear
+      // 
+      this.ActionFilterClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionFilterClear.Location = new System.Drawing.Point(216, 37);
+      this.ActionFilterClear.Name = "ActionFilterClear";
+      this.ActionFilterClear.Size = new System.Drawing.Size(23, 23);
+      this.ActionFilterClear.TabIndex = 9;
+      this.ActionFilterClear.Text = "X";
+      this.ActionFilterClear.UseVisualStyleBackColor = true;
+      this.ActionFilterClear.Click += new System.EventHandler(this.ActionFilterClear_Click);
       // 
       // ActionGetFellowing
       // 
@@ -383,6 +400,28 @@
       this.TweetsBindingSourceRTs.DataMember = "Tweets";
       this.TweetsBindingSourceRTs.DataSource = this.DataSet;
       // 
+      // ActionSelectAll
+      // 
+      this.ActionSelectAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionSelectAll.Location = new System.Drawing.Point(245, 37);
+      this.ActionSelectAll.Name = "ActionSelectAll";
+      this.ActionSelectAll.Size = new System.Drawing.Size(23, 23);
+      this.ActionSelectAll.TabIndex = 10;
+      this.ActionSelectAll.Text = "+";
+      this.ActionSelectAll.UseVisualStyleBackColor = true;
+      this.ActionSelectAll.Click += new System.EventHandler(this.ActionSelectAll_Click);
+      // 
+      // ActionSelectNone
+      // 
+      this.ActionSelectNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionSelectNone.Location = new System.Drawing.Point(274, 37);
+      this.ActionSelectNone.Name = "ActionSelectNone";
+      this.ActionSelectNone.Size = new System.Drawing.Size(23, 23);
+      this.ActionSelectNone.TabIndex = 11;
+      this.ActionSelectNone.Text = "-";
+      this.ActionSelectNone.UseVisualStyleBackColor = true;
+      this.ActionSelectNone.Click += new System.EventHandler(this.ActionSelectNone_Click);
+      // 
       // TweetsControl
       // 
       this.TweetsControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -391,17 +430,15 @@
       this.TweetsControl.Size = new System.Drawing.Size(838, 525);
       this.TweetsControl.TabIndex = 0;
       // 
-      // ActionFilterClear
+      // ActionGetLikes
       // 
-      this.ActionFilterClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.ActionFilterClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.ActionFilterClear.Location = new System.Drawing.Point(216, 35);
-      this.ActionFilterClear.Name = "ActionFilterClear";
-      this.ActionFilterClear.Size = new System.Drawing.Size(23, 23);
-      this.ActionFilterClear.TabIndex = 9;
-      this.ActionFilterClear.Text = "X";
-      this.ActionFilterClear.UseVisualStyleBackColor = true;
-      this.ActionFilterClear.Click += new System.EventHandler(this.ActionFilterClear_Click);
+      this.ActionGetLikes.Location = new System.Drawing.Point(724, 7);
+      this.ActionGetLikes.Name = "ActionGetLikes";
+      this.ActionGetLikes.Size = new System.Drawing.Size(88, 23);
+      this.ActionGetLikes.TabIndex = 12;
+      this.ActionGetLikes.Text = "Get Likes";
+      this.ActionGetLikes.UseVisualStyleBackColor = true;
+      this.ActionGetLikes.Click += new System.EventHandler(this.ActionGetLikes_Click);
       // 
       // MainForm
       // 
@@ -476,6 +513,9 @@
     internal Data.DataSetTableAdapters.TweetsTableAdapter TweetsTableAdapter;
     internal Data.DataSetTableAdapters.TableAdapterManager TableAdapterManager;
     private System.Windows.Forms.Button ActionFilterClear;
+    public System.Windows.Forms.Button ActionSelectAll;
+    public System.Windows.Forms.Button ActionSelectNone;
+    private System.Windows.Forms.Button ActionGetLikes;
   }
 }
 
