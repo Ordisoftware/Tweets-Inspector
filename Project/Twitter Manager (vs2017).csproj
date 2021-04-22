@@ -98,6 +98,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\Forms\WebBrowserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Forms\WebBrowserForm.Designer.cs">
+      <DependentUpon>WebBrowserForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dependencies\Core\Classes\Chronometer.cs" />
     <Compile Include="Dependencies\Core\Classes\EnumHelper.cs" />
     <Compile Include="Dependencies\Core\Classes\ExportAction.cs" />
@@ -363,6 +369,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Controls\TweetsListControl.resx">
       <DependentUpon>TweetsListControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Forms\WebBrowserForm.resx">
+      <DependentUpon>WebBrowserForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

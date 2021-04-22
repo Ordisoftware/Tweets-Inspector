@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using CoreTweet;
 using Ordisoftware.Core;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace Ordisoftware.TwitterManager
 {
@@ -27,11 +28,23 @@ namespace Ordisoftware.TwitterManager
   public partial class MainForm : Form
   {
 
-    static internal Tokens TwitterTokens;
+    private const string OAauthVerifierTag = "oauth_verifier";
+
+    static internal readonly Properties.Settings Settings = Program.Settings;
 
     static internal readonly List<Tweet> Tweets = new List<Tweet>();
 
-    internal readonly Properties.Settings Settings = Properties.Settings.Default;
+    static internal Tokens TwitterTokens { get; private set; }
+
+    internal static bool IsConnected(bool showMessage)
+    {
+      if ( TwitterTokens == null )
+      {
+        if (showMessage) DisplayManager.ShowWarning("Not connected.");
+        return false;
+      }
+      return true;
+    }
 
     public MainForm()
     {
@@ -66,17 +79,29 @@ namespace Ordisoftware.TwitterManager
       File.WriteAllLines(Path.Combine(path, name + " - RT.txt"), SelectTweetsRT.Items.Cast<string>());*/
     }
 
-    private void ActionConnectTwitter_Click(object sender, EventArgs e)
+    private async void ActionConnectTwitter_Click(object sender, EventArgs e)
     {
-      var session = OAuth.Authorize("",
-                                    "",
-                                    "");
-      System.Diagnostics.Process.Start(session.AuthorizeUri.AbsoluteUri);
-      string pin = "";
-      DisplayManager.QueryValue("Twitter Access", "Pin Code", ref pin);
-      if ( pin == "" ) return;
-      TwitterTokens = session.GetTokens(pin);
-      DisplayManager.Show("Connected to: @" + TwitterTokens.ScreenName);
+      if ( IsConnected(false) ) return;
+      Enabled = false;
+      bool done = false;
+      var session = OAuth.Authorize(Settings.TwitterKey, Settings.TwitterSecret, Settings.TwitterBackUrl);
+      var form = new WebBrowserForm();
+      form.FormClosed += (_s, _e) => done = true;
+      form.WebBrowser.AddressChanged += (_s, _e) => done |= _e.Address.Contains(Settings.TwitterBackUrl);
+      form.WebBrowser.Load(session.AuthorizeUri.AbsoluteUri);
+      form.Show();
+      while ( !done ) await Task.Delay(100);
+      if ( form.Visible ) form.Close();
+      BringToFront();
+      Enabled = true;
+      var items = form.WebBrowser.Address.SplitNoEmptyLines($"&{OAauthVerifierTag}=");
+      if ( items.Length == 2 && items[1].Trim() != "" )
+      {
+        TwitterTokens = session.GetTokens(items[1]);
+        DisplayManager.Show("Connected to: @" + TwitterTokens.ScreenName);
+      }
+      else
+        DisplayManager.ShowWarning($"Athentification error: {OAauthVerifierTag} not found.");
     }
 
     private void ActionLoadTweestFromJS_Click(object sender, EventArgs e)

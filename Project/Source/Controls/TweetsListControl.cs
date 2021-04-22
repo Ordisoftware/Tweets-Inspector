@@ -61,11 +61,7 @@ namespace Ordisoftware.TwitterManager
 
     private void ActionTweetDelete_Click(object sender, EventArgs e)
     {
-      if ( !Properties.Settings.Default.DeleteOnlyLocalMode && MainForm.TwitterTokens == null )
-      {
-        DisplayManager.ShowWarning("Not connected.");
-        return;
-      }
+      if ( !MainForm.IsConnected(true) ) return;
       var list = DataGridView.SelectedRows.Cast<DataGridViewRow>().Select(row => (Tweet)row.DataBoundItem).ToList();
       var ids = list.Select(tweet => tweet.Id).ToList();
       string str = ids.Count > 10

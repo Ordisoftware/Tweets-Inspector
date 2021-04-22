@@ -13,22 +13,28 @@
 /// <created> 2021-04 </created>
 /// <edited> 2021-04 </edited>
 using System;
+using System.IO;
 using System.Windows.Forms;
+using CefSharp;
+using CefSharp.WinForms;
+using Ordisoftware.Core;
 
 namespace Ordisoftware.TwitterManager
 {
 
-  static class Program
+  public partial class WebBrowserForm : Form
   {
 
-    static internal readonly Properties.Settings Settings = Properties.Settings.Default;
-
-    [STAThread]
-    static void Main()
+    static WebBrowserForm()
     {
-      Application.EnableVisualStyles();
-      Application.SetCompatibleTextRenderingDefault(false);
-      Application.Run(new MainForm());
+      CefSettings settings = new CefSettings();
+      settings.CachePath = Path.Combine(Globals.UserDataFolderPath, "ChromiumCache");
+      Cef.Initialize(settings);
+    }
+
+    public WebBrowserForm()
+    {
+      InitializeComponent();
     }
 
   }

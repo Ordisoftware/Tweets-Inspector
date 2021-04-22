@@ -98,36 +98,36 @@ namespace Ordisoftware.TwitterManager.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ConsumerKey {
+        public string TwitterKey {
             get {
-                return ((string)(this["ConsumerKey"]));
+                return ((string)(this["TwitterKey"]));
             }
             set {
-                this["ConsumerKey"] = value;
+                this["TwitterKey"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ConsumerSecret {
+        public string TwitterSecret {
             get {
-                return ((string)(this["ConsumerSecret"]));
+                return ((string)(this["TwitterSecret"]));
             }
             set {
-                this["ConsumerSecret"] = value;
+                this["TwitterSecret"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string OAuthCallback {
+        public string TwitterBackUrl {
             get {
-                return ((string)(this["OAuthCallback"]));
+                return ((string)(this["TwitterBackUrl"]));
             }
             set {
-                this["OAuthCallback"] = value;
+                this["TwitterBackUrl"] = value;
             }
         }
     }

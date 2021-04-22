@@ -20,13 +20,13 @@
     <Setting Name="DeleteOnlyLocalMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ConsumerKey" Type="System.String" Scope="User">
+    <Setting Name="TwitterKey" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ConsumerSecret" Type="System.String" Scope="User">
+    <Setting Name="TwitterSecret" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="OAuthCallback" Type="System.String" Scope="User">
+    <Setting Name="TwitterBackUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>
