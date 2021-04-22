@@ -98,6 +98,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DataSet.cs">
+      <DependentUpon>DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Source\Forms\WebBrowserForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -267,7 +275,7 @@
     <Compile Include="Source\Controls\TweetsListControl.Designer.cs">
       <DependentUpon>TweetsListControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Entities\Tweet.cs" />
+    <Compile Include="Source\Program\DataSet.cs" />
     <Compile Include="Source\Forms\MainForm.DB.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,12 +293,6 @@
     </Compile>
     <Compile Include="Source\Program\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Source\Forms\SearchResultsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Source\Forms\SearchResultsForm.Designer.cs">
-      <DependentUpon>SearchResultsForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Source\Controls\TweetsListsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -386,17 +388,24 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Source\Forms\SearchResultsForm.resx">
-      <DependentUpon>SearchResultsForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Source\Controls\TweetsListsControl.resx">
       <DependentUpon>TweetsListsControl.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Data\DataSet.xsc">
+      <DependentUpon>DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Data\DataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Data\DataSet.xss">
+      <DependentUpon>DataSet.xsd</DependentUpon>
+    </None>
     <None Include="Dependencies\Windows Global Hotkey\Windows Global Hotkey.url" />
     <None Include="Dependencies\Windows Global Hotkey\Windows-Global-Hotkey-master-modified-2020.12.19.zip" />
     <None Include="Dependencies\Windows Global Hotkey\Windows-Global-Hotkey-master.zip" />
     <None Include="Packages.config" />
-    <None Include="Properties\DataSources\Tweet.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -413,7 +422,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

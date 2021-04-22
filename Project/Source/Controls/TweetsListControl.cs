@@ -13,12 +13,11 @@
 /// <created> 2021-04 </created>
 /// <edited> 2021-04 </edited>
 using System;
+using System.Data;
 using System.Linq;
-using System.Data.Odbc;
 using System.Windows.Forms;
 using Ordisoftware.Core;
 using System.Threading;
-using System.ComponentModel;
 
 namespace Ordisoftware.TwitterManager
 {
@@ -26,7 +25,13 @@ namespace Ordisoftware.TwitterManager
   public partial class ListTweets : UserControl
   {
 
-    public bool Modified { get; private set; }
+    public string DefaultFilter { get; set; }
+
+    public object DataSource
+    {
+      get => DataGridView.DataSource;
+      set => DataGridView.DataSource = value;
+    }
 
     public ListTweets()
     {
@@ -47,22 +52,23 @@ namespace Ordisoftware.TwitterManager
 
     private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
     {
-      System.Diagnostics.Process.Start(( (Tweet)DataGridView.CurrentCell.OwningRow.DataBoundItem ).Url);
+      System.Diagnostics.Process.Start(( (Data.DataSet.TweetsRow)DataGridView.CurrentCell.OwningRow.DataBoundItem ).Url);
     }
 
     private void ActionTweetOpen_Click(object sender, EventArgs e)
     {
       foreach ( DataGridViewRow row in DataGridView.SelectedRows )
       {
-        System.Diagnostics.Process.Start(( (Tweet)row.DataBoundItem ).Url);
+        System.Diagnostics.Process.Start(( (Data.DataSet.TweetsRow)row.DataBoundItem ).Url);
         Thread.Sleep(2000);
       }
     }
 
     private void ActionTweetDelete_Click(object sender, EventArgs e)
     {
-      if ( !MainForm.IsConnected(true) ) return;
-      var list = DataGridView.SelectedRows.Cast<DataGridViewRow>().Select(row => (Tweet)row.DataBoundItem).ToList();
+      if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
+        if ( !MainForm.IsConnected(true) ) return;
+      var list = DataGridView.SelectedRows.Cast<DataGridViewRow>().Select(row => (Data.DataSet.TweetsRow)((DataRowView)row.DataBoundItem).Row).ToList();
       var ids = list.Select(tweet => tweet.Id).ToList();
       string str = ids.Count > 10
                    ? string.Join(Globals.NL, ids.Take(10)) + Globals.NL + "..."
@@ -70,16 +76,37 @@ namespace Ordisoftware.TwitterManager
       if ( !DisplayManager.QueryYesNo("Delete Tweet(s) ?" + Globals.NL2 + str) ) return;
       foreach ( var tweet in list )
       {
-        long id = tweet.Id;
+        long id = long.Parse(tweet.Id);
         if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
           MainForm.TwitterTokens.Statuses.Destroy(id);
-        ((BindingList<Tweet>)DataGridView.DataSource).Remove(tweet);
-        MainForm.Tweets.Remove(tweet);
-        var command = new OdbcCommand("DELETE FROM Tweets WHERE Id = ?", MainForm.LockFileConnection);
-        command.Parameters.Add("@Id", OdbcType.BigInt).Value = id;
-        command.ExecuteNonQuery();
+        var table = tweet.Table;
+        tweet.Delete();
       }
-      Modified = true;
+      MainForm.Instance.TableAdapterManager.UpdateAll(MainForm.Instance.DataSet);
+    }
+
+    private void ActionSelectAll_Click(object sender, EventArgs e)
+    {
+      DataGridView.ClearSelection();
+    }
+
+    private void ActionSelectNone_Click(object sender, EventArgs e)
+    {
+      DataGridView.SelectAll();
+    }
+
+    private void ActionFilterClear_Click(object sender, EventArgs e)
+    {
+      var ds = DataGridView.DataSource as BindingSource;
+      ds.Filter = DefaultFilter;
+    }
+
+    private void EditFilter_TextChanged(object sender, EventArgs e)
+    {
+      var ds = DataGridView.DataSource as BindingSource;
+      ds.Filter = DefaultFilter;
+      if ( EditFilter.Text != "" )
+        ds.Filter += $" AND ( Recipients LIKE '*{EditFilter.Text}*' OR Message LIKE '*{EditFilter.Text}*' )";
     }
 
   }

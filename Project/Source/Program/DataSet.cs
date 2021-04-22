@@ -13,26 +13,33 @@
 /// <created> 2021-04 </created>
 /// <edited> 2021-04 </edited>
 using System;
+using System.Linq;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using Ordisoftware.Core;
 
-namespace Ordisoftware.TwitterManager
+namespace Ordisoftware.TwitterManager.Data
 {
 
-  public partial class SearchResultForm : Form
+  partial class DataSet
   {
 
-    static public bool Run(IEnumerable<Tweet> tweets)
+    partial class TweetsRow
     {
-      var form = new SearchResultForm();
-      form.TweetsControl.Populate(tweets);
-      form.ShowDialog();
-      return form.TweetsControl.Modified;
-    }
 
-    private SearchResultForm()
-    {
-      InitializeComponent();
+      public string ScreenName
+        => MainForm.TwitterTokens == null || MainForm.TwitterTokens.ScreenName.IsNullOrEmpty()
+           ? "ordisoftware"
+           : MainForm.TwitterTokens.ScreenName;
+
+      public TweetType TypeAsEnum => (TweetType)Type;
+
+      public List<string> RecipientsAsList => Recipients.Split(',').ToList();
+
+      public string Url => $"https://twitter.com/{ScreenName}/status/{Id}";
+
+      public override string ToString()
+        => $"{Id}; {Date}; {string.Join(", ", Recipients)}; {Message}; {Url}";
+
     }
 
   }

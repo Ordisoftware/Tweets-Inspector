@@ -18,6 +18,8 @@ using System.Windows.Forms;
 namespace Ordisoftware.TwitterManager
 {
 
+  public enum TweetType { Main, Reply, RT };
+
   static class Program
   {
 
@@ -28,7 +30,7 @@ namespace Ordisoftware.TwitterManager
     {
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
-      Application.Run(new MainForm());
+      Application.Run(MainForm.Instance);
     }
 
   }

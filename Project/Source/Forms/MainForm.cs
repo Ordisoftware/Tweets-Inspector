@@ -29,12 +29,20 @@ namespace Ordisoftware.TwitterManager
   {
 
     private const string OAuthVerifierTag = "oauth_verifier";
+    private const int APIStep = 50;
 
+    static internal readonly string FilterMain = "Type = " + (int)TweetType.Main;
+    static internal readonly string FilterReplies = "Type = " + (int)TweetType.Reply;
+    static internal readonly string FilterRTs = "Type = " + (int)TweetType.RT;
+
+    static internal readonly MainForm Instance;
     static internal readonly Properties.Settings Settings = Program.Settings;
-
-    static internal readonly List<Tweet> Tweets = new List<Tweet>();
-
     static internal Tokens TwitterTokens { get; private set; }
+
+    static MainForm()
+    {
+      Instance = new MainForm();
+    }
 
     internal static bool IsConnected(bool showMessage)
     {
@@ -49,13 +57,17 @@ namespace Ordisoftware.TwitterManager
     public MainForm()
     {
       InitializeComponent();
+      Text = $"{Globals.AssemblyTitle} - Not connected";
       SystemManager.TryCatch(() => { Icon = new Icon(Globals.ApplicationIconFilePath); });
+      TweetsBindingSourceMain.Filter = FilterMain;
+      TweetsBindingSourceReplies.Filter = FilterReplies;
+      TweetsBindingSourceRTs.Filter = FilterRTs;
     }
 
     private void MainForm_Load(object sender, EventArgs e)
     {
       CreateSchemaIfNotExists();
-      LoadData();
+      TweetsTableAdapter.Fill(DataSet.Tweets);
       UpdateListViews();
     }
 
@@ -98,7 +110,7 @@ namespace Ordisoftware.TwitterManager
       if ( items.Length == 2 && items[1].Trim() != "" )
       {
         TwitterTokens = session.GetTokens(items[1]);
-        DisplayManager.Show("Connected to: @" + TwitterTokens.ScreenName);
+        Text = $"{Globals.AssemblyTitle} - Connected @{TwitterTokens.ScreenName}";
       }
       else
         DisplayManager.ShowWarning($"Tag not found : {OAuthVerifierTag}");
@@ -112,8 +124,10 @@ namespace Ordisoftware.TwitterManager
 
     private void UpdateListViews()
     {
-      TweetsControl.Populate(Tweets);
-      var array = Tweets.SelectMany(t => t.RecipientsAsList).Distinct().OrderBy(recipient => recipient).ToArray();
+      TweetsControl.ListTweetsMain.DataSource = TweetsBindingSourceMain;
+      TweetsControl.ListTweetsReplies.DataSource = TweetsBindingSourceReplies;
+      TweetsControl.ListTweetsRTs.DataSource = TweetsBindingSourceRTs;
+      var array = DataSet.Tweets.SelectMany(t => t.RecipientsAsList).Distinct().OrderBy(recipient => recipient).ToArray();
       ListBoxAllRecipients.Items.AddRange(array);
       LabelCountTweetsMain.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
       LabelCountTweetsReplies.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
@@ -121,37 +135,22 @@ namespace Ordisoftware.TwitterManager
       LabelCountAllRecipients.Text = array.Length.ToString();
     }
 
-    private void ActionSearch_Click(object sender, EventArgs e)
+    private void ActionFilterClear_Click(object sender, EventArgs e)
     {
-      Search(EditSearch.Text);
+      EditSearch.Text = "";
+    }
+
+    private void EditSearch_TextChanged(object sender, EventArgs e)
+    {
+      TweetsControl.ListTweetsMain.EditFilter.Text = EditSearch.Text;
+      TweetsControl.ListTweetsReplies.EditFilter.Text = EditSearch.Text;
+      TweetsControl.ListTweetsRTs.EditFilter.Text = EditSearch.Text;
     }
 
     private void ListBoxAllRecipients_DoubleClick(object sender, EventArgs e)
     {
-      Search(ListBoxAllRecipients.SelectedItem.ToString());
+      EditSearch.Text = ListBoxAllRecipients.SelectedItem.ToString();
     }
-
-    private void Search(string term)
-    {
-      if ( EditSearchResultsShowInForm.Checked )
-      {
-        var query = from tweet in Tweets
-                    where tweet.Id.ToString() == term
-                       || tweet.Recipients.Contains(term)
-                       || tweet.Message.Contains(term)
-                    select tweet;
-        if ( SearchResultForm.Run(query) )
-          UpdateListViews();
-      }
-      else
-      {
-        TweetsControl.ListTweetsMain.SearchAndSelect(term);
-        TweetsControl.ListTweetsReplies.SearchAndSelect(term);
-        TweetsControl.ListTweetsRTs.SearchAndSelect(term);
-      }
-    }
-
-    private const int APIStep = 50;
 
     private void ActionGetFollowers_Click(object sender, EventArgs e)
     {

@@ -30,9 +30,9 @@
     {
       this.splitContainerTweetsAndRT = new System.Windows.Forms.SplitContainer();
       this.SplitContainerTweetsMainAndReplies = new System.Windows.Forms.SplitContainer();
-      this.ListTweetsMain = new TwitterManager.ListTweets();
-      this.ListTweetsReplies = new TwitterManager.ListTweets();
-      this.ListTweetsRTs = new TwitterManager.ListTweets();
+      this.ListTweetsMain = new Ordisoftware.TwitterManager.ListTweets();
+      this.ListTweetsReplies = new Ordisoftware.TwitterManager.ListTweets();
+      this.ListTweetsRTs = new Ordisoftware.TwitterManager.ListTweets();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerTweetsAndRT)).BeginInit();
       this.splitContainerTweetsAndRT.Panel1.SuspendLayout();
       this.splitContainerTweetsAndRT.Panel2.SuspendLayout();

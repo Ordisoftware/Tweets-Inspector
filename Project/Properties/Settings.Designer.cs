@@ -73,18 +73,6 @@ namespace Ordisoftware.TwitterManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Dsn=Twitter-Manager")]
-        public string ConnectionString {
-            get {
-                return ((string)(this["ConnectionString"]));
-            }
-            set {
-                this["ConnectionString"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool DeleteOnlyLocalMode {
             get {
@@ -128,6 +116,16 @@ namespace Ordisoftware.TwitterManager.Properties {
             }
             set {
                 this["TwitterBackUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Dsn=Twitter-Manager")]
+        public string ConnectionString {
+            get {
+                return ((string)(this["ConnectionString"]));
             }
         }
     }

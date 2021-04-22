@@ -14,7 +14,6 @@
 /// <edited> 2021-04 </edited>
 using System;
 using System.IO;
-using System.Linq;
 using System.Data;
 using System.Data.Odbc;
 using System.Collections.Generic;
@@ -30,30 +29,32 @@ namespace Ordisoftware.TwitterManager
 
     private void DoLoadTweetsFromJS()
     {
+      Cursor = Cursors.WaitCursor;
       try
       {
-        Cursor = Cursors.WaitCursor;
-        Tweets.Clear();
-        var transaction = LockFileConnection.BeginTransaction();
         var command = new OdbcCommand("DELETE FROM Tweets", LockFileConnection);
-        command.Transaction = transaction;
         command.ExecuteNonQuery();
+        TweetsTableAdapter.Fill(DataSet.Tweets);
+        TweetsBindingSourceMain.ResetBindings(false);
+        TweetsBindingSourceReplies.ResetBindings(false);
+        TweetsBindingSourceRTs.ResetBindings(false);
+        Refresh();
         string filepath = @"c:\Users\Olivier\Projects\Social\Twitter\tweet.js";
         var lines = File.ReadAllLines(filepath);
         lines[0] = lines[0].Replace("window.YTD.tweet.part0 = ", "");
+        LoadingForm.Instance.Initialize("Loading JS...", 1);
         dynamic tweets = JArray.Parse(string.Join(Environment.NewLine, lines));
-        ProgressBar.Value = 0;
-        ProgressBar.Maximum = ( (JArray)tweets ).Count;
+        LoadingForm.Instance.DoProgress();
+        LoadingForm.Instance.Initialize(SysTranslations.ProgressCreatingData.GetLang(), ( (JArray)tweets ).Count);
         try
         {
           foreach ( var item in tweets )
           {
-            ProgressBar.PerformStep();
-            ProgressBar.Refresh();
-            var tweet = new Tweet();
-            tweet.Id = long.Parse((string)item.tweet.id);
-            tweet.Date = (string)item.tweet.created_at;
-            tweet.Message = (string)item.tweet.full_text;
+            LoadingForm.Instance.DoProgress();
+            var row = DataSet.Tweets.NewTweetsRow();
+            row.Id = (string)item.tweet.id;
+            row.Date = (string)item.tweet.created_at;
+            row.Message = (string)item.tweet.full_text;
             var recipients = new List<string>();
             string replyto = (string)item.tweet.in_reply_to_screen_name;
             if ( !replyto.IsNullOrEmpty() ) recipients.Add(replyto);
@@ -63,37 +64,58 @@ namespace Ordisoftware.TwitterManager
               if ( !recipients.Contains(recipient) )
                 recipients.Add(recipient);
             }
-            tweet.Recipients = string.Join(",", recipients);
-            if ( tweet.Message.StartsWith("RT @") )
-              tweet.Type = TweetType.RT;
+            row.Recipients = string.Join(",", recipients);
+            if ( row.Message.StartsWith("RT @") )
+              row.Type = (int)TweetType.RT;
             else
-            if ( tweet.Message.StartsWith("@") )
-              tweet.Type = TweetType.Reply;
+            if ( row.Message.StartsWith("@") )
+              row.Type = (int)TweetType.Reply;
             else
-              tweet.Type = TweetType.Main;
-            command = new OdbcCommand("INSERT INTO Tweets VALUES (?,?,?,?,?)", LockFileConnection);
-            command.Transaction = transaction;
-            command.Parameters.Add("@Id", OdbcType.BigInt).Value = tweet.Id;
-            command.Parameters.Add("@Date", OdbcType.Text).Value = tweet.Date;
-            command.Parameters.Add("@Type", OdbcType.Int).Value = (int)tweet.Type;
-            command.Parameters.Add("@Recipients", OdbcType.Text).Value = tweet.Recipients;
-            command.Parameters.Add("@Message", OdbcType.Text).Value = tweet.Message;
-            command.ExecuteNonQuery();
-            Tweets.Add(tweet);
+              row.Type = (int)TweetType.Main;
+            DataSet.Tweets.AddTweetsRow(row);
           }
-          transaction.Commit();
+          TableAdapterManager.UpdateAll(DataSet);
+          SaveUsingTransaction(DataSet.Tweets, TweetsTableAdapter.Adapter);
         }
         catch
         {
-          transaction.Rollback();
           throw;
         }
       }
       finally
       {
+        LoadingForm.Instance.Hide();
         Cursor = Cursors.Default;
-        ProgressBar.Value = 0;
       }
+    }
+
+    private void SaveUsingTransaction(DataTable table, OdbcDataAdapter adapter)
+    {
+      string str = SysTranslations.ProgressSavingData.GetLang() + " " + table.TableName;
+      LoadingForm.Instance.Initialize(str, table.Rows.Count, 0, true, 100);
+      adapter.RowUpdated += update;
+      adapter.InsertCommand.Connection.Open();
+      adapter.InsertCommand.Transaction = adapter.InsertCommand.Connection.BeginTransaction();
+      adapter.Update(table);
+      try
+      {
+        adapter.InsertCommand.Transaction.Commit();
+      }
+      catch
+      {
+        adapter.InsertCommand.Transaction.Rollback();
+        TweetsTableAdapter.Fill(DataSet.Tweets);
+        TweetsTableAdapter.Fill(DataSet.Tweets);
+        TweetsBindingSourceMain.ResetBindings(false);
+        TweetsBindingSourceReplies.ResetBindings(false);
+        TweetsBindingSourceRTs.ResetBindings(false);
+      }
+      adapter.InsertCommand.Connection.Close();
+      adapter.RowUpdated -= update;
+      void update(object sender, OdbcRowUpdatedEventArgs rowEvent)
+      {
+        if ( !Globals.IsGenerating ) LoadingForm.Instance.DoProgress();
+      };
     }
 
   }

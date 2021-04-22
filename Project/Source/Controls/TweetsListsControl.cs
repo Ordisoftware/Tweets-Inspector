@@ -13,10 +13,7 @@
 /// <created> 2021-04 </created>
 /// <edited> 2021-04 </edited>
 using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using System.ComponentModel;
 
 namespace Ordisoftware.TwitterManager
 {
@@ -24,20 +21,15 @@ namespace Ordisoftware.TwitterManager
   public partial class TweetsControl : UserControl
   {
 
-    public bool Modified => ListTweetsMain.Modified || ListTweetsReplies.Modified || ListTweetsRTs.Modified;
-
     public TweetsControl()
     {
       InitializeComponent();
-    }
-
-    public void Populate(IEnumerable<Tweet> tweets)
-    {
-      ListTweetsMain.DataGridView.DataSource = select(TweetType.Main);
-      ListTweetsReplies.DataGridView.DataSource = select(TweetType.Reply);
-      ListTweetsRTs.DataGridView.DataSource = select(TweetType.RT);
-      //
-      BindingList<Tweet> select(TweetType type) => new BindingList<Tweet>(tweets.Where(t => t.Type == type).ToList());
+      ListTweetsMain.LabelTitle.Text = "TWEETS";
+      ListTweetsReplies.LabelTitle.Text = "REPLIES";
+      ListTweetsRTs.LabelTitle.Text = "RETWEETS";
+      ListTweetsMain.DefaultFilter = MainForm.FilterMain;
+      ListTweetsReplies.DefaultFilter = MainForm.FilterReplies;
+      ListTweetsRTs.DefaultFilter = MainForm.FilterRTs;
     }
 
   }
