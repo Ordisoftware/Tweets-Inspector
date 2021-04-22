@@ -28,7 +28,7 @@ namespace Ordisoftware.TwitterManager
   public partial class MainForm : Form
   {
 
-    private const string OAauthVerifierTag = "oauth_verifier";
+    private const string OAuthVerifierTag = "oauth_verifier";
 
     static internal readonly Properties.Settings Settings = Program.Settings;
 
@@ -92,16 +92,16 @@ namespace Ordisoftware.TwitterManager
       form.Show();
       while ( !done ) await Task.Delay(100);
       if ( form.Visible ) form.Close();
-      BringToFront();
+      this.ForceBringToFront();
       Enabled = true;
-      var items = form.WebBrowser.Address.SplitNoEmptyLines($"&{OAauthVerifierTag}=");
+      var items = form.WebBrowser.Address.SplitNoEmptyLines($"&{OAuthVerifierTag}=");
       if ( items.Length == 2 && items[1].Trim() != "" )
       {
         TwitterTokens = session.GetTokens(items[1]);
         DisplayManager.Show("Connected to: @" + TwitterTokens.ScreenName);
       }
       else
-        DisplayManager.ShowWarning($"Athentification error: {OAauthVerifierTag} not found.");
+        DisplayManager.ShowWarning($"Tag not found : {OAuthVerifierTag}");
     }
 
     private void ActionLoadTweestFromJS_Click(object sender, EventArgs e)
