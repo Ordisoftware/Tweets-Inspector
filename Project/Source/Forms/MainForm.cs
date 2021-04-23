@@ -25,6 +25,8 @@ using System.Threading.Tasks;
 namespace Ordisoftware.TwitterManager
 {
 
+  // TODO encrypt login
+
   public partial class MainForm : Form
   {
 
