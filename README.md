@@ -7,6 +7,8 @@
 
 A libre and open-source software written in C# that allows to list, filter and delete tweets from a Twitter account.
 
+The author is not responsible for tweets destroyed if you click on "Delete".
+
 ## Table of content
 
 1. [Functionalities](#Functionalities)
