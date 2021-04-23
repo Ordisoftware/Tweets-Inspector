@@ -680,4 +680,3 @@
     private System.Windows.Forms.CheckBox EditConnectAtStartup;
   }
 }
-

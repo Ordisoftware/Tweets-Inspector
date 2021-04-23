@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
 [assembly: AssemblyTitle("Tweets Inspector")]
-[assembly: AssemblyDescription("Manage, list, filter and delete tweets")]
+[assembly: AssemblyDescription("List, filter and delete tweets")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ordisoftware")]
 [assembly: AssemblyProduct("www.ordisoftware.com/projects/tweets-inspector")]
