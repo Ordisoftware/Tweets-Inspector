@@ -5,7 +5,7 @@
 > [Website](https://www.ordisoftware.com/projects/tweets-inspector)<br/>
 > [Twitter](https://twitter.com/ordisoftware)<br/>
 
-A libre and open-source software written in C# that allows to Manage, list, filter and delete tweets from a Twitter account.
+A libre and open-source software written in C# that allows to list, filter and delete tweets from a Twitter account.
 
 ## Table of content
 
