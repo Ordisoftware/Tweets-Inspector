@@ -37,6 +37,7 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 - Screen 1024x768 or higher
 - Framework .NET 4.7.2
 - SQLite ODBC Driver
+- CefSharp is included for an automatic authentication
 
 ## Download
 
