@@ -33,7 +33,7 @@
       System.Windows.Forms.Label LabelConsumerKey;
       System.Windows.Forms.Label LabelConsumerSecret;
       this.ActionOpenMessages = new System.Windows.Forms.Button();
-      this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+      this.OpenFileDialogJS = new System.Windows.Forms.OpenFileDialog();
       this.EditUser1 = new System.Windows.Forms.TextBox();
       this.EditUser2 = new System.Windows.Forms.TextBox();
       this.EditMessagesCleaned = new System.Windows.Forms.TextBox();
@@ -41,7 +41,6 @@
       this.TabControl = new System.Windows.Forms.TabControl();
       this.TabPageTweets = new System.Windows.Forms.TabPage();
       this.SplitContainerMain = new System.Windows.Forms.SplitContainer();
-      this.TweetsControl = new Ordisoftware.TweetsInspector.TweetsControl();
       this.ListBoxAllRecipients = new System.Windows.Forms.ListBox();
       this.PanelTweetsTop = new System.Windows.Forms.Panel();
       this.ActionDelete = new System.Windows.Forms.Button();
@@ -61,7 +60,6 @@
       this.TabPageMessages = new System.Windows.Forms.TabPage();
       this.TabPageSettings = new System.Windows.Forms.TabPage();
       this.EditConnectAtStartup = new System.Windows.Forms.CheckBox();
-      this.SettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.EditConsumerSecret = new System.Windows.Forms.TextBox();
       this.EditConsumerKey = new System.Windows.Forms.TextBox();
       this.EditConsumerBackUrl = new System.Windows.Forms.TextBox();
@@ -81,6 +79,8 @@
       this.TableAdapterManager = new Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TableAdapterManager();
       this.TweetsBindingSourceReplies = new System.Windows.Forms.BindingSource(this.components);
       this.TweetsBindingSourceRTs = new System.Windows.Forms.BindingSource(this.components);
+      this.TweetsControl = new Ordisoftware.TweetsInspector.TweetsControl();
+      this.SettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
       LabelConsumerBackUrl = new System.Windows.Forms.Label();
       LabelConsumerKey = new System.Windows.Forms.Label();
       LabelConsumerSecret = new System.Windows.Forms.Label();
@@ -93,13 +93,13 @@
       this.PanelTweetsTop.SuspendLayout();
       this.TabPageMessages.SuspendLayout();
       this.TabPageSettings.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.SettingsBindingSource)).BeginInit();
       this.StatusStrip.SuspendLayout();
       this.PanelMain.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.DataSet)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceMain)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceReplies)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceRTs)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.SettingsBindingSource)).BeginInit();
       this.SuspendLayout();
       // 
       // LabelConsumerBackUrl
@@ -138,6 +138,11 @@
       this.ActionOpenMessages.Text = "Open";
       this.ActionOpenMessages.UseVisualStyleBackColor = true;
       this.ActionOpenMessages.Click += new System.EventHandler(this.ActionOpenMessages_Click);
+      // 
+      // OpenFileDialogJS
+      // 
+      this.OpenFileDialogJS.FileName = "tweet.js";
+      this.OpenFileDialogJS.Filter = "JS Files|*.js";
       // 
       // EditUser1
       // 
@@ -189,7 +194,7 @@
       this.TabPageTweets.Controls.Add(this.PanelTweetsTop);
       this.TabPageTweets.Location = new System.Drawing.Point(4, 25);
       this.TabPageTweets.Name = "TabPageTweets";
-      this.TabPageTweets.Size = new System.Drawing.Size(956, 590);
+      this.TabPageTweets.Size = new System.Drawing.Size(956, 588);
       this.TabPageTweets.TabIndex = 1;
       this.TabPageTweets.Text = "Tweets";
       // 
@@ -206,18 +211,10 @@
       // SplitContainerMain.Panel2
       // 
       this.SplitContainerMain.Panel2.Controls.Add(this.ListBoxAllRecipients);
-      this.SplitContainerMain.Size = new System.Drawing.Size(956, 525);
+      this.SplitContainerMain.Size = new System.Drawing.Size(956, 523);
       this.SplitContainerMain.SplitterDistance = 838;
       this.SplitContainerMain.SplitterWidth = 10;
       this.SplitContainerMain.TabIndex = 9;
-      // 
-      // TweetsControl
-      // 
-      this.TweetsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.TweetsControl.Location = new System.Drawing.Point(0, 0);
-      this.TweetsControl.Name = "TweetsControl";
-      this.TweetsControl.Size = new System.Drawing.Size(838, 525);
-      this.TweetsControl.TabIndex = 0;
       // 
       // ListBoxAllRecipients
       // 
@@ -226,7 +223,7 @@
       this.ListBoxAllRecipients.IntegralHeight = false;
       this.ListBoxAllRecipients.Location = new System.Drawing.Point(0, 0);
       this.ListBoxAllRecipients.Name = "ListBoxAllRecipients";
-      this.ListBoxAllRecipients.Size = new System.Drawing.Size(108, 525);
+      this.ListBoxAllRecipients.Size = new System.Drawing.Size(108, 523);
       this.ListBoxAllRecipients.TabIndex = 11;
       this.ListBoxAllRecipients.DoubleClick += new System.EventHandler(this.ListBoxAllRecipients_DoubleClick);
       // 
@@ -454,10 +451,6 @@
       this.EditConnectAtStartup.Text = "Connect to Twitter at startup";
       this.EditConnectAtStartup.UseVisualStyleBackColor = true;
       // 
-      // SettingsBindingSource
-      // 
-      this.SettingsBindingSource.DataSource = typeof(System.Configuration.ApplicationSettingsBase);
-      // 
       // EditConsumerSecret
       // 
       this.EditConsumerSecret.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsBindingSource, "ConsumerSecret", true));
@@ -592,6 +585,18 @@
       this.TweetsBindingSourceRTs.DataMember = "Tweets";
       this.TweetsBindingSourceRTs.DataSource = this.DataSet;
       // 
+      // TweetsControl
+      // 
+      this.TweetsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.TweetsControl.Location = new System.Drawing.Point(0, 0);
+      this.TweetsControl.Name = "TweetsControl";
+      this.TweetsControl.Size = new System.Drawing.Size(838, 523);
+      this.TweetsControl.TabIndex = 0;
+      // 
+      // SettingsBindingSource
+      // 
+      this.SettingsBindingSource.DataSource = typeof(System.Configuration.ApplicationSettingsBase);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -617,7 +622,6 @@
       this.TabPageMessages.PerformLayout();
       this.TabPageSettings.ResumeLayout(false);
       this.TabPageSettings.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.SettingsBindingSource)).EndInit();
       this.StatusStrip.ResumeLayout(false);
       this.StatusStrip.PerformLayout();
       this.PanelMain.ResumeLayout(false);
@@ -625,6 +629,7 @@
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceMain)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceReplies)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceRTs)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.SettingsBindingSource)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -633,7 +638,7 @@
     #endregion
 
     private System.Windows.Forms.Button ActionOpenMessages;
-    private System.Windows.Forms.OpenFileDialog OpenFileDialog;
+    private System.Windows.Forms.OpenFileDialog OpenFileDialogJS;
     private System.Windows.Forms.TextBox EditUser1;
     private System.Windows.Forms.TextBox EditUser2;
     private System.Windows.Forms.TextBox EditMessagesCleaned;
