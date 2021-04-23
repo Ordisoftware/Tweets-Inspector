@@ -1,4 +1,4 @@
-#define MyAppVersion "1.0"
+#define MyAppVersion "0.1"
 #define MyAppName "Tweets Inspector"
 #define MyAppNameNoSpace "TweetsInspector"
 #define MyAppExeName "Ordisoftware.TweetsInspector.exe"
