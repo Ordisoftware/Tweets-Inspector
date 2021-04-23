@@ -128,5 +128,29 @@ namespace Ordisoftware.TwitterManager.Properties {
                 return ((string)(this["ConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SearchUser {
+            get {
+                return ((bool)(this["SearchUser"]));
+            }
+            set {
+                this["SearchUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SearchInMessage {
+            get {
+                return ((bool)(this["SearchInMessage"]));
+            }
+            set {
+                this["SearchInMessage"] = value;
+            }
+        }
     }
 }

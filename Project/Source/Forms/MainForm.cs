@@ -59,9 +59,7 @@ namespace Ordisoftware.TwitterManager
       InitializeComponent();
       Text = $"{Globals.AssemblyTitle} - Not connected";
       SystemManager.TryCatch(() => { Icon = new Icon(Globals.ApplicationIconFilePath); });
-      TweetsBindingSourceMain.Filter = FilterMain;
-      TweetsBindingSourceReplies.Filter = FilterReplies;
-      TweetsBindingSourceRTs.Filter = FilterRTs;
+      TweetsControl.Modified += TweetsControl_OnModified;
     }
 
     private void MainForm_Load(object sender, EventArgs e)
@@ -127,12 +125,44 @@ namespace Ordisoftware.TwitterManager
       TweetsControl.ListTweetsMain.DataSource = TweetsBindingSourceMain;
       TweetsControl.ListTweetsReplies.DataSource = TweetsBindingSourceReplies;
       TweetsControl.ListTweetsRTs.DataSource = TweetsBindingSourceRTs;
+      TweetsControl.RefreshFilters();
+      TweetsControl_OnModified(null, null);
+    }
+
+    private void TweetsControl_OnModified(object sender, EventArgs e)
+    {
       var array = DataSet.Tweets.SelectMany(t => t.RecipientsAsList).Distinct().OrderBy(recipient => recipient).ToArray();
       ListBoxAllRecipients.Items.AddRange(array);
       LabelCountTweetsMain.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
       LabelCountTweetsReplies.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
       LabelCountTweetsRTs.Text = TweetsControl.ListTweetsRTs.DataGridView.RowCount.ToString();
       LabelCountAllRecipients.Text = array.Length.ToString();
+    }
+
+    private void EditSearch_CheckedChanged(object sender, EventArgs e)
+    {
+      if ( !EditSearchUser.Checked && !EditSearchInMessage.Checked )
+      {
+        EditSearchUser.Checked = true;
+        EditSearchInMessage.Checked = true;
+      }
+      TweetsControl.RefreshFilters();
+    }
+
+    private void ActionDelete_Click(object sender, EventArgs e)
+    {
+      if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
+        if ( !IsConnected(true) ) return;
+      bool modified = false;
+      void onModified(object _s, EventArgs _e) => modified = true;
+      TweetsControl.Modified -= TweetsControl_OnModified;
+      TweetsControl.Modified += onModified;
+      TweetsControl.ListTweetsMain.ActionDelete.PerformClick();
+      TweetsControl.ListTweetsReplies.ActionDelete.PerformClick();
+      TweetsControl.ListTweetsRTs.ActionDelete.PerformClick();
+      TweetsControl.Modified -= onModified;
+      TweetsControl.Modified += TweetsControl_OnModified;
+      if (modified) TweetsControl_OnModified(null, null);
     }
 
     private void ActionSelectAll_Click(object sender, EventArgs e)

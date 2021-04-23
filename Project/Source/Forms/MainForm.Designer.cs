@@ -40,6 +40,11 @@
       this.SplitContainerMain = new System.Windows.Forms.SplitContainer();
       this.ListBoxAllRecipients = new System.Windows.Forms.ListBox();
       this.PanelTweetsTop = new System.Windows.Forms.Panel();
+      this.EditSearchInMessage = new System.Windows.Forms.CheckBox();
+      this.EditSearchUser = new System.Windows.Forms.CheckBox();
+      this.ActionGetLikes = new System.Windows.Forms.Button();
+      this.ActionSelectAll = new System.Windows.Forms.Button();
+      this.ActionSelectNone = new System.Windows.Forms.Button();
       this.ActionFilterClear = new System.Windows.Forms.Button();
       this.ActionGetFellowing = new System.Windows.Forms.Button();
       this.ActionGetFollowers = new System.Windows.Forms.Button();
@@ -65,10 +70,8 @@
       this.TableAdapterManager = new Ordisoftware.TwitterManager.Data.DataSetTableAdapters.TableAdapterManager();
       this.TweetsBindingSourceReplies = new System.Windows.Forms.BindingSource(this.components);
       this.TweetsBindingSourceRTs = new System.Windows.Forms.BindingSource(this.components);
-      this.ActionSelectAll = new System.Windows.Forms.Button();
-      this.ActionSelectNone = new System.Windows.Forms.Button();
       this.TweetsControl = new Ordisoftware.TwitterManager.TweetsControl();
-      this.ActionGetLikes = new System.Windows.Forms.Button();
+      this.ActionDelete = new System.Windows.Forms.Button();
       this.TabControl.SuspendLayout();
       this.TabPageTweets.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.SplitContainerMain)).BeginInit();
@@ -180,6 +183,9 @@
       // PanelTweetsTop
       // 
       this.PanelTweetsTop.AutoScroll = true;
+      this.PanelTweetsTop.Controls.Add(this.ActionDelete);
+      this.PanelTweetsTop.Controls.Add(this.EditSearchInMessage);
+      this.PanelTweetsTop.Controls.Add(this.EditSearchUser);
       this.PanelTweetsTop.Controls.Add(this.ActionGetLikes);
       this.PanelTweetsTop.Controls.Add(this.ActionSelectAll);
       this.PanelTweetsTop.Controls.Add(this.ActionSelectNone);
@@ -196,6 +202,66 @@
       this.PanelTweetsTop.Name = "PanelTweetsTop";
       this.PanelTweetsTop.Size = new System.Drawing.Size(956, 65);
       this.PanelTweetsTop.TabIndex = 5;
+      // 
+      // EditSearchInMessage
+      // 
+      this.EditSearchInMessage.AutoSize = true;
+      this.EditSearchInMessage.Checked = global::Ordisoftware.TwitterManager.Properties.Settings.Default.SearchInMessage;
+      this.EditSearchInMessage.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.EditSearchInMessage.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TwitterManager.Properties.Settings.Default, "SearchInMessage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.EditSearchInMessage.Location = new System.Drawing.Point(397, 40);
+      this.EditSearchInMessage.Name = "EditSearchInMessage";
+      this.EditSearchInMessage.Size = new System.Drawing.Size(116, 17);
+      this.EditSearchInMessage.TabIndex = 13;
+      this.EditSearchInMessage.Text = "Search in message";
+      this.EditSearchInMessage.UseVisualStyleBackColor = true;
+      this.EditSearchInMessage.CheckedChanged += new System.EventHandler(this.EditSearch_CheckedChanged);
+      // 
+      // EditSearchUser
+      // 
+      this.EditSearchUser.AutoSize = true;
+      this.EditSearchUser.Checked = global::Ordisoftware.TwitterManager.Properties.Settings.Default.SearchUser;
+      this.EditSearchUser.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.EditSearchUser.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TwitterManager.Properties.Settings.Default, "SearchUser", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.EditSearchUser.Location = new System.Drawing.Point(397, 25);
+      this.EditSearchUser.Name = "EditSearchUser";
+      this.EditSearchUser.Size = new System.Drawing.Size(112, 17);
+      this.EditSearchUser.TabIndex = 13;
+      this.EditSearchUser.Text = "Search user name";
+      this.EditSearchUser.UseVisualStyleBackColor = true;
+      this.EditSearchUser.CheckedChanged += new System.EventHandler(this.EditSearch_CheckedChanged);
+      // 
+      // ActionGetLikes
+      // 
+      this.ActionGetLikes.Location = new System.Drawing.Point(724, 7);
+      this.ActionGetLikes.Name = "ActionGetLikes";
+      this.ActionGetLikes.Size = new System.Drawing.Size(88, 23);
+      this.ActionGetLikes.TabIndex = 12;
+      this.ActionGetLikes.Text = "Get Likes";
+      this.ActionGetLikes.UseVisualStyleBackColor = true;
+      this.ActionGetLikes.Click += new System.EventHandler(this.ActionGetLikes_Click);
+      // 
+      // ActionSelectAll
+      // 
+      this.ActionSelectAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionSelectAll.Location = new System.Drawing.Point(245, 37);
+      this.ActionSelectAll.Name = "ActionSelectAll";
+      this.ActionSelectAll.Size = new System.Drawing.Size(23, 23);
+      this.ActionSelectAll.TabIndex = 10;
+      this.ActionSelectAll.Text = "+";
+      this.ActionSelectAll.UseVisualStyleBackColor = true;
+      this.ActionSelectAll.Click += new System.EventHandler(this.ActionSelectAll_Click);
+      // 
+      // ActionSelectNone
+      // 
+      this.ActionSelectNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionSelectNone.Location = new System.Drawing.Point(274, 37);
+      this.ActionSelectNone.Name = "ActionSelectNone";
+      this.ActionSelectNone.Size = new System.Drawing.Size(23, 23);
+      this.ActionSelectNone.TabIndex = 11;
+      this.ActionSelectNone.Text = "-";
+      this.ActionSelectNone.UseVisualStyleBackColor = true;
+      this.ActionSelectNone.Click += new System.EventHandler(this.ActionSelectNone_Click);
       // 
       // ActionFilterClear
       // 
@@ -233,7 +299,7 @@
       this.EditDeleteOnlyLocal.AutoSize = true;
       this.EditDeleteOnlyLocal.Checked = global::Ordisoftware.TwitterManager.Properties.Settings.Default.DeleteOnlyLocalMode;
       this.EditDeleteOnlyLocal.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TwitterManager.Properties.Settings.Default, "DeleteOnlyLocalMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-      this.EditDeleteOnlyLocal.Location = new System.Drawing.Point(330, 9);
+      this.EditDeleteOnlyLocal.Location = new System.Drawing.Point(397, 10);
       this.EditDeleteOnlyLocal.Name = "EditDeleteOnlyLocal";
       this.EditDeleteOnlyLocal.Size = new System.Drawing.Size(133, 17);
       this.EditDeleteOnlyLocal.TabIndex = 4;
@@ -400,28 +466,6 @@
       this.TweetsBindingSourceRTs.DataMember = "Tweets";
       this.TweetsBindingSourceRTs.DataSource = this.DataSet;
       // 
-      // ActionSelectAll
-      // 
-      this.ActionSelectAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.ActionSelectAll.Location = new System.Drawing.Point(245, 37);
-      this.ActionSelectAll.Name = "ActionSelectAll";
-      this.ActionSelectAll.Size = new System.Drawing.Size(23, 23);
-      this.ActionSelectAll.TabIndex = 10;
-      this.ActionSelectAll.Text = "+";
-      this.ActionSelectAll.UseVisualStyleBackColor = true;
-      this.ActionSelectAll.Click += new System.EventHandler(this.ActionSelectAll_Click);
-      // 
-      // ActionSelectNone
-      // 
-      this.ActionSelectNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.ActionSelectNone.Location = new System.Drawing.Point(274, 37);
-      this.ActionSelectNone.Name = "ActionSelectNone";
-      this.ActionSelectNone.Size = new System.Drawing.Size(23, 23);
-      this.ActionSelectNone.TabIndex = 11;
-      this.ActionSelectNone.Text = "-";
-      this.ActionSelectNone.UseVisualStyleBackColor = true;
-      this.ActionSelectNone.Click += new System.EventHandler(this.ActionSelectNone_Click);
-      // 
       // TweetsControl
       // 
       this.TweetsControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -430,15 +474,16 @@
       this.TweetsControl.Size = new System.Drawing.Size(838, 525);
       this.TweetsControl.TabIndex = 0;
       // 
-      // ActionGetLikes
+      // ActionDelete
       // 
-      this.ActionGetLikes.Location = new System.Drawing.Point(724, 7);
-      this.ActionGetLikes.Name = "ActionGetLikes";
-      this.ActionGetLikes.Size = new System.Drawing.Size(88, 23);
-      this.ActionGetLikes.TabIndex = 12;
-      this.ActionGetLikes.Text = "Get Likes";
-      this.ActionGetLikes.UseVisualStyleBackColor = true;
-      this.ActionGetLikes.Click += new System.EventHandler(this.ActionGetLikes_Click);
+      this.ActionDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionDelete.Location = new System.Drawing.Point(303, 37);
+      this.ActionDelete.Name = "ActionDelete";
+      this.ActionDelete.Size = new System.Drawing.Size(35, 23);
+      this.ActionDelete.TabIndex = 14;
+      this.ActionDelete.Text = "DEL";
+      this.ActionDelete.UseVisualStyleBackColor = true;
+      this.ActionDelete.Click += new System.EventHandler(this.ActionDelete_Click);
       // 
       // MainForm
       // 
@@ -516,6 +561,9 @@
     public System.Windows.Forms.Button ActionSelectAll;
     public System.Windows.Forms.Button ActionSelectNone;
     private System.Windows.Forms.Button ActionGetLikes;
+    internal System.Windows.Forms.CheckBox EditSearchUser;
+    internal System.Windows.Forms.CheckBox EditSearchInMessage;
+    public System.Windows.Forms.Button ActionDelete;
   }
 }
 

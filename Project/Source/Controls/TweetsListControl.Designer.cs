@@ -47,6 +47,7 @@
       this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.recipientsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ActionDelete = new System.Windows.Forms.Button();
       this.ContextMenuStrip.SuspendLayout();
       this.PanelBottom.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.DataSet)).BeginInit();
@@ -78,6 +79,7 @@
       // 
       // PanelBottom
       // 
+      this.PanelBottom.Controls.Add(this.ActionDelete);
       this.PanelBottom.Controls.Add(this.EditFilter);
       this.PanelBottom.Controls.Add(this.ActionFilterClear);
       this.PanelBottom.Controls.Add(this.ActionSelectAll);
@@ -92,7 +94,7 @@
       // EditFilter
       // 
       this.EditFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.EditFilter.Location = new System.Drawing.Point(510, 5);
+      this.EditFilter.Location = new System.Drawing.Point(469, 4);
       this.EditFilter.Name = "EditFilter";
       this.EditFilter.Size = new System.Drawing.Size(200, 20);
       this.EditFilter.TabIndex = 4;
@@ -102,7 +104,7 @@
       // 
       this.ActionFilterClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.ActionFilterClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.ActionFilterClear.Location = new System.Drawing.Point(716, 4);
+      this.ActionFilterClear.Location = new System.Drawing.Point(675, 3);
       this.ActionFilterClear.Name = "ActionFilterClear";
       this.ActionFilterClear.Size = new System.Drawing.Size(23, 23);
       this.ActionFilterClear.TabIndex = 1;
@@ -114,7 +116,7 @@
       // 
       this.ActionSelectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.ActionSelectAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.ActionSelectAll.Location = new System.Drawing.Point(745, 4);
+      this.ActionSelectAll.Location = new System.Drawing.Point(704, 3);
       this.ActionSelectAll.Name = "ActionSelectAll";
       this.ActionSelectAll.Size = new System.Drawing.Size(23, 23);
       this.ActionSelectAll.TabIndex = 1;
@@ -126,7 +128,7 @@
       // 
       this.ActionSelectNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.ActionSelectNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.ActionSelectNone.Location = new System.Drawing.Point(774, 4);
+      this.ActionSelectNone.Location = new System.Drawing.Point(733, 3);
       this.ActionSelectNone.Name = "ActionSelectNone";
       this.ActionSelectNone.Size = new System.Drawing.Size(23, 23);
       this.ActionSelectNone.TabIndex = 1;
@@ -223,6 +225,18 @@
       this.messageDataGridViewTextBoxColumn.Name = "messageDataGridViewTextBoxColumn";
       this.messageDataGridViewTextBoxColumn.ReadOnly = true;
       // 
+      // ActionDelete
+      // 
+      this.ActionDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.ActionDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionDelete.Location = new System.Drawing.Point(762, 3);
+      this.ActionDelete.Name = "ActionDelete";
+      this.ActionDelete.Size = new System.Drawing.Size(35, 23);
+      this.ActionDelete.TabIndex = 5;
+      this.ActionDelete.Text = "DEL";
+      this.ActionDelete.UseVisualStyleBackColor = true;
+      this.ActionDelete.Click += new System.EventHandler(this.ActionTweetDelete_Click);
+      // 
       // ListTweets
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,5 +278,6 @@
     public System.Windows.Forms.Button ActionSelectAll;
     public System.Windows.Forms.Button ActionSelectNone;
     public System.Windows.Forms.Button ActionFilterClear;
+    public System.Windows.Forms.Button ActionDelete;
   }
 }

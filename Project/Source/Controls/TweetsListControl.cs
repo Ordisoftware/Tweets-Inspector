@@ -25,6 +25,8 @@ namespace Ordisoftware.TwitterManager
   public partial class ListTweets : UserControl
   {
 
+    public event EventHandler Modified;
+
     public string DefaultFilter { get; set; }
 
     public object DataSource
@@ -59,17 +61,27 @@ namespace Ordisoftware.TwitterManager
 
     private void ActionTweetOpen_Click(object sender, EventArgs e)
     {
+      int count = DataGridView.SelectedRows.Count;
+      if ( count > 10 )
+      {
+        DisplayManager.Show($"Too many tweets to open : {count}");
+        return;
+      }
+      else
+      if ( count > 4 )
+        if ( !DisplayManager.QueryYesNo($"Open {count} Tweet(s) ?") ) return;
       foreach ( DataGridViewRow item in DataGridView.SelectedRows )
       {
         var row = ( (DataRowView)item.DataBoundItem ).Row;
         string url = ( (Data.DataSet.TweetsRow)row ).Url;
         System.Diagnostics.Process.Start(url);
-        Thread.Sleep(2000);
+        Thread.Sleep(1000);
       }
     }
 
     private void ActionTweetDelete_Click(object sender, EventArgs e)
     {
+      if ( DataGridView.SelectedRows.Count == 0 ) return;
       if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
         if ( !MainForm.IsConnected(true) ) return;
       var list = DataGridView.SelectedRows
@@ -80,7 +92,7 @@ namespace Ordisoftware.TwitterManager
       string str = ids.Count > 10
                    ? string.Join(Globals.NL, ids.Take(10)) + Globals.NL + "..."
                    : string.Join(Globals.NL, ids);
-      if ( !DisplayManager.QueryYesNo("Delete Tweet(s) ?" + Globals.NL2 + str) ) return;
+      if ( !DisplayManager.QueryYesNo($"Delete {list.Count} {LabelTitle.Text} ?" + Globals.NL2 + str) ) return;
       if ( list.Count > 2 )
       {
         Cursor = Cursors.WaitCursor;
@@ -103,6 +115,7 @@ namespace Ordisoftware.TwitterManager
             }
           tweet.Delete();
         }
+        Modified?.Invoke(this, EventArgs.Empty);
       }
       finally
       {
@@ -137,7 +150,21 @@ namespace Ordisoftware.TwitterManager
       var ds = DataGridView.DataSource as BindingSource;
       ds.Filter = DefaultFilter;
       if ( EditFilter.Text != "" )
-        ds.Filter += $" AND ( Recipients LIKE '*{EditFilter.Text}*' OR Message LIKE '*{EditFilter.Text}*' )";
+      {
+        if ( MainForm.Instance.EditSearchUser.Checked && MainForm.Instance.EditSearchInMessage.Checked )
+          ds.Filter += $" AND ( Recipients LIKE '*{EditFilter.Text}*' OR Message LIKE '*{EditFilter.Text}*' )";
+        else
+        if ( MainForm.Instance.EditSearchUser.Checked )
+          ds.Filter += $" AND Recipients LIKE '*{EditFilter.Text}*'";
+        else
+          ds.Filter += $" AND Message LIKE '*{EditFilter.Text}*";
+      }
+      DataGridView.ClearSelection();
+    }
+
+    public void RefreshFilter()
+    {
+      EditFilter_TextChanged(EditFilter, EventArgs.Empty);
     }
 
   }

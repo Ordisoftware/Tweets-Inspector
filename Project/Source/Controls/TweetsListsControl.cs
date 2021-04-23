@@ -21,6 +21,8 @@ namespace Ordisoftware.TwitterManager
   public partial class TweetsControl : UserControl
   {
 
+    public event EventHandler Modified;
+
     public TweetsControl()
     {
       InitializeComponent();
@@ -30,6 +32,16 @@ namespace Ordisoftware.TwitterManager
       ListTweetsMain.DefaultFilter = MainForm.FilterMain;
       ListTweetsReplies.DefaultFilter = MainForm.FilterReplies;
       ListTweetsRTs.DefaultFilter = MainForm.FilterRTs;
+      ListTweetsMain.Modified += Modified;
+      ListTweetsReplies.Modified += Modified;
+      ListTweetsRTs.Modified += Modified;
+    }
+
+    public void RefreshFilters()
+    {
+      ListTweetsMain.RefreshFilter();
+      ListTweetsReplies.RefreshFilter();
+      ListTweetsRTs.RefreshFilter();
     }
 
   }
