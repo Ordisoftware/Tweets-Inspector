@@ -21,6 +21,10 @@ namespace Ordisoftware.TwitterManager
   public partial class TweetsControl : UserControl
   {
 
+    static internal readonly string FilterMain = "Type = " + (int)TweetType.Main;
+    static internal readonly string FilterReplies = "Type = " + (int)TweetType.Reply;
+    static internal readonly string FilterRTs = "Type = " + (int)TweetType.RT;
+
     public event EventHandler Modified;
 
     public TweetsControl()
@@ -29,9 +33,9 @@ namespace Ordisoftware.TwitterManager
       ListTweetsMain.LabelTitle.Text = "TWEETS";
       ListTweetsReplies.LabelTitle.Text = "REPLIES";
       ListTweetsRTs.LabelTitle.Text = "RETWEETS";
-      ListTweetsMain.DefaultFilter = MainForm.FilterMain;
-      ListTweetsReplies.DefaultFilter = MainForm.FilterReplies;
-      ListTweetsRTs.DefaultFilter = MainForm.FilterRTs;
+      ListTweetsMain.DefaultFilter = FilterMain;
+      ListTweetsReplies.DefaultFilter = FilterReplies;
+      ListTweetsRTs.DefaultFilter = FilterRTs;
       ListTweetsMain.Modified += Modified;
       ListTweetsReplies.Modified += Modified;
       ListTweetsRTs.Modified += Modified;
@@ -42,6 +46,34 @@ namespace Ordisoftware.TwitterManager
       ListTweetsMain.RefreshFilter();
       ListTweetsReplies.RefreshFilter();
       ListTweetsRTs.RefreshFilter();
+    }
+
+    public void SelectAll()
+    {
+      ListTweetsMain.ActionSelectAll.PerformClick();
+      ListTweetsReplies.ActionSelectAll.PerformClick();
+      ListTweetsRTs.ActionSelectAll.PerformClick();
+    }
+
+    public void SelectNone()
+    {
+      ListTweetsMain.ActionSelectNone.PerformClick();
+      ListTweetsReplies.ActionSelectNone.PerformClick();
+      ListTweetsRTs.ActionSelectNone.PerformClick();
+    }
+
+    public void DeleteSelected()
+    {
+      ListTweetsMain.ActionDelete.PerformClick();
+      ListTweetsReplies.ActionDelete.PerformClick();
+      ListTweetsRTs.ActionDelete.PerformClick();
+    }
+
+    public void SetSearchTerm(string term)
+    {
+      ListTweetsMain.EditFilter.Text = term;
+      ListTweetsReplies.EditFilter.Text = term;
+      ListTweetsRTs.EditFilter.Text = term;
     }
 
   }

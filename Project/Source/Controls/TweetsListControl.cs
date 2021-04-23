@@ -40,95 +40,6 @@ namespace Ordisoftware.TwitterManager
       InitializeComponent();
     }
 
-    public void SearchAndSelect(string term)
-    {
-      DataGridView.SelectedRows.Clear();
-      foreach ( DataGridViewRow row in DataGridView.Rows )
-        if ( ( row.Cells[ColumnId.Index].Value as string ) == term
-          || ( row.Cells[ColumnRecipients.Index].Value as string ).Contains(term)
-          || ( row.Cells[ColumnMessage.Index].Value as string ).Contains(term) )
-          row.Selected = true;
-      if ( DataGridView.SelectedRows.Count > 0 )
-        DataGridView.FirstDisplayedScrollingRowIndex = DataGridView.SelectedRows[0].Index;
-    }
-
-    private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-    {
-      var row = ( (DataRowView)DataGridView.CurrentRow.DataBoundItem ).Row;
-      string url = ( (Data.DataSet.TweetsRow)row ).Url;
-      System.Diagnostics.Process.Start(url);
-    }
-
-    private void ActionTweetOpen_Click(object sender, EventArgs e)
-    {
-      int count = DataGridView.SelectedRows.Count;
-      if ( count > 10 )
-      {
-        DisplayManager.Show($"Too many tweets to open : {count}");
-        return;
-      }
-      else
-      if ( count > 4 )
-        if ( !DisplayManager.QueryYesNo($"Open {count} Tweet(s) ?") ) return;
-      foreach ( DataGridViewRow item in DataGridView.SelectedRows )
-      {
-        var row = ( (DataRowView)item.DataBoundItem ).Row;
-        string url = ( (Data.DataSet.TweetsRow)row ).Url;
-        System.Diagnostics.Process.Start(url);
-        Thread.Sleep(1000);
-      }
-    }
-
-    private void ActionTweetDelete_Click(object sender, EventArgs e)
-    {
-      if ( DataGridView.SelectedRows.Count == 0 ) return;
-      if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
-        if ( !MainForm.IsConnected(true) ) return;
-      var list = DataGridView.SelectedRows
-                             .Cast<DataGridViewRow>()
-                             .Select(item => (Data.DataSet.TweetsRow)( (DataRowView)item.DataBoundItem ).Row)
-                             .ToList();
-      var ids = list.Select(tweet => tweet.Id).ToList();
-      string str = ids.Count > 10
-                   ? string.Join(Globals.NL, ids.Take(10)) + Globals.NL + "..."
-                   : string.Join(Globals.NL, ids);
-      if ( !DisplayManager.QueryYesNo($"Delete {list.Count} {LabelTitle.Text} ?" + Globals.NL2 + str) ) return;
-      if ( list.Count > 2 )
-      {
-        Cursor = Cursors.WaitCursor;
-        Enabled = false;
-        LoadingForm.Instance.Initialize("Deleting...", list.Count);
-      }
-      try
-      {
-        foreach ( var tweet in list )
-        {
-          LoadingForm.Instance.DoProgress();
-          long id = long.Parse(tweet.Id);
-          if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
-            try
-            {
-              var res = MainForm.TwitterTokens.Statuses.Destroy(id);
-            }
-            catch
-            {
-            }
-          tweet.Delete();
-        }
-        Modified?.Invoke(this, EventArgs.Empty);
-      }
-      finally
-      {
-        if ( !Enabled )
-        {
-          Enabled = true;
-          Cursor = Cursors.Default;
-          LoadingForm.Instance.Hide();
-        }
-      }
-      MainForm.Instance.TableAdapterManager.UpdateAll(MainForm.Instance.DataSet);
-    }
-
     private void ActionSelectAll_Click(object sender, EventArgs e)
     {
       DataGridView.SelectAll();
@@ -139,10 +50,14 @@ namespace Ordisoftware.TwitterManager
       DataGridView.ClearSelection();
     }
 
+    public void RefreshFilter()
+    {
+      EditFilter_TextChanged(EditFilter, EventArgs.Empty);
+    }
+
     private void ActionFilterClear_Click(object sender, EventArgs e)
     {
-      var ds = DataGridView.DataSource as BindingSource;
-      ds.Filter = DefaultFilter;
+      ( DataGridView.DataSource as BindingSource ).Filter = DefaultFilter;
     }
 
     private void EditFilter_TextChanged(object sender, EventArgs e)
@@ -162,9 +77,96 @@ namespace Ordisoftware.TwitterManager
       DataGridView.ClearSelection();
     }
 
-    public void RefreshFilter()
+    private Data.DataSet.TweetsRow GetTweetRow(DataGridViewRow row)
     {
-      EditFilter_TextChanged(EditFilter, EventArgs.Empty);
+      return (Data.DataSet.TweetsRow)( (DataRowView)row.DataBoundItem ).Row;
+    }
+
+    private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+    {
+      OpenTweet(DataGridView.CurrentRow);
+    }
+
+    private void DataGridView_MouseDown(object sender, MouseEventArgs e)
+    {
+      if ( e.Button == MouseButtons.Right )
+      {
+        var hit = DataGridView.HitTest(e.X, e.Y);
+        var row = DataGridView.Rows[hit.RowIndex];
+        if ( !row.Selected )
+        {
+          DataGridView.ClearSelection();
+          row.Selected = true;
+        }
+      }
+    }
+
+    private void OpenTweet(DataGridViewRow row, bool delay = false)
+    {
+      System.Diagnostics.Process.Start(GetTweetRow(row).Url);
+      if ( delay ) Thread.Sleep(1000);
+    }
+
+    private void ActionTweetOpen_Click(object sender, EventArgs e)
+    {
+      int count = DataGridView.SelectedRows.Count;
+      if ( count > 10 )
+      {
+        DisplayManager.Show($"Too many tweets to open : {count}");
+        return;
+      }
+      else
+      if ( count > 4 )
+        if ( !DisplayManager.QueryYesNo($"Open {count} Tweet(s) ?") ) return;
+      foreach ( DataGridViewRow item in DataGridView.SelectedRows )
+        OpenTweet(item, true);
+    }
+
+    private void ActionTweetDelete_Click(object sender, EventArgs e)
+    {
+      if ( DataGridView.SelectedRows.Count == 0 ) return;
+      if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
+        if ( !MainForm.IsConnected(true) ) return;
+      var listRows = DataGridView.SelectedRows
+                                 .Cast<DataGridViewRow>()
+                                 .Select(item => GetTweetRow(item))
+                                 .ToList();
+      var listIds = listRows.Select(tweet => tweet.Id).ToList();
+      string msg = listIds.Count > 10
+                   ? string.Join(Globals.NL, listIds.Take(10)) + Globals.NL + "..."
+                   : string.Join(Globals.NL, listIds);
+      if ( !DisplayManager.QueryYesNo($"Delete {listRows.Count} {LabelTitle.Text} ?" + Globals.NL2 + msg) )
+        return;
+      if ( listRows.Count > 2 )
+      {
+        Cursor = Cursors.WaitCursor;
+        Enabled = false;
+        LoadingForm.Instance.Initialize("Deleting...", listRows.Count);
+      }
+      try
+      {
+        foreach ( var tweet in listRows )
+        {
+          LoadingForm.Instance.DoProgress();
+          if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
+            SystemManager.TryCatch(() => MainForm.TwitterTokens.Statuses.Destroy(long.Parse(tweet.Id)));
+          else
+            if ( !DisplayManager.QueryYesNo("Tweets will be deleted in the database but not in Twitter. Continue?") )
+              return;
+          tweet.Delete();
+        }
+        Modified?.Invoke(this, EventArgs.Empty);
+      }
+      finally
+      {
+        if ( !Enabled )
+        {
+          Enabled = true;
+          Cursor = Cursors.Default;
+          LoadingForm.Instance.Hide();
+        }
+      }
+      MainForm.Instance.TableAdapterManager.UpdateAll(MainForm.Instance.DataSet);
     }
 
   }

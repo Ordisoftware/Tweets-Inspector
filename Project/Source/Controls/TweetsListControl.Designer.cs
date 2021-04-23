@@ -192,6 +192,7 @@
       this.DataGridView.Size = new System.Drawing.Size(800, 170);
       this.DataGridView.TabIndex = 1;
       this.DataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
+      this.DataGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DataGridView_MouseDown);
       // 
       // idDataGridViewTextBoxColumn
       // 

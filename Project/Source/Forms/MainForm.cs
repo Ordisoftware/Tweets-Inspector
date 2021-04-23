@@ -31,10 +31,6 @@ namespace Ordisoftware.TwitterManager
     private const string OAuthVerifierTag = "oauth_verifier";
     private const int APIStep = 50;
 
-    static internal readonly string FilterMain = "Type = " + (int)TweetType.Main;
-    static internal readonly string FilterReplies = "Type = " + (int)TweetType.Reply;
-    static internal readonly string FilterRTs = "Type = " + (int)TweetType.RT;
-
     static internal readonly MainForm Instance;
     static internal readonly Properties.Settings Settings = Program.Settings;
     static internal Tokens TwitterTokens { get; private set; }
@@ -46,20 +42,17 @@ namespace Ordisoftware.TwitterManager
 
     internal static bool IsConnected(bool showMessage)
     {
-      if ( TwitterTokens == null )
-      {
-        if (showMessage) DisplayManager.ShowWarning("Not connected.");
-        return false;
-      }
-      return true;
+      if ( TwitterTokens != null ) return true;
+      if (showMessage) DisplayManager.ShowWarning("Not connected.");
+      return false;
     }
 
     public MainForm()
     {
       InitializeComponent();
+      TweetsControl.Modified += TweetsControl_OnModified;
       Text = $"{Globals.AssemblyTitle} - Not connected";
       SystemManager.TryCatch(() => { Icon = new Icon(Globals.ApplicationIconFilePath); });
-      TweetsControl.Modified += TweetsControl_OnModified;
     }
 
     private void MainForm_Load(object sender, EventArgs e)
@@ -131,7 +124,11 @@ namespace Ordisoftware.TwitterManager
 
     private void TweetsControl_OnModified(object sender, EventArgs e)
     {
-      var array = DataSet.Tweets.SelectMany(t => t.RecipientsAsList).Distinct().OrderBy(recipient => recipient).ToArray();
+      var array = DataSet.Tweets
+                         .SelectMany(t => t.RecipientsAsList)
+                         .Distinct()
+                         .OrderBy(recipient => recipient)
+                         .ToArray();
       ListBoxAllRecipients.Items.AddRange(array);
       LabelCountTweetsMain.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
       LabelCountTweetsReplies.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
@@ -157,9 +154,7 @@ namespace Ordisoftware.TwitterManager
       void onModified(object _s, EventArgs _e) => modified = true;
       TweetsControl.Modified -= TweetsControl_OnModified;
       TweetsControl.Modified += onModified;
-      TweetsControl.ListTweetsMain.ActionDelete.PerformClick();
-      TweetsControl.ListTweetsReplies.ActionDelete.PerformClick();
-      TweetsControl.ListTweetsRTs.ActionDelete.PerformClick();
+      TweetsControl.DeleteSelected();
       TweetsControl.Modified -= onModified;
       TweetsControl.Modified += TweetsControl_OnModified;
       if (modified) TweetsControl_OnModified(null, null);
@@ -167,16 +162,12 @@ namespace Ordisoftware.TwitterManager
 
     private void ActionSelectAll_Click(object sender, EventArgs e)
     {
-      TweetsControl.ListTweetsMain.ActionSelectAll.PerformClick();
-      TweetsControl.ListTweetsReplies.ActionSelectAll.PerformClick();
-      TweetsControl.ListTweetsRTs.ActionSelectAll.PerformClick();
+      TweetsControl.SelectAll();
     }
 
     private void ActionSelectNone_Click(object sender, EventArgs e)
     {
-      TweetsControl.ListTweetsMain.ActionSelectNone.PerformClick();
-      TweetsControl.ListTweetsReplies.ActionSelectNone.PerformClick();
-      TweetsControl.ListTweetsRTs.ActionSelectNone.PerformClick();
+      TweetsControl.SelectNone();
     }
 
     private void ActionFilterClear_Click(object sender, EventArgs e)
@@ -186,9 +177,7 @@ namespace Ordisoftware.TwitterManager
 
     private void EditSearch_TextChanged(object sender, EventArgs e)
     {
-      TweetsControl.ListTweetsMain.EditFilter.Text = EditSearch.Text;
-      TweetsControl.ListTweetsReplies.EditFilter.Text = EditSearch.Text;
-      TweetsControl.ListTweetsRTs.EditFilter.Text = EditSearch.Text;
+      TweetsControl.SetSearchTerm(EditSearch.Text);
     }
 
     private void ListBoxAllRecipients_DoubleClick(object sender, EventArgs e)
