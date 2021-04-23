@@ -100,10 +100,12 @@ The software verifies the validity of the certificate of the update server in ad
 
 ## Future improvements
 
-
-
 ## Changelog
 
 #### Im progress - Version 1.0
 
 - Initial release.
+
+#### 2021.04.23 - Version 0.1
+
+- Wireframe.
