@@ -1,5 +1,5 @@
 ﻿/// <license>
-/// This file is part of Ordisoftware Twitter Manager.
+/// This file is part of Ordisoftware Tweets Inspector.
 /// Copyright 2021 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
@@ -14,8 +14,9 @@
 /// <edited> 2021-04 </edited>
 using System;
 using System.Windows.Forms;
+using Ordisoftware.Core;
 
-namespace Ordisoftware.TwitterManager
+namespace Ordisoftware.TweetsInspector
 {
 
   public enum TweetType { Main, Reply, RT };
@@ -30,6 +31,8 @@ namespace Ordisoftware.TwitterManager
     {
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
+      DebugManager.Enabled = true;
+      DebugManager.TraceEnabled = true;
       Application.Run(MainForm.Instance);
     }
 

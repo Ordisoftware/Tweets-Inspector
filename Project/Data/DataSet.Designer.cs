@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace Ordisoftware.TwitterManager.Data {
+namespace Ordisoftware.TweetsInspector.Data {
     
     
     /// <summary>
@@ -1566,7 +1566,7 @@ namespace Ordisoftware.TwitterManager.Data {
         }
     }
 }
-namespace Ordisoftware.TwitterManager.Data.DataSetTableAdapters {
+namespace Ordisoftware.TweetsInspector.Data.DataSetTableAdapters {
     
     
     /// <summary>
@@ -1738,7 +1738,7 @@ namespace Ordisoftware.TwitterManager.Data.DataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.Odbc.OdbcConnection();
-            this._connection.ConnectionString = global::Ordisoftware.TwitterManager.Properties.Settings.Default.ConnectionString;
+            this._connection.ConnectionString = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2140,7 +2140,7 @@ namespace Ordisoftware.TwitterManager.Data.DataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.Odbc.OdbcConnection();
-            this._connection.ConnectionString = global::Ordisoftware.TwitterManager.Properties.Settings.Default.ConnectionString;
+            this._connection.ConnectionString = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2538,7 +2538,7 @@ namespace Ordisoftware.TwitterManager.Data.DataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.Odbc.OdbcConnection();
-            this._connection.ConnectionString = global::Ordisoftware.TwitterManager.Properties.Settings.Default.ConnectionString;
+            this._connection.ConnectionString = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

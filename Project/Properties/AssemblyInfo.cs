@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("Twitter Manager")]
-[assembly: AssemblyDescription("Twitter's tweets viewer and deleter")]
+[assembly: AssemblyTitle("Tweets Inspector")]
+[assembly: AssemblyDescription("Manage, list, filter and delete tweets")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ordisoftware")]
-[assembly: AssemblyProduct("www.ordisoftware.com/projects/twitter-manager")]
+[assembly: AssemblyProduct("www.ordisoftware.com/projects/tweets-inspector")]
 [assembly: AssemblyCopyright("Copyright 2021 Olivier Rogier")]
 [assembly: AssemblyTrademark("www.ordisoftware.com")]
 [assembly: AssemblyCulture("")]

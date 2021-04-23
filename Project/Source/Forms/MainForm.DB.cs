@@ -1,5 +1,5 @@
 ﻿/// <license>
-/// This file is part of Ordisoftware Twitter Manager.
+/// This file is part of Ordisoftware Tweets Inspector.
 /// Copyright 2021 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
@@ -16,7 +16,7 @@ using System;
 using System.Data.Odbc;
 using Ordisoftware.Core;
 
-namespace Ordisoftware.TwitterManager
+namespace Ordisoftware.TweetsInspector
 {
 
   public partial class MainForm

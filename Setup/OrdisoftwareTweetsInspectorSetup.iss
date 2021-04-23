@@ -1,9 +1,9 @@
 #define MyAppVersion "1.0"
-#define MyAppName "Twitter Manager"
-#define MyAppNameNoSpace "TwitterManager"
-#define MyAppExeName "Ordisoftware.TwitterManager.exe"
+#define MyAppName "Tweets Inspector"
+#define MyAppNameNoSpace "TweetsInspector"
+#define MyAppExeName "Ordisoftware.TweetsInspector.exe"
 #define MyAppPublisher "Ordisoftware"
-#define MyAppURL "https://www.ordisoftware.com/projects/twitter-manager"
+#define MyAppURL "https://www.ordisoftware.com/projects/tweets-inspector"
 
 [Setup]
 AppId={{482BB78E-469E-4FE1-935A-D6B8E8D5017C}

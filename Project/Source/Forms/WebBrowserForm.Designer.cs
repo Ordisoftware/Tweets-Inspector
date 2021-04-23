@@ -1,4 +1,4 @@
-﻿namespace Ordisoftware.TwitterManager
+﻿namespace Ordisoftware.TweetsInspector
 {
   partial class WebBrowserForm
   {

@@ -1,5 +1,5 @@
 ﻿/// <license>
-/// This file is part of Ordisoftware Twitter Manager.
+/// This file is part of Ordisoftware Tweets Inspector.
 /// Copyright 2021 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
@@ -22,7 +22,7 @@ using Ordisoftware.Core;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace Ordisoftware.TwitterManager
+namespace Ordisoftware.TweetsInspector
 {
 
   // TODO encrypt login
@@ -36,7 +36,7 @@ namespace Ordisoftware.TwitterManager
     static internal readonly MainForm Instance;
     static internal readonly Properties.Settings Settings = Program.Settings;
     static internal OAuth.OAuthSession Session { get; private set; }
-    static internal Tokens TwitterTokens { get; private set; }
+    static internal Tokens Tokens { get; private set; }
 
     static MainForm()
     {
@@ -45,7 +45,7 @@ namespace Ordisoftware.TwitterManager
 
     internal static bool IsConnected(bool showMessage)
     {
-      if ( TwitterTokens != null ) return true;
+      if ( Tokens != null ) return true;
       if (showMessage) DisplayManager.ShowWarning("Not connected.");
       return false;
     }
@@ -68,7 +68,7 @@ namespace Ordisoftware.TwitterManager
 
     private void MainForm_Shown(object sender, EventArgs e)
     {
-      if ( Settings.TwitterConnectAtStartup )
+      if ( Settings.ConnectAtStartup )
         ActionConnect.PerformClick();
     }
 
@@ -95,13 +95,14 @@ namespace Ordisoftware.TwitterManager
     private async void ActionConnect_Click(object sender, EventArgs e)
     {
       if ( IsConnected(false) ) return;
+      if ( Settings.ConsumerKey == "" || Settings.ConsumerSecret == "" || Settings.ConsumerBackUrl == "" ) return;
       Enabled = false;
       bool done = false;
       bool cancelled = false;
-      Session = OAuth.Authorize(Settings.TwitterKey, Settings.TwitterSecret, Settings.TwitterBackUrl);
+      Session = OAuth.Authorize(Settings.ConsumerKey, Settings.ConsumerSecret, Settings.ConsumerBackUrl);
       var form = new WebBrowserForm();
       form.FormClosed += (_s, _e) => cancelled = !done;
-      form.WebBrowser.AddressChanged += (_s, _e) => done |= _e.Address.Contains(Settings.TwitterBackUrl);
+      form.WebBrowser.AddressChanged += (_s, _e) => done |= _e.Address.Contains(Settings.ConsumerBackUrl);
       form.WebBrowser.Load(Session.AuthorizeUri.AbsoluteUri);
       form.Show();
       while ( !done && !cancelled ) await Task.Delay(100);
@@ -112,8 +113,8 @@ namespace Ordisoftware.TwitterManager
       var items = form.WebBrowser.Address.SplitNoEmptyLines($"&{OAuthVerifierTag}=");
       if ( items.Length == 2 && items[1].Trim() != "" )
       {
-        TwitterTokens = Session.GetTokens(items[1]);
-        Text = $"{Globals.AssemblyTitle} - Connected @{TwitterTokens.ScreenName}";
+        Tokens = Session.GetTokens(items[1]);
+        Text = $"{Globals.AssemblyTitle} - Connected @{Tokens.ScreenName}";
         ActionConnect.Enabled = false;
       }
       else
@@ -205,7 +206,7 @@ namespace Ordisoftware.TwitterManager
       long? cursor = null;
       while ( count == APIStep )
       {
-        var list = TwitterTokens.Followers.List(TwitterTokens.UserId, count: APIStep, cursor: cursor);
+        var list = Tokens.Followers.List(Tokens.UserId, count: APIStep, cursor: cursor);
         cursor = list.NextCursor;
         count = list.Count;
         users.AddRange(list.ToList());
@@ -220,7 +221,7 @@ namespace Ordisoftware.TwitterManager
       long? cursor = null;
       while ( count == APIStep )
       {
-        var list = TwitterTokens.Friends.List(TwitterTokens.UserId, count: APIStep, cursor: cursor);
+        var list = Tokens.Friends.List(Tokens.UserId, count: APIStep, cursor: cursor);
         cursor = list.NextCursor;
         count = list.Count;
         users.AddRange(list.ToList());
@@ -230,7 +231,7 @@ namespace Ordisoftware.TwitterManager
 
     private void ActionGetLikes_Click(object sender, EventArgs e)
     {
-      var list = TwitterTokens.Favorites.List(TwitterTokens.UserId, count: 200);
+      var list = Tokens.Favorites.List(Tokens.UserId, count: 200);
       foreach ( var item in list )
       {
         if ( item.User.ScreenName.ToLower().Contains("") )

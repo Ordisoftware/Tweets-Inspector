@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1500
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twitter Manager (vs2017)", "Twitter Manager (vs2017).csproj", "{1ED45F34-0CD1-42B3-A65B-28B15693AB27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tweets Inspector (vs2017)", "Tweets Inspector (vs2017).csproj", "{1ED45F34-0CD1-42B3-A65B-28B15693AB27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

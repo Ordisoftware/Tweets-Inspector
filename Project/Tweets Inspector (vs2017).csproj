@@ -9,8 +9,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1ED45F34-0CD1-42B3-A65B-28B15693AB27}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Ordisoftware.TwitterManager</RootNamespace>
-    <AssemblyName>Ordisoftware.TwitterManager</AssemblyName>
+    <RootNamespace>Ordisoftware.TweetsInspector</RootNamespace>
+    <AssemblyName>Ordisoftware.TweetsInspector</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -28,7 +28,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
-    <DocumentationFile>..\Bin\Debug\Ordisoftware.TwitterManager.xml</DocumentationFile>
+    <DocumentationFile>..\Bin\Debug\Ordisoftware.TweetsInspector.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
     <NoWarn>1587, 1591, 0649</NoWarn>
   </PropertyGroup>
@@ -40,7 +40,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Bin\Release\Ordisoftware.TwitterManager.xml</DocumentationFile>
+    <DocumentationFile>..\Bin\Release\Ordisoftware.TweetsInspector.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
     <NoWarn>1587, 1591, 0649</NoWarn>
     <DebugSymbols>true</DebugSymbols>
@@ -406,7 +406,7 @@
     <None Include="Dependencies\Windows Global Hotkey\Windows-Global-Hotkey-master-modified-2020.12.19.zip" />
     <None Include="Dependencies\Windows Global Hotkey\Windows-Global-Hotkey-master.zip" />
     <None Include="Packages.config" />
-    <None Include="Properties\DataSources\Ordisoftware.TwitterManager.Properties.Settings.datasource" />
+    <None Include="Properties\DataSources\Ordisoftware.TweetsInspector.Properties.Settings.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

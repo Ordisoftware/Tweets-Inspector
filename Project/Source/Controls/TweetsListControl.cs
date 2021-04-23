@@ -1,5 +1,5 @@
 ﻿/// <license>
-/// This file is part of Ordisoftware Twitter Manager.
+/// This file is part of Ordisoftware Tweets Inspector.
 /// Copyright 2021 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
@@ -19,7 +19,7 @@ using System.Windows.Forms;
 using Ordisoftware.Core;
 using System.Threading;
 
-namespace Ordisoftware.TwitterManager
+namespace Ordisoftware.TweetsInspector
 {
 
   public partial class ListTweets : UserControl
@@ -149,7 +149,7 @@ namespace Ordisoftware.TwitterManager
         {
           LoadingForm.Instance.DoProgress();
           if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
-            SystemManager.TryCatch(() => MainForm.TwitterTokens.Statuses.Destroy(long.Parse(tweet.Id)));
+            SystemManager.TryCatch(() => MainForm.Tokens.Statuses.Destroy(long.Parse(tweet.Id)));
           else
             if ( !DisplayManager.QueryYesNo("Tweets will be deleted in the database but not in Twitter. Continue?") )
               return;

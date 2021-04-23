@@ -1,4 +1,4 @@
-﻿namespace Ordisoftware.TwitterManager
+﻿namespace Ordisoftware.TweetsInspector
 {
   partial class ListTweets
   {
@@ -38,10 +38,10 @@
       this.ActionSelectAll = new System.Windows.Forms.Button();
       this.ActionSelectNone = new System.Windows.Forms.Button();
       this.LabelTitle = new System.Windows.Forms.Label();
-      this.DataSet = new Ordisoftware.TwitterManager.Data.DataSet();
+      this.DataSet = new Ordisoftware.TweetsInspector.Data.DataSet();
       this.TweetsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-      this.TweetsTableAdapter = new Ordisoftware.TwitterManager.Data.DataSetTableAdapters.TweetsTableAdapter();
-      this.TableAdapterManager = new Ordisoftware.TwitterManager.Data.DataSetTableAdapters.TableAdapterManager();
+      this.TweetsTableAdapter = new Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TweetsTableAdapter();
+      this.TableAdapterManager = new Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TableAdapterManager();
       this.DataGridView = new System.Windows.Forms.DataGridView();
       this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -167,7 +167,7 @@
       this.TableAdapterManager.FollowersTableAdapter = null;
       this.TableAdapterManager.FollowingTableAdapter = null;
       this.TableAdapterManager.TweetsTableAdapter = this.TweetsTableAdapter;
-      this.TableAdapterManager.UpdateOrder = Ordisoftware.TwitterManager.Data.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+      this.TableAdapterManager.UpdateOrder = Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
       // 
       // DataGridView
       // 
