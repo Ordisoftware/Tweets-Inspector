@@ -53,6 +53,7 @@ namespace Ordisoftware.TweetsInspector
     public MainForm()
     {
       InitializeComponent();
+      TabControl.TabPages.Remove(TabPageMessages);
       SettingsBindingSource.DataSource = Settings;
       TweetsControl.Modified += TweetsControl_OnModified;
       Text = $"{Globals.AssemblyTitle} - Not connected";
@@ -144,10 +145,10 @@ namespace Ordisoftware.TweetsInspector
                          .OrderBy(recipient => recipient)
                          .ToArray();
       ListBoxAllRecipients.Items.AddRange(array);
-      LabelCountTweetsMain.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
-      LabelCountTweetsReplies.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
-      LabelCountTweetsRTs.Text = TweetsControl.ListTweetsRTs.DataGridView.RowCount.ToString();
-      LabelCountAllRecipients.Text = array.Length.ToString();
+      LabelCountTweetsMainValue.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
+      LabelCountTweetsRepliesValue.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
+      LabelCountTweetsRTsValue.Text = TweetsControl.ListTweetsRTs.DataGridView.RowCount.ToString();
+      LabelCountAllRecipientsValue.Text = array.Length.ToString();
     }
 
     private void EditSearch_CheckedChanged(object sender, EventArgs e)

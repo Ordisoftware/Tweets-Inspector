@@ -40,13 +40,13 @@ A libre and open-source software written in C# that allows to list, filter and d
 
 **What's new in the latest version**
 
-- In progress.
+- Wireframe.
 
 [Last release](https://github.com/Ordisoftware/Tweets-Inspector/releases/latest)
 
 ## Screenshots
 
-
+[![Wireframe](https://www.ordisoftware.com/uploads/2021/04/tweets-inspector-wireframe-400x281.jpg)](https://www.ordisoftware.com/uploads/2021/04/tweets-inspector-wireframe.jpg)
 
 ## Frequently asked questions
 

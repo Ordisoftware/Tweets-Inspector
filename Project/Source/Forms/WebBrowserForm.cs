@@ -35,6 +35,7 @@ namespace Ordisoftware.TweetsInspector
     public WebBrowserForm()
     {
       InitializeComponent();
+      Icon = Globals.MainForm?.Icon;
     }
 
   }
