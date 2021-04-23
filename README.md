@@ -33,7 +33,7 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 
 ## Requirements
 
-- Windows 7 SP1 x32/x64 or higher
+- Windows 10 x32/x64 or higher
 - Screen 1024x768 or higher
 - Framework .NET 4.7.2
 - SQLite ODBC Driver
