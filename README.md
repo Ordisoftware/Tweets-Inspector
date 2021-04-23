@@ -25,7 +25,8 @@ A libre and open-source software written in C# that allows to view and delete Tw
 - Filter and search using a term and/or a user name.
 - Open a tweet in browser.
 - Delete i.e. destroy selected tweets.
-- Export tweets to CSV.
+- Display following and followers with changes tracking.
+- Export tweets, following and followers to CSV.
 - English, French.
 
 ## Requirements
