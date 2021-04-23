@@ -25,54 +25,6 @@ namespace Ordisoftware.TwitterManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("852")]
-        public int MainFormSplitterDistanceAllRecipients {
-            get {
-                return ((int)(this["MainFormSplitterDistanceAllRecipients"]));
-            }
-            set {
-                this["MainFormSplitterDistanceAllRecipients"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("182")]
-        public int MainFormSplitterDistanceTweetsReplies {
-            get {
-                return ((int)(this["MainFormSplitterDistanceTweetsReplies"]));
-            }
-            set {
-                this["MainFormSplitterDistanceTweetsReplies"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("370")]
-        public int MainFormSplitterDistanceRTs {
-            get {
-                return ((int)(this["MainFormSplitterDistanceRTs"]));
-            }
-            set {
-                this["MainFormSplitterDistanceRTs"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool MainFormEditSearchResultsShowInForm {
-            get {
-                return ((bool)(this["MainFormEditSearchResultsShowInForm"]));
-            }
-            set {
-                this["MainFormEditSearchResultsShowInForm"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool DeleteOnlyLocalMode {
             get {
@@ -150,6 +102,18 @@ namespace Ordisoftware.TwitterManager.Properties {
             }
             set {
                 this["SearchInMessage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool TwitterConnectAtStartup {
+            get {
+                return ((bool)(this["TwitterConnectAtStartup"]));
+            }
+            set {
+                this["TwitterConnectAtStartup"] = value;
             }
         }
     }

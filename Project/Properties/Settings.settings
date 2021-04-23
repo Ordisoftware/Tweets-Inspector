@@ -2,18 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Ordisoftware.TwitterManager.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="MainFormSplitterDistanceAllRecipients" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">852</Value>
-    </Setting>
-    <Setting Name="MainFormSplitterDistanceTweetsReplies" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">182</Value>
-    </Setting>
-    <Setting Name="MainFormSplitterDistanceRTs" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">370</Value>
-    </Setting>
-    <Setting Name="MainFormEditSearchResultsShowInForm" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="DeleteOnlyLocalMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -30,7 +18,6 @@
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;ConnectionString&gt;Dsn=Twitter-Manager&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.Odbc&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Dsn=Twitter-Manager</Value>
     </Setting>
@@ -38,6 +25,9 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="SearchInMessage" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TwitterConnectAtStartup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>

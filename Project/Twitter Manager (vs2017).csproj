@@ -406,6 +406,7 @@
     <None Include="Dependencies\Windows Global Hotkey\Windows-Global-Hotkey-master-modified-2020.12.19.zip" />
     <None Include="Dependencies\Windows Global Hotkey\Windows-Global-Hotkey-master.zip" />
     <None Include="Packages.config" />
+    <None Include="Properties\DataSources\Ordisoftware.TwitterManager.Properties.Settings.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -422,9 +423,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\DataSources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

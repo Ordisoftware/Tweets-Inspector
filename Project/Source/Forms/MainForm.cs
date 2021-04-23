@@ -33,6 +33,7 @@ namespace Ordisoftware.TwitterManager
 
     static internal readonly MainForm Instance;
     static internal readonly Properties.Settings Settings = Program.Settings;
+    static internal OAuth.OAuthSession Session { get; private set; }
     static internal Tokens TwitterTokens { get; private set; }
 
     static MainForm()
@@ -50,6 +51,7 @@ namespace Ordisoftware.TwitterManager
     public MainForm()
     {
       InitializeComponent();
+      SettingsBindingSource.DataSource = Settings;
       TweetsControl.Modified += TweetsControl_OnModified;
       Text = $"{Globals.AssemblyTitle} - Not connected";
       SystemManager.TryCatch(() => { Icon = new Icon(Globals.ApplicationIconFilePath); });
@@ -62,6 +64,12 @@ namespace Ordisoftware.TwitterManager
       UpdateListViews();
     }
 
+    private void MainForm_Shown(object sender, EventArgs e)
+    {
+      if ( Settings.TwitterConnectAtStartup )
+        ActionConnect.PerformClick();
+    }
+
     private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
     {
       Settings.Save();
@@ -72,7 +80,7 @@ namespace Ordisoftware.TwitterManager
       DoOpenMessages();
     }
 
-    private void ActionSaveTweets_Click(object sender, EventArgs e)
+    private void ActionSaveToCSV_Click(object sender, EventArgs e)
     {
       /*if ( string.IsNullOrEmpty(LastTweetsFilePath) ) return;
       string path = Path.GetDirectoryName(LastTweetsFilePath);
@@ -82,32 +90,35 @@ namespace Ordisoftware.TwitterManager
       File.WriteAllLines(Path.Combine(path, name + " - RT.txt"), SelectTweetsRT.Items.Cast<string>());*/
     }
 
-    private async void ActionConnectTwitter_Click(object sender, EventArgs e)
+    private async void ActionConnect_Click(object sender, EventArgs e)
     {
       if ( IsConnected(false) ) return;
       Enabled = false;
       bool done = false;
-      var session = OAuth.Authorize(Settings.TwitterKey, Settings.TwitterSecret, Settings.TwitterBackUrl);
+      bool cancelled = false;
+      Session = OAuth.Authorize(Settings.TwitterKey, Settings.TwitterSecret, Settings.TwitterBackUrl);
       var form = new WebBrowserForm();
-      form.FormClosed += (_s, _e) => done = true;
+      form.FormClosed += (_s, _e) => cancelled = !done;
       form.WebBrowser.AddressChanged += (_s, _e) => done |= _e.Address.Contains(Settings.TwitterBackUrl);
-      form.WebBrowser.Load(session.AuthorizeUri.AbsoluteUri);
+      form.WebBrowser.Load(Session.AuthorizeUri.AbsoluteUri);
       form.Show();
-      while ( !done ) await Task.Delay(100);
+      while ( !done && !cancelled ) await Task.Delay(100);
       if ( form.Visible ) form.Close();
       this.ForceBringToFront();
       Enabled = true;
+      if ( cancelled ) return;
       var items = form.WebBrowser.Address.SplitNoEmptyLines($"&{OAuthVerifierTag}=");
       if ( items.Length == 2 && items[1].Trim() != "" )
       {
-        TwitterTokens = session.GetTokens(items[1]);
+        TwitterTokens = Session.GetTokens(items[1]);
         Text = $"{Globals.AssemblyTitle} - Connected @{TwitterTokens.ScreenName}";
+        ActionConnect.Enabled = false;
       }
       else
         DisplayManager.ShowWarning($"Tag not found : {OAuthVerifierTag}");
     }
 
-    private void ActionLoadTweestFromJS_Click(object sender, EventArgs e)
+    private void ActionLoadFromJS_Click(object sender, EventArgs e)
     {
       DoLoadTweetsFromJS();
       UpdateListViews();
