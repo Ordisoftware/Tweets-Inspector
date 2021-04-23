@@ -32,6 +32,10 @@ namespace Ordisoftware.TweetsInspector
       Cursor = Cursors.WaitCursor;
       try
       {
+        if ( DataSet.Tweets.Count > 0 )
+          if ( !DisplayManager.QueryYesNo("Replace all tweets in the database?") ) return;
+        if ( OpenFileDialogJS.ShowDialog() != DialogResult.OK ) return;
+        string filepath = OpenFileDialogJS.FileName;
         var command = new OdbcCommand("DELETE FROM Tweets", LockFileConnection);
         command.ExecuteNonQuery();
         TweetsTableAdapter.Fill(DataSet.Tweets);
@@ -39,7 +43,6 @@ namespace Ordisoftware.TweetsInspector
         TweetsBindingSourceReplies.ResetBindings(false);
         TweetsBindingSourceRTs.ResetBindings(false);
         Refresh();
-        string filepath = @"c:\Users\Olivier\Projects\Social\Twitter\tweet.js";
         var lines = File.ReadAllLines(filepath);
         lines[0] = lines[0].Replace("window.YTD.tweet.part0 = ", "");
         LoadingForm.Instance.Initialize("Loading JS...", 1);
