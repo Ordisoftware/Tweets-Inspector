@@ -102,7 +102,7 @@ The software verifies the validity of the certificate of the update server in ad
 
 ## Changelog
 
-#### Im progress - Version 1.0
+#### In progress - Version 1.0
 
 - Initial release.
 
