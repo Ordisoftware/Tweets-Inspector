@@ -1,4 +1,4 @@
 @echo off
-taskkill /im Ordisoftware.TwitterManager.exe
+taskkill /im Ordisoftware.TweetsInspector.exe
 ping localhost -n 3 >NUL
-start "" ..\Bin\Ordisoftware.TwitterManager.exe --reset
+start "" ..\Bin\Ordisoftware.TweetsInspector.exe --reset

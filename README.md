@@ -1,11 +1,11 @@
-# Twitter Manager
+# Tweets Inspector
 
 > Licensed under the terms of the [Mozilla Public License 2.0](LICENSE)<br/>
 > This project follows the [Manufacturing Software Guidelines](https://github.com/Ordisoftware/Guidelines).<br/>
-> [Website](https://www.ordisoftware.com/projects/twitter-manager)<br/>
+> [Website](https://www.ordisoftware.com/projects/tweets-inspector)<br/>
 > [Twitter](https://twitter.com/ordisoftware)<br/>
 
-A libre and open-source software written in C# that allows to view and delete Twitter's tweets.
+A libre and open-source software written in C# that allows to Manage, list, filter and delete tweets from a Twitter account.
 
 ## Table of content
 
@@ -42,7 +42,7 @@ A libre and open-source software written in C# that allows to view and delete Tw
 
 - In progress.
 
-[Last release](https://github.com/Ordisoftware/Twitter-Manage/releases/latest)
+[Last release](https://github.com/Ordisoftware/Tweets-Inspector/releases/latest)
 
 ## Screenshots
 
@@ -63,15 +63,15 @@ In the event that an error message indicates that a DLL file could not be copied
 
 The software tries to register an ODBC DSN to the registry but in case of problem run:
 
-&emsp;`C:\Program Files\Ordisoftware\Twitter Manager\System\RegisterODBC.reg`
+&emsp;`C:\Program Files\Ordisoftware\Tweets Inspector\System\RegisterODBC.reg`
 
 Or open the ODBC Datasource Manager (Admin tools in Windows' Control panel) and create a user datasource named:
 
-&emsp;`Twitter-Manager` for `SQLite 3 ODBC Driver`
+&emsp;`Tweets-Inspector` for `SQLite 3 ODBC Driver`
 
 With Database Name sets to:
 
-&emsp;`%USERPROFILE%\AppData\Roaming\Ordisoftware\Twitter Manager\Twitter-Manager.sqlite`
+&emsp;`%USERPROFILE%\AppData\Roaming\Ordisoftware\Tweets Inspector\Tweets-Inspector.sqlite`
 
 Watch the [video](https://www.youtube.com/watch?v=WPVF8pj9I3E).
 
@@ -83,7 +83,7 @@ The software verifies the validity of the certificate of the update server in ad
 
 - Change interface language:
 
-  `Ordisoftware.TwitterManager.exe --lang [en|fr]`
+  `Ordisoftware.TweetsInspector.exe --lang [en|fr]`
 
 ## Keyboard shortcuts
 

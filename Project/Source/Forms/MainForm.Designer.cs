@@ -1,4 +1,4 @@
-﻿namespace Ordisoftware.TwitterManager
+﻿namespace Ordisoftware.TweetsInspector
 {
   partial class MainForm
   {
@@ -30,8 +30,8 @@
     {
       this.components = new System.ComponentModel.Container();
       System.Windows.Forms.Label twitterBackUrlLabel;
-      System.Windows.Forms.Label twitterKeyLabel;
-      System.Windows.Forms.Label twitterSecretLabel;
+      System.Windows.Forms.Label LabelConsumerKey;
+      System.Windows.Forms.Label LabelConsumerSecret;
       this.ActionOpenMessages = new System.Windows.Forms.Button();
       this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
       this.EditUser1 = new System.Windows.Forms.TextBox();
@@ -41,25 +41,23 @@
       this.TabControl = new System.Windows.Forms.TabControl();
       this.TabPageTweets = new System.Windows.Forms.TabPage();
       this.SplitContainerMain = new System.Windows.Forms.SplitContainer();
+      this.TweetsControl = new Ordisoftware.TweetsInspector.TweetsControl();
       this.ListBoxAllRecipients = new System.Windows.Forms.ListBox();
       this.PanelTweetsTop = new System.Windows.Forms.Panel();
       this.ActionDelete = new System.Windows.Forms.Button();
-      this.EditSearchInMessage = new System.Windows.Forms.CheckBox();
-      this.EditSearchUser = new System.Windows.Forms.CheckBox();
       this.ActionGetLikes = new System.Windows.Forms.Button();
       this.ActionSelectAll = new System.Windows.Forms.Button();
       this.ActionSelectNone = new System.Windows.Forms.Button();
       this.ActionFilterClear = new System.Windows.Forms.Button();
       this.ActionGetFellowing = new System.Windows.Forms.Button();
       this.ActionGetFollowers = new System.Windows.Forms.Button();
-      this.EditDeleteOnlyLocal = new System.Windows.Forms.CheckBox();
       this.EditSearch = new System.Windows.Forms.TextBox();
       this.ActionConnect = new System.Windows.Forms.Button();
       this.ActionLoadFromJS = new System.Windows.Forms.Button();
       this.ActionSaveToCSV = new System.Windows.Forms.Button();
       this.TabPageMessages = new System.Windows.Forms.TabPage();
       this.TabPageSettings = new System.Windows.Forms.TabPage();
-      this.twitterConnectAtStartupCheckBox = new System.Windows.Forms.CheckBox();
+      this.EditConnectAtStartup = new System.Windows.Forms.CheckBox();
       this.twitterSecretTextBox = new System.Windows.Forms.TextBox();
       this.twitterKeyTextBox = new System.Windows.Forms.TextBox();
       this.twitterBackUrlTextBox = new System.Windows.Forms.TextBox();
@@ -73,17 +71,19 @@
       this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
       this.LabelCountAllRecipients = new System.Windows.Forms.ToolStripStatusLabel();
       this.PanelMain = new System.Windows.Forms.Panel();
-      this.DataSet = new Ordisoftware.TwitterManager.Data.DataSet();
+      this.DataSet = new Ordisoftware.TweetsInspector.Data.DataSet();
       this.TweetsBindingSourceMain = new System.Windows.Forms.BindingSource(this.components);
-      this.TweetsTableAdapter = new Ordisoftware.TwitterManager.Data.DataSetTableAdapters.TweetsTableAdapter();
-      this.TableAdapterManager = new Ordisoftware.TwitterManager.Data.DataSetTableAdapters.TableAdapterManager();
+      this.TweetsTableAdapter = new Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TweetsTableAdapter();
+      this.TableAdapterManager = new Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TableAdapterManager();
       this.TweetsBindingSourceReplies = new System.Windows.Forms.BindingSource(this.components);
       this.TweetsBindingSourceRTs = new System.Windows.Forms.BindingSource(this.components);
-      this.TweetsControl = new Ordisoftware.TwitterManager.TweetsControl();
+      this.EditSearchInMessage = new System.Windows.Forms.CheckBox();
+      this.EditSearchUser = new System.Windows.Forms.CheckBox();
+      this.EditDeleteOnlyLocal = new System.Windows.Forms.CheckBox();
       this.SettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
       twitterBackUrlLabel = new System.Windows.Forms.Label();
-      twitterKeyLabel = new System.Windows.Forms.Label();
-      twitterSecretLabel = new System.Windows.Forms.Label();
+      LabelConsumerKey = new System.Windows.Forms.Label();
+      LabelConsumerSecret = new System.Windows.Forms.Label();
       this.TabControl.SuspendLayout();
       this.TabPageTweets.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.SplitContainerMain)).BeginInit();
@@ -107,27 +107,27 @@
       twitterBackUrlLabel.AutoSize = true;
       twitterBackUrlLabel.Location = new System.Drawing.Point(20, 125);
       twitterBackUrlLabel.Name = "twitterBackUrlLabel";
-      twitterBackUrlLabel.Size = new System.Drawing.Size(86, 13);
+      twitterBackUrlLabel.Size = new System.Drawing.Size(51, 13);
       twitterBackUrlLabel.TabIndex = 0;
-      twitterBackUrlLabel.Text = "Twitter Back Url:";
+      twitterBackUrlLabel.Text = "Back Url:";
       // 
-      // twitterKeyLabel
+      // LabelConsumerKey
       // 
-      twitterKeyLabel.AutoSize = true;
-      twitterKeyLabel.Location = new System.Drawing.Point(20, 55);
-      twitterKeyLabel.Name = "twitterKeyLabel";
-      twitterKeyLabel.Size = new System.Drawing.Size(63, 13);
-      twitterKeyLabel.TabIndex = 2;
-      twitterKeyLabel.Text = "Twitter Key:";
+      LabelConsumerKey.AutoSize = true;
+      LabelConsumerKey.Location = new System.Drawing.Point(20, 55);
+      LabelConsumerKey.Name = "LabelConsumerKey";
+      LabelConsumerKey.Size = new System.Drawing.Size(78, 13);
+      LabelConsumerKey.TabIndex = 2;
+      LabelConsumerKey.Text = "Consumer Key:";
       // 
-      // twitterSecretLabel
+      // LabelConsumerSecret
       // 
-      twitterSecretLabel.AutoSize = true;
-      twitterSecretLabel.Location = new System.Drawing.Point(20, 90);
-      twitterSecretLabel.Name = "twitterSecretLabel";
-      twitterSecretLabel.Size = new System.Drawing.Size(76, 13);
-      twitterSecretLabel.TabIndex = 4;
-      twitterSecretLabel.Text = "Twitter Secret:";
+      LabelConsumerSecret.AutoSize = true;
+      LabelConsumerSecret.Location = new System.Drawing.Point(20, 90);
+      LabelConsumerSecret.Name = "LabelConsumerSecret";
+      LabelConsumerSecret.Size = new System.Drawing.Size(91, 13);
+      LabelConsumerSecret.TabIndex = 4;
+      LabelConsumerSecret.Text = "Consumer Secret:";
       // 
       // ActionOpenMessages
       // 
@@ -211,6 +211,14 @@
       this.SplitContainerMain.SplitterWidth = 10;
       this.SplitContainerMain.TabIndex = 9;
       // 
+      // TweetsControl
+      // 
+      this.TweetsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.TweetsControl.Location = new System.Drawing.Point(0, 0);
+      this.TweetsControl.Name = "TweetsControl";
+      this.TweetsControl.Size = new System.Drawing.Size(838, 525);
+      this.TweetsControl.TabIndex = 0;
+      // 
       // ListBoxAllRecipients
       // 
       this.ListBoxAllRecipients.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -255,38 +263,6 @@
       this.ActionDelete.Text = "DEL";
       this.ActionDelete.UseVisualStyleBackColor = true;
       this.ActionDelete.Click += new System.EventHandler(this.ActionDelete_Click);
-      // 
-      // EditSearchInMessage
-      // 
-      this.EditSearchInMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.EditSearchInMessage.AutoSize = true;
-      this.EditSearchInMessage.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-      this.EditSearchInMessage.Checked = global::Ordisoftware.TwitterManager.Properties.Settings.Default.SearchInMessage;
-      this.EditSearchInMessage.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.EditSearchInMessage.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TwitterManager.Properties.Settings.Default, "SearchInMessage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-      this.EditSearchInMessage.Location = new System.Drawing.Point(837, 43);
-      this.EditSearchInMessage.Name = "EditSearchInMessage";
-      this.EditSearchInMessage.Size = new System.Drawing.Size(116, 17);
-      this.EditSearchInMessage.TabIndex = 13;
-      this.EditSearchInMessage.Text = "Search in message";
-      this.EditSearchInMessage.UseVisualStyleBackColor = true;
-      this.EditSearchInMessage.CheckedChanged += new System.EventHandler(this.EditSearch_CheckedChanged);
-      // 
-      // EditSearchUser
-      // 
-      this.EditSearchUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.EditSearchUser.AutoSize = true;
-      this.EditSearchUser.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-      this.EditSearchUser.Checked = global::Ordisoftware.TwitterManager.Properties.Settings.Default.SearchUser;
-      this.EditSearchUser.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.EditSearchUser.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TwitterManager.Properties.Settings.Default, "SearchUser", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-      this.EditSearchUser.Location = new System.Drawing.Point(841, 26);
-      this.EditSearchUser.Name = "EditSearchUser";
-      this.EditSearchUser.Size = new System.Drawing.Size(112, 17);
-      this.EditSearchUser.TabIndex = 13;
-      this.EditSearchUser.Text = "Search user name";
-      this.EditSearchUser.UseVisualStyleBackColor = true;
-      this.EditSearchUser.CheckedChanged += new System.EventHandler(this.EditSearch_CheckedChanged);
       // 
       // ActionGetLikes
       // 
@@ -351,20 +327,6 @@
       this.ActionGetFollowers.UseVisualStyleBackColor = true;
       this.ActionGetFollowers.Click += new System.EventHandler(this.ActionGetFollowers_Click);
       // 
-      // EditDeleteOnlyLocal
-      // 
-      this.EditDeleteOnlyLocal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.EditDeleteOnlyLocal.AutoSize = true;
-      this.EditDeleteOnlyLocal.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-      this.EditDeleteOnlyLocal.Checked = global::Ordisoftware.TwitterManager.Properties.Settings.Default.DeleteOnlyLocalMode;
-      this.EditDeleteOnlyLocal.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TwitterManager.Properties.Settings.Default, "DeleteOnlyLocalMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-      this.EditDeleteOnlyLocal.Location = new System.Drawing.Point(820, 5);
-      this.EditDeleteOnlyLocal.Name = "EditDeleteOnlyLocal";
-      this.EditDeleteOnlyLocal.Size = new System.Drawing.Size(133, 17);
-      this.EditDeleteOnlyLocal.TabIndex = 4;
-      this.EditDeleteOnlyLocal.Text = "Delete only local mode";
-      this.EditDeleteOnlyLocal.UseVisualStyleBackColor = true;
-      // 
       // EditSearch
       // 
       this.EditSearch.Location = new System.Drawing.Point(3, 38);
@@ -420,10 +382,10 @@
       // 
       // TabPageSettings
       // 
-      this.TabPageSettings.Controls.Add(this.twitterConnectAtStartupCheckBox);
-      this.TabPageSettings.Controls.Add(twitterSecretLabel);
+      this.TabPageSettings.Controls.Add(this.EditConnectAtStartup);
+      this.TabPageSettings.Controls.Add(LabelConsumerSecret);
       this.TabPageSettings.Controls.Add(this.twitterSecretTextBox);
-      this.TabPageSettings.Controls.Add(twitterKeyLabel);
+      this.TabPageSettings.Controls.Add(LabelConsumerKey);
       this.TabPageSettings.Controls.Add(this.twitterKeyTextBox);
       this.TabPageSettings.Controls.Add(twitterBackUrlLabel);
       this.TabPageSettings.Controls.Add(this.twitterBackUrlTextBox);
@@ -435,37 +397,37 @@
       this.TabPageSettings.Text = "Settings";
       this.TabPageSettings.UseVisualStyleBackColor = true;
       // 
-      // twitterConnectAtStartupCheckBox
+      // EditConnectAtStartup
       // 
-      this.twitterConnectAtStartupCheckBox.AutoSize = true;
-      this.twitterConnectAtStartupCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.SettingsBindingSource, "TwitterConnectAtStartup", true));
-      this.twitterConnectAtStartupCheckBox.Location = new System.Drawing.Point(23, 19);
-      this.twitterConnectAtStartupCheckBox.Name = "twitterConnectAtStartupCheckBox";
-      this.twitterConnectAtStartupCheckBox.Size = new System.Drawing.Size(160, 17);
-      this.twitterConnectAtStartupCheckBox.TabIndex = 7;
-      this.twitterConnectAtStartupCheckBox.Text = "Connect to Twitter at startup";
-      this.twitterConnectAtStartupCheckBox.UseVisualStyleBackColor = true;
+      this.EditConnectAtStartup.AutoSize = true;
+      this.EditConnectAtStartup.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.SettingsBindingSource, "ConnectAtStartup", true));
+      this.EditConnectAtStartup.Location = new System.Drawing.Point(23, 19);
+      this.EditConnectAtStartup.Name = "EditConnectAtStartup";
+      this.EditConnectAtStartup.Size = new System.Drawing.Size(160, 17);
+      this.EditConnectAtStartup.TabIndex = 7;
+      this.EditConnectAtStartup.Text = "Connect to Twitter at startup";
+      this.EditConnectAtStartup.UseVisualStyleBackColor = true;
       // 
       // twitterSecretTextBox
       // 
-      this.twitterSecretTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsBindingSource, "TwitterSecret", true));
-      this.twitterSecretTextBox.Location = new System.Drawing.Point(112, 86);
+      this.twitterSecretTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsBindingSource, "ConsumerSecret", true));
+      this.twitterSecretTextBox.Location = new System.Drawing.Point(117, 86);
       this.twitterSecretTextBox.Name = "twitterSecretTextBox";
       this.twitterSecretTextBox.Size = new System.Drawing.Size(395, 20);
       this.twitterSecretTextBox.TabIndex = 5;
       // 
       // twitterKeyTextBox
       // 
-      this.twitterKeyTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsBindingSource, "TwitterKey", true));
-      this.twitterKeyTextBox.Location = new System.Drawing.Point(112, 51);
+      this.twitterKeyTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsBindingSource, "ConsumerKey", true));
+      this.twitterKeyTextBox.Location = new System.Drawing.Point(117, 51);
       this.twitterKeyTextBox.Name = "twitterKeyTextBox";
       this.twitterKeyTextBox.Size = new System.Drawing.Size(395, 20);
       this.twitterKeyTextBox.TabIndex = 3;
       // 
       // twitterBackUrlTextBox
       // 
-      this.twitterBackUrlTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsBindingSource, "TwitterBackUrl", true));
-      this.twitterBackUrlTextBox.Location = new System.Drawing.Point(112, 121);
+      this.twitterBackUrlTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsBindingSource, "ConsumerBackUrl", true));
+      this.twitterBackUrlTextBox.Location = new System.Drawing.Point(117, 121);
       this.twitterBackUrlTextBox.Name = "twitterBackUrlTextBox";
       this.twitterBackUrlTextBox.Size = new System.Drawing.Size(395, 20);
       this.twitterBackUrlTextBox.TabIndex = 1;
@@ -565,7 +527,7 @@
       this.TableAdapterManager.FollowersTableAdapter = null;
       this.TableAdapterManager.FollowingTableAdapter = null;
       this.TableAdapterManager.TweetsTableAdapter = this.TweetsTableAdapter;
-      this.TableAdapterManager.UpdateOrder = Ordisoftware.TwitterManager.Data.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+      this.TableAdapterManager.UpdateOrder = Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
       // 
       // TweetsBindingSourceReplies
       // 
@@ -577,13 +539,51 @@
       this.TweetsBindingSourceRTs.DataMember = "Tweets";
       this.TweetsBindingSourceRTs.DataSource = this.DataSet;
       // 
-      // TweetsControl
+      // EditSearchInMessage
       // 
-      this.TweetsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.TweetsControl.Location = new System.Drawing.Point(0, 0);
-      this.TweetsControl.Name = "TweetsControl";
-      this.TweetsControl.Size = new System.Drawing.Size(838, 525);
-      this.TweetsControl.TabIndex = 0;
+      this.EditSearchInMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.EditSearchInMessage.AutoSize = true;
+      this.EditSearchInMessage.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+      this.EditSearchInMessage.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.SearchInMessage;
+      this.EditSearchInMessage.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.EditSearchInMessage.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "SearchInMessage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.EditSearchInMessage.Location = new System.Drawing.Point(837, 43);
+      this.EditSearchInMessage.Name = "EditSearchInMessage";
+      this.EditSearchInMessage.Size = new System.Drawing.Size(116, 17);
+      this.EditSearchInMessage.TabIndex = 13;
+      this.EditSearchInMessage.Text = "Search in message";
+      this.EditSearchInMessage.UseVisualStyleBackColor = true;
+      this.EditSearchInMessage.CheckedChanged += new System.EventHandler(this.EditSearch_CheckedChanged);
+      // 
+      // EditSearchUser
+      // 
+      this.EditSearchUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.EditSearchUser.AutoSize = true;
+      this.EditSearchUser.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+      this.EditSearchUser.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.SearchUser;
+      this.EditSearchUser.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.EditSearchUser.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "SearchUser", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.EditSearchUser.Location = new System.Drawing.Point(841, 26);
+      this.EditSearchUser.Name = "EditSearchUser";
+      this.EditSearchUser.Size = new System.Drawing.Size(112, 17);
+      this.EditSearchUser.TabIndex = 13;
+      this.EditSearchUser.Text = "Search user name";
+      this.EditSearchUser.UseVisualStyleBackColor = true;
+      this.EditSearchUser.CheckedChanged += new System.EventHandler(this.EditSearch_CheckedChanged);
+      // 
+      // EditDeleteOnlyLocal
+      // 
+      this.EditDeleteOnlyLocal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.EditDeleteOnlyLocal.AutoSize = true;
+      this.EditDeleteOnlyLocal.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+      this.EditDeleteOnlyLocal.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.DeleteOnlyLocalMode;
+      this.EditDeleteOnlyLocal.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "DeleteOnlyLocalMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.EditDeleteOnlyLocal.Location = new System.Drawing.Point(820, 5);
+      this.EditDeleteOnlyLocal.Name = "EditDeleteOnlyLocal";
+      this.EditDeleteOnlyLocal.Size = new System.Drawing.Size(133, 17);
+      this.EditDeleteOnlyLocal.TabIndex = 4;
+      this.EditDeleteOnlyLocal.Text = "Delete only local mode";
+      this.EditDeleteOnlyLocal.UseVisualStyleBackColor = true;
       // 
       // SettingsBindingSource
       // 
@@ -597,7 +597,7 @@
       this.Controls.Add(this.PanelMain);
       this.Controls.Add(this.StatusStrip);
       this.Name = "MainForm";
-      this.Text = "Twitter Manager";
+      this.Text = "Tweets Inspector";
       this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
       this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
       this.Load += new System.EventHandler(this.MainForm_Load);
@@ -677,7 +677,7 @@
     private System.Windows.Forms.BindingSource SettingsBindingSource;
     private System.Windows.Forms.TextBox twitterKeyTextBox;
     private System.Windows.Forms.TextBox twitterBackUrlTextBox;
-    private System.Windows.Forms.CheckBox twitterConnectAtStartupCheckBox;
+    private System.Windows.Forms.CheckBox EditConnectAtStartup;
   }
 }
 

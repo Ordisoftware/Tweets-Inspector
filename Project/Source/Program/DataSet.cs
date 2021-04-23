@@ -1,5 +1,5 @@
 ﻿/// <license>
-/// This file is part of Ordisoftware Twitter Manager.
+/// This file is part of Ordisoftware Tweets Inspector.
 /// Copyright 2021 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
@@ -17,7 +17,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Ordisoftware.Core;
 
-namespace Ordisoftware.TwitterManager.Data
+namespace Ordisoftware.TweetsInspector.Data
 {
 
   partial class DataSet
@@ -27,9 +27,9 @@ namespace Ordisoftware.TwitterManager.Data
     {
 
       public string ScreenName
-        => MainForm.TwitterTokens == null || MainForm.TwitterTokens.ScreenName.IsNullOrEmpty()
+        => MainForm.Tokens == null || MainForm.Tokens.ScreenName.IsNullOrEmpty()
            ? "ordisoftware"
-           : MainForm.TwitterTokens.ScreenName;
+           : MainForm.Tokens.ScreenName;
 
       public TweetType TypeAsEnum => (TweetType)Type;
 

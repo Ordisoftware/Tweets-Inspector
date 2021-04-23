@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ordisoftware.TwitterManager.Properties {
+namespace Ordisoftware.TweetsInspector.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -38,43 +38,43 @@ namespace Ordisoftware.TwitterManager.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TwitterKey {
+        public string ConsumerKey {
             get {
-                return ((string)(this["TwitterKey"]));
+                return ((string)(this["ConsumerKey"]));
             }
             set {
-                this["TwitterKey"] = value;
+                this["ConsumerKey"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TwitterSecret {
+        public string ConsumerSecret {
             get {
-                return ((string)(this["TwitterSecret"]));
+                return ((string)(this["ConsumerSecret"]));
             }
             set {
-                this["TwitterSecret"] = value;
+                this["ConsumerSecret"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TwitterBackUrl {
+        public string ConsumerBackUrl {
             get {
-                return ((string)(this["TwitterBackUrl"]));
+                return ((string)(this["ConsumerBackUrl"]));
             }
             set {
-                this["TwitterBackUrl"] = value;
+                this["ConsumerBackUrl"] = value;
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Dsn=Twitter-Manager")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Dsn=Tweets-Inspector")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));
@@ -107,13 +107,13 @@ namespace Ordisoftware.TwitterManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool TwitterConnectAtStartup {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ConnectAtStartup {
             get {
-                return ((bool)(this["TwitterConnectAtStartup"]));
+                return ((bool)(this["ConnectAtStartup"]));
             }
             set {
-                this["TwitterConnectAtStartup"] = value;
+                this["ConnectAtStartup"] = value;
             }
         }
     }

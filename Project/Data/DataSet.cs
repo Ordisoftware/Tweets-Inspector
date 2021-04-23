@@ -1,4 +1,4 @@
-﻿namespace Ordisoftware.TwitterManager.Data
+﻿namespace Ordisoftware.TweetsInspector.Data
 {
   partial class DataSet
   {

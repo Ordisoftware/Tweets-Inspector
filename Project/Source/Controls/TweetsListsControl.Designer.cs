@@ -1,4 +1,4 @@
-﻿namespace Ordisoftware.TwitterManager
+﻿namespace Ordisoftware.TweetsInspector
 {
   partial class TweetsControl
   {
@@ -30,9 +30,9 @@
     {
       this.splitContainerTweetsAndRT = new System.Windows.Forms.SplitContainer();
       this.SplitContainerTweetsMainAndReplies = new System.Windows.Forms.SplitContainer();
-      this.ListTweetsMain = new Ordisoftware.TwitterManager.ListTweets();
-      this.ListTweetsReplies = new Ordisoftware.TwitterManager.ListTweets();
-      this.ListTweetsRTs = new Ordisoftware.TwitterManager.ListTweets();
+      this.ListTweetsMain = new Ordisoftware.TweetsInspector.ListTweets();
+      this.ListTweetsReplies = new Ordisoftware.TweetsInspector.ListTweets();
+      this.ListTweetsRTs = new Ordisoftware.TweetsInspector.ListTweets();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerTweetsAndRT)).BeginInit();
       this.splitContainerTweetsAndRT.Panel1.SuspendLayout();
       this.splitContainerTweetsAndRT.Panel2.SuspendLayout();
