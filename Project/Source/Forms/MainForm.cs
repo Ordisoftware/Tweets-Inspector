@@ -53,6 +53,7 @@ namespace Ordisoftware.TweetsInspector
     public MainForm()
     {
       InitializeComponent();
+      SplitContainerMain.Panel1MinSize = TweetsControl.ListTweetsMain.MinimumSize.Width;
       TabControl.TabPages.Remove(TabPageMessages);
       SettingsBindingSource.DataSource = Settings;
       TweetsControl.Modified += TweetsControl_OnModified;
@@ -151,7 +152,7 @@ namespace Ordisoftware.TweetsInspector
                          .Distinct()
                          .OrderBy(recipient => recipient)
                          .ToArray();
-      ListBoxAllRecipients.Items.AddRange(array);
+      ListBoxUsers.Items.AddRange(array);
       LabelCountTweetsMainValue.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
       LabelCountTweetsRepliesValue.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
       LabelCountTweetsRTsValue.Text = TweetsControl.ListTweetsRTs.DataGridView.RowCount.ToString();
@@ -204,11 +205,12 @@ namespace Ordisoftware.TweetsInspector
 
     private void ListBoxAllRecipients_DoubleClick(object sender, EventArgs e)
     {
-      EditSearch.Text = ListBoxAllRecipients.SelectedItem.ToString();
+      EditSearch.Text = ListBoxUsers.SelectedItem.ToString();
     }
 
     private void ActionGetFollowers_Click(object sender, EventArgs e)
     {
+      if ( !IsConnected(true) ) return;
       int count = APIStep;
       var users = new List<User>();
       long? cursor = null;
@@ -224,6 +226,7 @@ namespace Ordisoftware.TweetsInspector
 
     private void ActionGetFellowing_Click(object sender, EventArgs e)
     {
+      if ( !IsConnected(true) ) return;
       int count = APIStep;
       var users = new List<User>();
       long? cursor = null;
@@ -239,6 +242,7 @@ namespace Ordisoftware.TweetsInspector
 
     private void ActionGetLikes_Click(object sender, EventArgs e)
     {
+      if ( !IsConnected(true) ) return;
       var list = Tokens.Favorites.List(Tokens.UserId, count: 200);
       foreach ( var item in list )
       {

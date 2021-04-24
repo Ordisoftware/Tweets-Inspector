@@ -27,6 +27,8 @@ namespace Ordisoftware.TweetsInspector
   public partial class MainForm
   {
 
+    private const string TwitterDateTemplate = "ddd MMM dd HH:mm:ss +ffff yyyy";
+
     private void DoLoadTweetsFromJS()
     {
       Cursor = Cursors.WaitCursor;
@@ -49,6 +51,7 @@ namespace Ordisoftware.TweetsInspector
         dynamic tweets = JArray.Parse(string.Join(Environment.NewLine, lines));
         LoadingForm.Instance.DoProgress();
         LoadingForm.Instance.Initialize(SysTranslations.ProgressCreatingData.GetLang(), ( (JArray)tweets ).Count);
+        var culture = new System.Globalization.CultureInfo("en-US");
         try
         {
           foreach ( var item in tweets )
@@ -56,7 +59,8 @@ namespace Ordisoftware.TweetsInspector
             LoadingForm.Instance.DoProgress();
             var row = DataSet.Tweets.NewTweetsRow();
             row.Id = (string)item.tweet.id;
-            row.Date = (string)item.tweet.created_at;
+            var date = DateTime.ParseExact((string)item.tweet.created_at, TwitterDateTemplate, culture);
+            row.Date = SQLiteDate.ToString(date, true);
             row.Message = (string)item.tweet.full_text;
             var recipients = new List<string>();
             string replyto = (string)item.tweet.in_reply_to_screen_name;

@@ -28,6 +28,7 @@
     /// </summary>
     private void InitializeComponent()
     {
+      this.components = new System.ComponentModel.Container();
       this.splitContainerTweetsAndRT = new System.Windows.Forms.SplitContainer();
       this.SplitContainerTweetsMainAndReplies = new System.Windows.Forms.SplitContainer();
       this.ListTweetsMain = new Ordisoftware.TweetsInspector.ListTweets();
@@ -59,8 +60,9 @@
       this.splitContainerTweetsAndRT.Panel2.Controls.Add(this.ListTweetsRTs);
       this.splitContainerTweetsAndRT.Size = new System.Drawing.Size(968, 639);
       this.splitContainerTweetsAndRT.SplitterDistance = 424;
-      this.splitContainerTweetsAndRT.SplitterWidth = 10;
+      this.splitContainerTweetsAndRT.SplitterWidth = 20;
       this.splitContainerTweetsAndRT.TabIndex = 7;
+      this.splitContainerTweetsAndRT.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainerTweetsAndRT_SplitterMoved);
       // 
       // SplitContainerTweetsMainAndReplies
       // 
@@ -77,32 +79,38 @@
       // 
       this.SplitContainerTweetsMainAndReplies.Panel2.Controls.Add(this.ListTweetsReplies);
       this.SplitContainerTweetsMainAndReplies.Size = new System.Drawing.Size(968, 424);
-      this.SplitContainerTweetsMainAndReplies.SplitterDistance = 208;
-      this.SplitContainerTweetsMainAndReplies.SplitterWidth = 10;
+      this.SplitContainerTweetsMainAndReplies.SplitterDistance = 210;
+      this.SplitContainerTweetsMainAndReplies.SplitterWidth = 20;
       this.SplitContainerTweetsMainAndReplies.TabIndex = 0;
       // 
       // ListTweetsMain
       // 
+      this.ListTweetsMain.DefaultFilter = null;
       this.ListTweetsMain.Dock = System.Windows.Forms.DockStyle.Fill;
       this.ListTweetsMain.Location = new System.Drawing.Point(0, 0);
+      this.ListTweetsMain.MinimumSize = new System.Drawing.Size(700, 120);
       this.ListTweetsMain.Name = "ListTweetsMain";
-      this.ListTweetsMain.Size = new System.Drawing.Size(968, 208);
+      this.ListTweetsMain.Size = new System.Drawing.Size(968, 210);
       this.ListTweetsMain.TabIndex = 7;
       // 
       // ListTweetsReplies
       // 
+      this.ListTweetsReplies.DefaultFilter = null;
       this.ListTweetsReplies.Dock = System.Windows.Forms.DockStyle.Fill;
       this.ListTweetsReplies.Location = new System.Drawing.Point(0, 0);
+      this.ListTweetsReplies.MinimumSize = new System.Drawing.Size(700, 120);
       this.ListTweetsReplies.Name = "ListTweetsReplies";
-      this.ListTweetsReplies.Size = new System.Drawing.Size(968, 206);
+      this.ListTweetsReplies.Size = new System.Drawing.Size(968, 194);
       this.ListTweetsReplies.TabIndex = 7;
       // 
       // ListTweetsRTs
       // 
+      this.ListTweetsRTs.DefaultFilter = null;
       this.ListTweetsRTs.Dock = System.Windows.Forms.DockStyle.Fill;
       this.ListTweetsRTs.Location = new System.Drawing.Point(0, 0);
+      this.ListTweetsRTs.MinimumSize = new System.Drawing.Size(700, 120);
       this.ListTweetsRTs.Name = "ListTweetsRTs";
-      this.ListTweetsRTs.Size = new System.Drawing.Size(968, 205);
+      this.ListTweetsRTs.Size = new System.Drawing.Size(968, 195);
       this.ListTweetsRTs.TabIndex = 6;
       // 
       // TweetsControl

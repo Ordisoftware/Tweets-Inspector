@@ -25,6 +25,11 @@ namespace Ordisoftware.TweetsInspector
   public partial class ListTweets : UserControl
   {
 
+    static public int ConfirmDeleteMaxIdsToShow = 10;
+    static public int ConfirmOpenMaxIds = 5;
+    static public int OpenMaxIds = 20;
+    static public int OpenDelay = 1000;
+
     public event EventHandler Modified;
 
     public string DefaultFilter { get; set; }
@@ -32,7 +37,12 @@ namespace Ordisoftware.TweetsInspector
     public object DataSource
     {
       get => DataGridView.DataSource;
-      set => DataGridView.DataSource = value;
+      set
+      {
+        DataGridView.DataSource = value;
+        if ( value != null )
+          DataGridView.Sort(ColumnDate, System.ComponentModel.ListSortDirection.Ascending);
+      }
     }
 
     public ListTweets()
@@ -104,25 +114,25 @@ namespace Ordisoftware.TweetsInspector
     private void OpenTweet(DataGridViewRow row, bool delay = false)
     {
       System.Diagnostics.Process.Start(GetTweetRow(row).Url);
-      if ( delay ) Thread.Sleep(1000);
+      if ( delay ) Thread.Sleep(OpenDelay);
     }
 
-    private void ActionTweetOpen_Click(object sender, EventArgs e)
+    private void ActionOpen_Click(object sender, EventArgs e)
     {
       int count = DataGridView.SelectedRows.Count;
-      if ( count > 10 )
+      if ( count > OpenMaxIds )
       {
         DisplayManager.Show($"Too many tweets to open : {count}");
         return;
       }
       else
-      if ( count > 4 )
+      if ( count >= ConfirmOpenMaxIds )
         if ( !DisplayManager.QueryYesNo($"Open {count} Tweet(s) ?") ) return;
       foreach ( DataGridViewRow item in DataGridView.SelectedRows )
         OpenTweet(item, true);
     }
 
-    private void ActionTweetDelete_Click(object sender, EventArgs e)
+    private void ActionDelete_Click(object sender, EventArgs e)
     {
       if ( DataGridView.SelectedRows.Count == 0 ) return;
       if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
@@ -132,8 +142,8 @@ namespace Ordisoftware.TweetsInspector
                                  .Select(item => GetTweetRow(item))
                                  .ToList();
       var listIds = listRows.Select(tweet => tweet.Id).ToList();
-      string msg = listIds.Count > 10
-                   ? string.Join(Globals.NL, listIds.Take(10)) + Globals.NL + "..."
+      string msg = listIds.Count > ConfirmDeleteMaxIdsToShow
+                   ? string.Join(Globals.NL, listIds.Take(ConfirmDeleteMaxIdsToShow)) + Globals.NL + "..."
                    : string.Join(Globals.NL, listIds);
       if ( !DisplayManager.QueryYesNo($"Delete {listRows.Count} {LabelTitle.Text} ?" + Globals.NL2 + msg) )
         return;
