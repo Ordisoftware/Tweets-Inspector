@@ -98,28 +98,35 @@ namespace Ordisoftware.TweetsInspector
       if ( IsConnected(false) ) return;
       if ( Settings.ConsumerKey == "" || Settings.ConsumerSecret == "" || Settings.ConsumerBackUrl == "" ) return;
       Enabled = false;
-      bool done = false;
-      bool cancelled = false;
-      Session = OAuth.Authorize(Settings.ConsumerKey, Settings.ConsumerSecret, Settings.ConsumerBackUrl);
-      var form = new WebBrowserForm();
-      form.FormClosed += (_s, _e) => cancelled = !done;
-      form.WebBrowser.AddressChanged += (_s, _e) => done |= _e.Address.Contains(Settings.ConsumerBackUrl);
-      form.WebBrowser.Load(Session.AuthorizeUri.AbsoluteUri);
-      form.Show();
-      while ( !done && !cancelled ) await Task.Delay(100);
-      if ( form.Visible ) form.Close();
-      this.ForceBringToFront();
-      Enabled = true;
-      if ( cancelled ) return;
-      var items = form.WebBrowser.Address.SplitNoEmptyLines($"&{OAuthVerifierTag}=");
-      if ( items.Length == 2 && items[1].Trim() != "" )
+      try
       {
-        Tokens = Session.GetTokens(items[1]);
-        Text = $"{Globals.AssemblyTitle} - Connected @{Tokens.ScreenName}";
-        ActionConnect.Enabled = false;
+        bool done = false;
+        bool cancelled = false;
+        Session = OAuth.Authorize(Settings.ConsumerKey, Settings.ConsumerSecret, Settings.ConsumerBackUrl);
+        var form = new WebBrowserForm();
+        form.FormClosed += (_s, _e) => cancelled = !done;
+        form.WebBrowser.AddressChanged += (_s, _e) => done |= _e.Address.Contains(Settings.ConsumerBackUrl);
+        form.WebBrowser.Load(Session.AuthorizeUri.AbsoluteUri);
+        form.Show();
+        while ( !done && !cancelled ) await Task.Delay(100);
+        if ( form.Visible ) form.Close();
+        this.ForceBringToFront();
+        Enabled = true;
+        if ( cancelled ) return;
+        var items = form.WebBrowser.Address.SplitNoEmptyLines($"&{OAuthVerifierTag}=");
+        if ( items.Length == 2 && items[1].Trim() != "" )
+        {
+          Tokens = Session.GetTokens(items[1]);
+          Text = $"{Globals.AssemblyTitle} - Connected @{Tokens.ScreenName}";
+          ActionConnect.Enabled = false;
+        }
+        else
+          DisplayManager.ShowWarning($"Tag not found : {OAuthVerifierTag}");
       }
-      else
-        DisplayManager.ShowWarning($"Tag not found : {OAuthVerifierTag}");
+      finally
+      {
+        Enabled = true;
+      }
     }
 
     private void ActionLoadFromJS_Click(object sender, EventArgs e)
