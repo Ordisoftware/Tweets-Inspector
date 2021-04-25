@@ -51,7 +51,7 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 
 ## Screenshots
 
-[![Wireframe](https://www.ordisoftware.com/uploads/2021/04/tweets-inspector-wireframe-400x281.jpg)](https://www.ordisoftware.com/uploads/2021/04/tweets-inspector-wireframe.jpg)
+[![Wireframe](https://www.ordisoftware.com/uploads/2021/04/tweets-inspector-wireframe2-400x267.png)](https://www.ordisoftware.com/uploads/2021/04/tweets-inspector-wireframe2.png)
 
 ## Frequently asked questions
 
