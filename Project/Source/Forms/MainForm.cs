@@ -82,6 +82,7 @@ namespace Ordisoftware.TweetsInspector
     private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
     {
       Settings.Save();
+      if ( DataSet.HasChanges() ) TableAdapterManager.UpdateAll(DataSet);
     }
 
     private void ActionOpenMessages_Click(object sender, EventArgs e)

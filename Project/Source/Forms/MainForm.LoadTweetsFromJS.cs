@@ -16,6 +16,7 @@ using System;
 using System.IO;
 using System.Data;
 using System.Data.Odbc;
+using System.Globalization;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Ordisoftware.Core;
@@ -28,6 +29,8 @@ namespace Ordisoftware.TweetsInspector
   {
 
     private const string TwitterDateTemplate = "ddd MMM dd HH:mm:ss +ffff yyyy";
+
+    private readonly CultureInfo CultureEN = new CultureInfo("en-US");
 
     private void DoLoadTweetsFromJS()
     {
@@ -51,7 +54,6 @@ namespace Ordisoftware.TweetsInspector
         dynamic tweets = JArray.Parse(string.Join(Environment.NewLine, lines));
         LoadingForm.Instance.DoProgress();
         LoadingForm.Instance.Initialize(SysTranslations.ProgressCreatingData.GetLang(), ( (JArray)tweets ).Count);
-        var culture = new System.Globalization.CultureInfo("en-US");
         try
         {
           foreach ( var item in tweets )
@@ -59,7 +61,7 @@ namespace Ordisoftware.TweetsInspector
             LoadingForm.Instance.DoProgress();
             var row = DataSet.Tweets.NewTweetsRow();
             row.Id = (string)item.tweet.id;
-            var date = DateTime.ParseExact((string)item.tweet.created_at, TwitterDateTemplate, culture);
+            var date = DateTime.ParseExact((string)item.tweet.created_at, TwitterDateTemplate, CultureEN);
             row.Date = SQLiteDate.ToString(date, true);
             row.Message = (string)item.tweet.full_text;
             var recipients = new List<string>();
