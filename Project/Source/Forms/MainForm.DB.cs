@@ -64,6 +64,15 @@ namespace Ordisoftware.TweetsInspector
                                           DateRemoved TEXT DEFAULT '' NOT NULL,
                                           PRIMARY KEY(Id)
                                         )");
+        //
+        LockFileConnection.CheckTable(@"AutoDelete",
+                                      @"CREATE TABLE AutoDelete
+                                        ( 
+                                          Id TEXT DEFAULT '' NOT NULL,
+                                          DateCreated TEXT DEFAULT '' NOT NULL,
+                                          DateToDelete TEXT DEFAULT '' NOT NULL,
+                                          PRIMARY KEY(Id)
+                                        )");
       });
     }
 
