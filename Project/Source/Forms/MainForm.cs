@@ -56,20 +56,22 @@ namespace Ordisoftware.TweetsInspector
     public MainForm()
     {
       InitializeComponent();
-      UsersDataTable.Columns.Add("User", typeof(string));
-      UsersDataTable.Columns.Add("Count", typeof(int));
-      SplitContainerMain.Panel1MinSize = TweetsControl.ListTweetsMain.MinimumSize.Width;
       TabControl.TabPages.Remove(TabPageMessages);
-      SettingsBindingSource.DataSource = Settings;
-      TweetsControl.Modified += TweetsControl_OnModified;
+      SplitContainerMain.Panel1MinSize = TweetsControl.ListTweetsMain.MinimumSize.Width;
       Text = $"{Globals.AssemblyTitle} - Not connected";
       SystemManager.TryCatch(() => { Icon = new Icon(Globals.ApplicationIconFilePath); });
+      UsersDataTable.Columns.Add("User", typeof(string));
+      UsersDataTable.Columns.Add("Count", typeof(int));
+      TweetsControl.Modified += TweetsControl_OnModified;
+      SettingsBindingSource.DataSource = Settings;
     }
 
     private void MainForm_Load(object sender, EventArgs e)
     {
       CreateSchemaIfNotExists();
       TweetsTableAdapter.Fill(DataSet.Tweets);
+      TrashTableAdapter.Fill(DataSet.Trash);
+      ListTweetsTrash.DataSource = TrashBindingSource;
       UpdateListViews();
     }
 

@@ -32,6 +32,12 @@ namespace Ordisoftware.TweetsInspector
 
     public event EventHandler Modified;
 
+    public string Title
+    {
+      get => LabelTitle.Text;
+      set => LabelTitle.Text = value;
+    }
+
     public string DefaultFilter { get; set; }
 
     public object DataSource
@@ -67,6 +73,7 @@ namespace Ordisoftware.TweetsInspector
 
     private void ActionFilterClear_Click(object sender, EventArgs e)
     {
+      EditFilter.Text = "";
       ( DataGridView.DataSource as BindingSource ).Filter = DefaultFilter;
     }
 
@@ -75,13 +82,14 @@ namespace Ordisoftware.TweetsInspector
       var ds = DataGridView.DataSource as BindingSource;
       if ( EditFilter.Text != "" )
       {
+        string filter = DefaultFilter.IsNullOrEmpty() ? "" : $"{DefaultFilter} AND";
         if ( MainForm.Instance.EditSearchInRecipients.Checked && MainForm.Instance.EditSearchInMessage.Checked )
-          ds.Filter = $"{DefaultFilter} AND ( Recipients LIKE '*{EditFilter.Text}*' OR Message LIKE '*{EditFilter.Text}*' )";
+          ds.Filter = $"{filter} ( Recipients LIKE '*{EditFilter.Text}*' OR Message LIKE '*{EditFilter.Text}*' )";
         else
         if ( MainForm.Instance.EditSearchInRecipients.Checked )
-          ds.Filter = $"{DefaultFilter} AND Recipients LIKE '*{EditFilter.Text}*'";
+          ds.Filter = $"{filter} Recipients LIKE '*{EditFilter.Text}*'";
         else
-          ds.Filter = $"{DefaultFilter} AND Message LIKE '*{EditFilter.Text}*'";
+          ds.Filter = $"{filter} Message LIKE '*{EditFilter.Text}*'";
       }
       else
         ds.Filter = DefaultFilter;
