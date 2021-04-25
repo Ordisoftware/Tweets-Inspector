@@ -302,6 +302,7 @@
     <Compile Include="Source\Controls\TweetsListsControl.Designer.cs">
       <DependentUpon>TweetsListsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\Program\StartupConnectAction.cs" />
     <EmbeddedResource Include="Dependencies\Core\WinForms.Controls\ComboBoxNavigator.resx">
       <DependentUpon>ComboBoxNavigator.cs</DependentUpon>
     </EmbeddedResource>

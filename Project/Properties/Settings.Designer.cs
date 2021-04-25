@@ -107,13 +107,13 @@ namespace Ordisoftware.TweetsInspector.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ConnectAtStartup {
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
+        public global::Ordisoftware.TweetsInspector.StartupConnectAction StartupConnectAction {
             get {
-                return ((bool)(this["ConnectAtStartup"]));
+                return ((global::Ordisoftware.TweetsInspector.StartupConnectAction)(this["StartupConnectAction"]));
             }
             set {
-                this["ConnectAtStartup"] = value;
+                this["StartupConnectAction"] = value;
             }
         }
         
