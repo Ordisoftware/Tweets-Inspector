@@ -20,7 +20,7 @@ using System.Windows.Forms;
 using CoreTweet;
 using Ordisoftware.Core;
 using System.Drawing;
-using System.Threading.Tasks;
+using System.Data;
 
 namespace Ordisoftware.TweetsInspector
 {
@@ -30,11 +30,13 @@ namespace Ordisoftware.TweetsInspector
   public partial class MainForm : Form
   {
 
-    private const string OAuthVerifierTag = "oauth_verifier";
     private const int APIStep = 50;
 
     static internal readonly MainForm Instance;
     static internal readonly Properties.Settings Settings = Program.Settings;
+
+    static private readonly DataTable UsersDataTable = new DataTable();
+
     static internal OAuth.OAuthSession Session { get; private set; }
     static internal Tokens Tokens { get; private set; }
 
@@ -42,6 +44,7 @@ namespace Ordisoftware.TweetsInspector
     {
       Instance = new MainForm();
     }
+
 
     internal static bool IsConnected(bool showMessage)
     {
@@ -53,6 +56,9 @@ namespace Ordisoftware.TweetsInspector
     public MainForm()
     {
       InitializeComponent();
+      UsersDataTable.Columns.Add("User", typeof(string));
+      UsersDataTable.Columns.Add("Count", typeof(int));
+      SplitContainerMain.Panel1MinSize = TweetsControl.ListTweetsMain.MinimumSize.Width;
       TabControl.TabPages.Remove(TabPageMessages);
       SettingsBindingSource.DataSource = Settings;
       TweetsControl.Modified += TweetsControl_OnModified;
@@ -93,40 +99,9 @@ namespace Ordisoftware.TweetsInspector
       File.WriteAllLines(Path.Combine(path, name + " - RT.txt"), SelectTweetsRT.Items.Cast<string>());*/
     }
 
-    private async void ActionConnect_Click(object sender, EventArgs e)
+    private void ActionConnect_Click(object sender, EventArgs e)
     {
-      if ( IsConnected(false) ) return;
-      if ( Settings.ConsumerKey == "" || Settings.ConsumerSecret == "" || Settings.ConsumerBackUrl == "" ) return;
-      Enabled = false;
-      try
-      {
-        bool done = false;
-        bool cancelled = false;
-        Session = OAuth.Authorize(Settings.ConsumerKey, Settings.ConsumerSecret, Settings.ConsumerBackUrl);
-        var form = new WebBrowserForm();
-        form.FormClosed += (_s, _e) => cancelled = !done;
-        form.WebBrowser.AddressChanged += (_s, _e) => done |= _e.Address.Contains(Settings.ConsumerBackUrl);
-        form.WebBrowser.Load(Session.AuthorizeUri.AbsoluteUri);
-        form.Show();
-        while ( !done && !cancelled ) await Task.Delay(100);
-        if ( form.Visible ) form.Close();
-        this.ForceBringToFront();
-        Enabled = true;
-        if ( cancelled ) return;
-        var items = form.WebBrowser.Address.SplitNoEmptyLines($"&{OAuthVerifierTag}=");
-        if ( items.Length == 2 && items[1].Trim() != "" )
-        {
-          Tokens = Session.GetTokens(items[1]);
-          Text = $"{Globals.AssemblyTitle} - Connected @{Tokens.ScreenName}";
-          ActionConnect.Enabled = false;
-        }
-        else
-          DisplayManager.ShowWarning($"Tag not found : {OAuthVerifierTag}");
-      }
-      finally
-      {
-        Enabled = true;
-      }
+      DoConnect();
     }
 
     private void ActionLoadFromJS_Click(object sender, EventArgs e)
@@ -146,23 +121,63 @@ namespace Ordisoftware.TweetsInspector
 
     private void TweetsControl_OnModified(object sender, EventArgs e)
     {
-      var array = DataSet.Tweets
-                         .SelectMany(t => t.RecipientsAsList)
-                         .Distinct()
-                         .OrderBy(recipient => recipient)
-                         .ToArray();
-      ListBoxAllRecipients.Items.AddRange(array);
-      LabelCountTweetsMainValue.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
-      LabelCountTweetsRepliesValue.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
-      LabelCountTweetsRTsValue.Text = TweetsControl.ListTweetsRTs.DataGridView.RowCount.ToString();
-      LabelCountAllRecipientsValue.Text = array.Length.ToString();
+      Globals.IsGenerating = true;
+      try
+      {
+        var users = DataSet.Tweets
+                           .SelectMany(tweet => tweet.RecipientsAsList)
+                           .GroupBy(recipient => recipient, (recipient, group) => new { recipient, count = group.Count() })
+                           .Where(item => !item.recipient.IsNullOrEmpty())
+                           .ToDictionary(item => item.recipient, item => item.count);
+        foreach ( var item in users )
+          UsersDataTable.Rows.Add(item.Key, item.Value);
+        UserBindingSource.DataSource = UsersDataTable;
+        LabelCountTweetsMainValue.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
+        LabelCountTweetsRepliesValue.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
+        LabelCountTweetsRTsValue.Text = TweetsControl.ListTweetsRTs.DataGridView.RowCount.ToString();
+        LabelCountAllRecipientsValue.Text = users.Count().ToString();
+      }
+      finally
+      {
+        Globals.IsGenerating = false;
+      }
     }
 
-    private void EditSearch_CheckedChanged(object sender, EventArgs e)
+    private void EditFilterUsers_TextChanged(object sender, EventArgs e)
     {
-      if ( !EditSearchUser.Checked && !EditSearchInMessage.Checked )
+      var ds = DataGridViewUsers.DataSource as BindingSource;
+      if ( EditFilterUsers.Text != "" )
+        ds.Filter = $"User LIKE '*{EditFilterUsers.Text}*'";
+      else
+        ds.Filter = "";
+      DataGridViewUsers.ClearSelection();
+    }
+
+    private void DataGridViewUsers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+    {
+      if ( e.RowIndex == -1 ) return;
+      EditSearch.Text = (string)DataGridViewUsers[0, e.RowIndex].Value;
+    }
+
+    private void DataGridViewUsers_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+      if ( !EditSingleClickUserFilter.Checked ) return;
+      DataGridViewUsers_CellDoubleClick(sender, e);
+    }
+
+    private void DataGridViewUsers_SelectionChanged(object sender, EventArgs e)
+    {
+      if ( Globals.IsGenerating ) return;
+      if ( !EditSingleClickUserFilter.Checked ) return;
+      if ( DataGridViewUsers.SelectedRows.Count == 0 ) return;
+      EditSearch.Text = (string)DataGridViewUsers.SelectedRows[0].Cells[0].Value;
+    }
+
+    private void EditSearchInRecipients_CheckedChanged(object sender, EventArgs e)
+    {
+      if ( !EditSearchInRecipients.Checked && !EditSearchInMessage.Checked )
       {
-        EditSearchUser.Checked = true;
+        EditSearchInRecipients.Checked = true;
         EditSearchInMessage.Checked = true;
       }
       TweetsControl.RefreshFilters();
@@ -202,13 +217,9 @@ namespace Ordisoftware.TweetsInspector
       TweetsControl.SetSearchTerm(EditSearch.Text);
     }
 
-    private void ListBoxAllRecipients_DoubleClick(object sender, EventArgs e)
-    {
-      EditSearch.Text = ListBoxAllRecipients.SelectedItem.ToString();
-    }
-
     private void ActionGetFollowers_Click(object sender, EventArgs e)
     {
+      if ( !IsConnected(true) ) return;
       int count = APIStep;
       var users = new List<User>();
       long? cursor = null;
@@ -224,6 +235,7 @@ namespace Ordisoftware.TweetsInspector
 
     private void ActionGetFellowing_Click(object sender, EventArgs e)
     {
+      if ( !IsConnected(true) ) return;
       int count = APIStep;
       var users = new List<User>();
       long? cursor = null;
@@ -239,6 +251,7 @@ namespace Ordisoftware.TweetsInspector
 
     private void ActionGetLikes_Click(object sender, EventArgs e)
     {
+      if ( !IsConnected(true) ) return;
       var list = Tokens.Favorites.List(Tokens.UserId, count: 200);
       foreach ( var item in list )
       {

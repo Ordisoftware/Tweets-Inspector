@@ -84,12 +84,12 @@ namespace Ordisoftware.TweetsInspector.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SearchUser {
+        public bool SearchInRecipients {
             get {
-                return ((bool)(this["SearchUser"]));
+                return ((bool)(this["SearchInRecipients"]));
             }
             set {
-                this["SearchUser"] = value;
+                this["SearchInRecipients"] = value;
             }
         }
         
@@ -114,6 +114,18 @@ namespace Ordisoftware.TweetsInspector.Properties {
             }
             set {
                 this["ConnectAtStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SingleClickUserFilter {
+            get {
+                return ((bool)(this["SingleClickUserFilter"]));
+            }
+            set {
+                this["SingleClickUserFilter"] = value;
             }
         }
     }

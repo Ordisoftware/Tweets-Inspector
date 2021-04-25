@@ -106,6 +106,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Source\Forms\MainForm.Connect.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Source\Forms\WebBrowserForm.cs">
       <SubType>Form</SubType>
     </Compile>

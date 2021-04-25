@@ -32,6 +32,7 @@
       System.Windows.Forms.Label LabelConsumerBackUrl;
       System.Windows.Forms.Label LabelConsumerKey;
       System.Windows.Forms.Label LabelConsumerSecret;
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
       this.ActionOpenMessages = new System.Windows.Forms.Button();
       this.OpenFileDialogJS = new System.Windows.Forms.OpenFileDialog();
       this.EditUser1 = new System.Windows.Forms.TextBox();
@@ -41,11 +42,19 @@
       this.TabControl = new System.Windows.Forms.TabControl();
       this.TabPageTweets = new System.Windows.Forms.TabPage();
       this.SplitContainerMain = new System.Windows.Forms.SplitContainer();
-      this.ListBoxAllRecipients = new System.Windows.Forms.ListBox();
+      this.panel1 = new System.Windows.Forms.Panel();
+      this.DataGridViewUsers = new System.Windows.Forms.DataGridView();
+      this.ColumnUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ColumnCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.UserBindingSource = new System.Windows.Forms.BindingSource(this.components);
+      this.PanelFilterUsers = new System.Windows.Forms.Panel();
+      this.EditFilterUsers = new System.Windows.Forms.TextBox();
+      this.ActionFilterUsersClear = new System.Windows.Forms.Button();
       this.PanelTweetsTop = new System.Windows.Forms.Panel();
+      this.EditSingleClickUserFilter = new System.Windows.Forms.CheckBox();
       this.ActionDelete = new System.Windows.Forms.Button();
       this.EditSearchInMessage = new System.Windows.Forms.CheckBox();
-      this.EditSearchUser = new System.Windows.Forms.CheckBox();
+      this.EditSearchInRecipients = new System.Windows.Forms.CheckBox();
       this.ActionGetLikes = new System.Windows.Forms.Button();
       this.ActionSelectAll = new System.Windows.Forms.Button();
       this.ActionSelectNone = new System.Windows.Forms.Button();
@@ -90,6 +99,10 @@
       this.SplitContainerMain.Panel1.SuspendLayout();
       this.SplitContainerMain.Panel2.SuspendLayout();
       this.SplitContainerMain.SuspendLayout();
+      this.panel1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.DataGridViewUsers)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.UserBindingSource)).BeginInit();
+      this.PanelFilterUsers.SuspendLayout();
       this.PanelTweetsTop.SuspendLayout();
       this.TabPageMessages.SuspendLayout();
       this.TabPageSettings.SuspendLayout();
@@ -184,7 +197,7 @@
       this.TabControl.Location = new System.Drawing.Point(10, 10);
       this.TabControl.Name = "TabControl";
       this.TabControl.SelectedIndex = 0;
-      this.TabControl.Size = new System.Drawing.Size(964, 617);
+      this.TabControl.Size = new System.Drawing.Size(864, 567);
       this.TabControl.TabIndex = 3;
       // 
       // TabPageTweets
@@ -194,14 +207,14 @@
       this.TabPageTweets.Controls.Add(this.PanelTweetsTop);
       this.TabPageTweets.Location = new System.Drawing.Point(4, 25);
       this.TabPageTweets.Name = "TabPageTweets";
-      this.TabPageTweets.Size = new System.Drawing.Size(956, 588);
+      this.TabPageTweets.Size = new System.Drawing.Size(856, 538);
       this.TabPageTweets.TabIndex = 1;
       this.TabPageTweets.Text = "Tweets";
       // 
       // SplitContainerMain
       // 
       this.SplitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.SplitContainerMain.Location = new System.Drawing.Point(0, 65);
+      this.SplitContainerMain.Location = new System.Drawing.Point(0, 70);
       this.SplitContainerMain.Name = "SplitContainerMain";
       // 
       // SplitContainerMain.Panel1
@@ -210,29 +223,111 @@
       // 
       // SplitContainerMain.Panel2
       // 
-      this.SplitContainerMain.Panel2.Controls.Add(this.ListBoxAllRecipients);
-      this.SplitContainerMain.Size = new System.Drawing.Size(956, 523);
-      this.SplitContainerMain.SplitterDistance = 838;
-      this.SplitContainerMain.SplitterWidth = 10;
+      this.SplitContainerMain.Panel2.Controls.Add(this.panel1);
+      this.SplitContainerMain.Panel2MinSize = 100;
+      this.SplitContainerMain.Size = new System.Drawing.Size(856, 468);
+      this.SplitContainerMain.SplitterDistance = 730;
       this.SplitContainerMain.TabIndex = 9;
       // 
-      // ListBoxAllRecipients
+      // panel1
       // 
-      this.ListBoxAllRecipients.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.ListBoxAllRecipients.FormattingEnabled = true;
-      this.ListBoxAllRecipients.IntegralHeight = false;
-      this.ListBoxAllRecipients.Location = new System.Drawing.Point(0, 0);
-      this.ListBoxAllRecipients.Name = "ListBoxAllRecipients";
-      this.ListBoxAllRecipients.Size = new System.Drawing.Size(108, 523);
-      this.ListBoxAllRecipients.TabIndex = 11;
-      this.ListBoxAllRecipients.DoubleClick += new System.EventHandler(this.ListBoxAllRecipients_DoubleClick);
+      this.panel1.Controls.Add(this.DataGridViewUsers);
+      this.panel1.Controls.Add(this.PanelFilterUsers);
+      this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.panel1.Location = new System.Drawing.Point(0, 0);
+      this.panel1.Name = "panel1";
+      this.panel1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+      this.panel1.Size = new System.Drawing.Size(122, 468);
+      this.panel1.TabIndex = 1;
+      // 
+      // DataGridViewUsers
+      // 
+      this.DataGridViewUsers.AllowUserToAddRows = false;
+      this.DataGridViewUsers.AllowUserToDeleteRows = false;
+      this.DataGridViewUsers.AllowUserToResizeRows = false;
+      this.DataGridViewUsers.AutoGenerateColumns = false;
+      dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+      dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+      dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+      dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control;
+      dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+      dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+      this.DataGridViewUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+      this.DataGridViewUsers.ColumnHeadersHeight = 25;
+      this.DataGridViewUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+      this.DataGridViewUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnUser,
+            this.ColumnCount});
+      this.DataGridViewUsers.DataSource = this.UserBindingSource;
+      this.DataGridViewUsers.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.DataGridViewUsers.EnableHeadersVisualStyles = false;
+      this.DataGridViewUsers.Location = new System.Drawing.Point(5, 30);
+      this.DataGridViewUsers.MultiSelect = false;
+      this.DataGridViewUsers.Name = "DataGridViewUsers";
+      this.DataGridViewUsers.ReadOnly = true;
+      this.DataGridViewUsers.RowHeadersVisible = false;
+      this.DataGridViewUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+      this.DataGridViewUsers.Size = new System.Drawing.Size(117, 438);
+      this.DataGridViewUsers.TabIndex = 4;
+      this.DataGridViewUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewUsers_CellClick);
+      this.DataGridViewUsers.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewUsers_CellDoubleClick);
+      this.DataGridViewUsers.SelectionChanged += new System.EventHandler(this.DataGridViewUsers_SelectionChanged);
+      // 
+      // ColumnUser
+      // 
+      this.ColumnUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+      this.ColumnUser.DataPropertyName = "User";
+      this.ColumnUser.HeaderText = "User";
+      this.ColumnUser.Name = "ColumnUser";
+      this.ColumnUser.ReadOnly = true;
+      // 
+      // ColumnCount
+      // 
+      this.ColumnCount.DataPropertyName = "Count";
+      this.ColumnCount.HeaderText = "Count";
+      this.ColumnCount.Name = "ColumnCount";
+      this.ColumnCount.ReadOnly = true;
+      this.ColumnCount.Width = 50;
+      // 
+      // PanelFilterUsers
+      // 
+      this.PanelFilterUsers.Controls.Add(this.EditFilterUsers);
+      this.PanelFilterUsers.Controls.Add(this.ActionFilterUsersClear);
+      this.PanelFilterUsers.Dock = System.Windows.Forms.DockStyle.Top;
+      this.PanelFilterUsers.Location = new System.Drawing.Point(5, 0);
+      this.PanelFilterUsers.Name = "PanelFilterUsers";
+      this.PanelFilterUsers.Size = new System.Drawing.Size(117, 30);
+      this.PanelFilterUsers.TabIndex = 0;
+      // 
+      // EditFilterUsers
+      // 
+      this.EditFilterUsers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.EditFilterUsers.Location = new System.Drawing.Point(0, 4);
+      this.EditFilterUsers.Name = "EditFilterUsers";
+      this.EditFilterUsers.Size = new System.Drawing.Size(89, 20);
+      this.EditFilterUsers.TabIndex = 5;
+      this.EditFilterUsers.TextChanged += new System.EventHandler(this.EditFilterUsers_TextChanged);
+      // 
+      // ActionFilterUsersClear
+      // 
+      this.ActionFilterUsersClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.ActionFilterUsersClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionFilterUsersClear.Location = new System.Drawing.Point(95, 3);
+      this.ActionFilterUsersClear.Name = "ActionFilterUsersClear";
+      this.ActionFilterUsersClear.Size = new System.Drawing.Size(23, 23);
+      this.ActionFilterUsersClear.TabIndex = 2;
+      this.ActionFilterUsersClear.Text = "X";
+      this.ActionFilterUsersClear.UseVisualStyleBackColor = true;
       // 
       // PanelTweetsTop
       // 
       this.PanelTweetsTop.AutoScroll = true;
+      this.PanelTweetsTop.Controls.Add(this.EditSingleClickUserFilter);
       this.PanelTweetsTop.Controls.Add(this.ActionDelete);
       this.PanelTweetsTop.Controls.Add(this.EditSearchInMessage);
-      this.PanelTweetsTop.Controls.Add(this.EditSearchUser);
+      this.PanelTweetsTop.Controls.Add(this.EditSearchInRecipients);
       this.PanelTweetsTop.Controls.Add(this.ActionGetLikes);
       this.PanelTweetsTop.Controls.Add(this.ActionSelectAll);
       this.PanelTweetsTop.Controls.Add(this.ActionSelectNone);
@@ -247,8 +342,22 @@
       this.PanelTweetsTop.Dock = System.Windows.Forms.DockStyle.Top;
       this.PanelTweetsTop.Location = new System.Drawing.Point(0, 0);
       this.PanelTweetsTop.Name = "PanelTweetsTop";
-      this.PanelTweetsTop.Size = new System.Drawing.Size(956, 65);
+      this.PanelTweetsTop.Size = new System.Drawing.Size(856, 70);
       this.PanelTweetsTop.TabIndex = 5;
+      // 
+      // EditSingleClickUserFilter
+      // 
+      this.EditSingleClickUserFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.EditSingleClickUserFilter.AutoSize = true;
+      this.EditSingleClickUserFilter.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+      this.EditSingleClickUserFilter.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.SingleClickUserFilter;
+      this.EditSingleClickUserFilter.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "SingleClickUserFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.EditSingleClickUserFilter.Location = new System.Drawing.Point(714, 16);
+      this.EditSingleClickUserFilter.Name = "EditSingleClickUserFilter";
+      this.EditSingleClickUserFilter.Size = new System.Drawing.Size(139, 17);
+      this.EditSingleClickUserFilter.TabIndex = 15;
+      this.EditSingleClickUserFilter.Text = "Single click user filtering";
+      this.EditSingleClickUserFilter.UseVisualStyleBackColor = true;
       // 
       // ActionDelete
       // 
@@ -269,29 +378,29 @@
       this.EditSearchInMessage.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.SearchInMessage;
       this.EditSearchInMessage.CheckState = System.Windows.Forms.CheckState.Checked;
       this.EditSearchInMessage.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "SearchInMessage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-      this.EditSearchInMessage.Location = new System.Drawing.Point(837, 43);
+      this.EditSearchInMessage.Location = new System.Drawing.Point(737, 48);
       this.EditSearchInMessage.Name = "EditSearchInMessage";
       this.EditSearchInMessage.Size = new System.Drawing.Size(116, 17);
       this.EditSearchInMessage.TabIndex = 13;
       this.EditSearchInMessage.Text = "Search in message";
       this.EditSearchInMessage.UseVisualStyleBackColor = true;
-      this.EditSearchInMessage.CheckedChanged += new System.EventHandler(this.EditSearch_CheckedChanged);
+      this.EditSearchInMessage.CheckedChanged += new System.EventHandler(this.EditSearchInRecipients_CheckedChanged);
       // 
-      // EditSearchUser
+      // EditSearchInRecipients
       // 
-      this.EditSearchUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.EditSearchUser.AutoSize = true;
-      this.EditSearchUser.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-      this.EditSearchUser.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.SearchUser;
-      this.EditSearchUser.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.EditSearchUser.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "SearchUser", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-      this.EditSearchUser.Location = new System.Drawing.Point(841, 26);
-      this.EditSearchUser.Name = "EditSearchUser";
-      this.EditSearchUser.Size = new System.Drawing.Size(112, 17);
-      this.EditSearchUser.TabIndex = 13;
-      this.EditSearchUser.Text = "Search user name";
-      this.EditSearchUser.UseVisualStyleBackColor = true;
-      this.EditSearchUser.CheckedChanged += new System.EventHandler(this.EditSearch_CheckedChanged);
+      this.EditSearchInRecipients.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.EditSearchInRecipients.AutoSize = true;
+      this.EditSearchInRecipients.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+      this.EditSearchInRecipients.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.SearchInRecipients;
+      this.EditSearchInRecipients.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.EditSearchInRecipients.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "SearchInRecipients", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.EditSearchInRecipients.Location = new System.Drawing.Point(745, 32);
+      this.EditSearchInRecipients.Name = "EditSearchInRecipients";
+      this.EditSearchInRecipients.Size = new System.Drawing.Size(108, 17);
+      this.EditSearchInRecipients.TabIndex = 13;
+      this.EditSearchInRecipients.Text = "Search recipients";
+      this.EditSearchInRecipients.UseVisualStyleBackColor = true;
+      this.EditSearchInRecipients.CheckedChanged += new System.EventHandler(this.EditSearchInRecipients_CheckedChanged);
       // 
       // ActionGetLikes
       // 
@@ -363,7 +472,7 @@
       this.EditDeleteOnlyLocal.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
       this.EditDeleteOnlyLocal.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.DeleteOnlyLocalMode;
       this.EditDeleteOnlyLocal.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "DeleteOnlyLocalMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-      this.EditDeleteOnlyLocal.Location = new System.Drawing.Point(820, 5);
+      this.EditDeleteOnlyLocal.Location = new System.Drawing.Point(720, 0);
       this.EditDeleteOnlyLocal.Name = "EditDeleteOnlyLocal";
       this.EditDeleteOnlyLocal.Size = new System.Drawing.Size(133, 17);
       this.EditDeleteOnlyLocal.TabIndex = 4;
@@ -419,7 +528,7 @@
       this.TabPageMessages.Location = new System.Drawing.Point(4, 25);
       this.TabPageMessages.Name = "TabPageMessages";
       this.TabPageMessages.Padding = new System.Windows.Forms.Padding(3);
-      this.TabPageMessages.Size = new System.Drawing.Size(956, 588);
+      this.TabPageMessages.Size = new System.Drawing.Size(856, 538);
       this.TabPageMessages.TabIndex = 0;
       this.TabPageMessages.Text = "Messages";
       // 
@@ -435,7 +544,7 @@
       this.TabPageSettings.Location = new System.Drawing.Point(4, 25);
       this.TabPageSettings.Name = "TabPageSettings";
       this.TabPageSettings.Padding = new System.Windows.Forms.Padding(3);
-      this.TabPageSettings.Size = new System.Drawing.Size(956, 588);
+      this.TabPageSettings.Size = new System.Drawing.Size(856, 538);
       this.TabPageSettings.TabIndex = 2;
       this.TabPageSettings.Text = "Settings";
       this.TabPageSettings.UseVisualStyleBackColor = true;
@@ -486,9 +595,9 @@
             this.LabelCountTweetsRTsValue,
             this.LabelCountAllRecipients,
             this.LabelCountAllRecipientsValue});
-      this.StatusStrip.Location = new System.Drawing.Point(0, 637);
+      this.StatusStrip.Location = new System.Drawing.Point(0, 587);
       this.StatusStrip.Name = "StatusStrip";
-      this.StatusStrip.Size = new System.Drawing.Size(984, 24);
+      this.StatusStrip.Size = new System.Drawing.Size(884, 24);
       this.StatusStrip.TabIndex = 4;
       this.StatusStrip.Text = "statusStrip1";
       // 
@@ -550,7 +659,7 @@
       this.PanelMain.Location = new System.Drawing.Point(0, 0);
       this.PanelMain.Name = "PanelMain";
       this.PanelMain.Padding = new System.Windows.Forms.Padding(10);
-      this.PanelMain.Size = new System.Drawing.Size(984, 637);
+      this.PanelMain.Size = new System.Drawing.Size(884, 587);
       this.PanelMain.TabIndex = 5;
       // 
       // DataSet
@@ -589,8 +698,9 @@
       // 
       this.TweetsControl.Dock = System.Windows.Forms.DockStyle.Fill;
       this.TweetsControl.Location = new System.Drawing.Point(0, 0);
+      this.TweetsControl.MinimumSize = new System.Drawing.Size(700, 120);
       this.TweetsControl.Name = "TweetsControl";
-      this.TweetsControl.Size = new System.Drawing.Size(838, 523);
+      this.TweetsControl.Size = new System.Drawing.Size(730, 468);
       this.TweetsControl.TabIndex = 0;
       // 
       // SettingsBindingSource
@@ -601,9 +711,10 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(984, 661);
+      this.ClientSize = new System.Drawing.Size(884, 611);
       this.Controls.Add(this.PanelMain);
       this.Controls.Add(this.StatusStrip);
+      this.MinimumSize = new System.Drawing.Size(800, 600);
       this.Name = "MainForm";
       this.Text = "Tweets Inspector";
       this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -616,6 +727,11 @@
       this.SplitContainerMain.Panel2.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.SplitContainerMain)).EndInit();
       this.SplitContainerMain.ResumeLayout(false);
+      this.panel1.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.DataGridViewUsers)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.UserBindingSource)).EndInit();
+      this.PanelFilterUsers.ResumeLayout(false);
+      this.PanelFilterUsers.PerformLayout();
       this.PanelTweetsTop.ResumeLayout(false);
       this.PanelTweetsTop.PerformLayout();
       this.TabPageMessages.ResumeLayout(false);
@@ -651,7 +767,6 @@
     private System.Windows.Forms.Button ActionConnect;
     private System.Windows.Forms.Button ActionLoadFromJS;
     private System.Windows.Forms.SplitContainer SplitContainerMain;
-    private System.Windows.Forms.ListBox ListBoxAllRecipients;
     private System.Windows.Forms.TextBox EditSearch;
     private TweetsControl TweetsControl;
     private System.Windows.Forms.CheckBox EditDeleteOnlyLocal;
@@ -677,7 +792,7 @@
     public System.Windows.Forms.Button ActionSelectAll;
     public System.Windows.Forms.Button ActionSelectNone;
     private System.Windows.Forms.Button ActionGetLikes;
-    internal System.Windows.Forms.CheckBox EditSearchUser;
+    internal System.Windows.Forms.CheckBox EditSearchInRecipients;
     internal System.Windows.Forms.CheckBox EditSearchInMessage;
     public System.Windows.Forms.Button ActionDelete;
     private System.Windows.Forms.TabPage TabPageSettings;
@@ -686,5 +801,14 @@
     private System.Windows.Forms.TextBox EditConsumerKey;
     private System.Windows.Forms.TextBox EditConsumerBackUrl;
     private System.Windows.Forms.CheckBox EditConnectAtStartup;
+    private System.Windows.Forms.Panel PanelFilterUsers;
+    public System.Windows.Forms.Button ActionFilterUsersClear;
+    public System.Windows.Forms.TextBox EditFilterUsers;
+    private System.Windows.Forms.BindingSource UserBindingSource;
+    private System.Windows.Forms.Panel panel1;
+    public System.Windows.Forms.DataGridView DataGridViewUsers;
+    private System.Windows.Forms.DataGridViewTextBoxColumn ColumnUser;
+    private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCount;
+    private System.Windows.Forms.CheckBox EditSingleClickUserFilter;
   }
 }
