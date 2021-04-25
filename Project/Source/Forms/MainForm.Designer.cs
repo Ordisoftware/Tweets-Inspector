@@ -33,6 +33,7 @@
       System.Windows.Forms.Label LabelConsumerKey;
       System.Windows.Forms.Label LabelConsumerSecret;
       System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.Label LabelStartupConnectAction;
       this.ActionOpenMessages = new System.Windows.Forms.Button();
       this.OpenFileDialogJS = new System.Windows.Forms.OpenFileDialog();
       this.EditUser1 = new System.Windows.Forms.TextBox();
@@ -72,7 +73,7 @@
       this.ListTweetsTrash = new Ordisoftware.TweetsInspector.ListTweets();
       this.TabPageMessages = new System.Windows.Forms.TabPage();
       this.TabPageSettings = new System.Windows.Forms.TabPage();
-      this.EditConnectAtStartup = new System.Windows.Forms.CheckBox();
+      this.SelectStartupConnectAction = new System.Windows.Forms.ComboBox();
       this.SettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.EditConsumerSecret = new System.Windows.Forms.TextBox();
       this.EditConsumerKey = new System.Windows.Forms.TextBox();
@@ -98,6 +99,7 @@
       LabelConsumerBackUrl = new System.Windows.Forms.Label();
       LabelConsumerKey = new System.Windows.Forms.Label();
       LabelConsumerSecret = new System.Windows.Forms.Label();
+      LabelStartupConnectAction = new System.Windows.Forms.Label();
       this.TabControl.SuspendLayout();
       this.TabPageTweets.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.SplitContainerMain)).BeginInit();
@@ -125,29 +127,29 @@
       // LabelConsumerBackUrl
       // 
       LabelConsumerBackUrl.AutoSize = true;
-      LabelConsumerBackUrl.Location = new System.Drawing.Point(20, 125);
+      LabelConsumerBackUrl.Location = new System.Drawing.Point(20, 165);
       LabelConsumerBackUrl.Name = "LabelConsumerBackUrl";
-      LabelConsumerBackUrl.Size = new System.Drawing.Size(51, 13);
+      LabelConsumerBackUrl.Size = new System.Drawing.Size(48, 13);
       LabelConsumerBackUrl.TabIndex = 0;
-      LabelConsumerBackUrl.Text = "Back Url:";
+      LabelConsumerBackUrl.Text = "Back Url";
       // 
       // LabelConsumerKey
       // 
       LabelConsumerKey.AutoSize = true;
-      LabelConsumerKey.Location = new System.Drawing.Point(20, 55);
+      LabelConsumerKey.Location = new System.Drawing.Point(20, 75);
       LabelConsumerKey.Name = "LabelConsumerKey";
-      LabelConsumerKey.Size = new System.Drawing.Size(78, 13);
+      LabelConsumerKey.Size = new System.Drawing.Size(75, 13);
       LabelConsumerKey.TabIndex = 2;
-      LabelConsumerKey.Text = "Consumer Key:";
+      LabelConsumerKey.Text = "Consumer Key";
       // 
       // LabelConsumerSecret
       // 
       LabelConsumerSecret.AutoSize = true;
-      LabelConsumerSecret.Location = new System.Drawing.Point(20, 90);
+      LabelConsumerSecret.Location = new System.Drawing.Point(20, 120);
       LabelConsumerSecret.Name = "LabelConsumerSecret";
-      LabelConsumerSecret.Size = new System.Drawing.Size(91, 13);
+      LabelConsumerSecret.Size = new System.Drawing.Size(88, 13);
       LabelConsumerSecret.TabIndex = 4;
-      LabelConsumerSecret.Text = "Consumer Secret:";
+      LabelConsumerSecret.Text = "Consumer Secret";
       // 
       // ActionOpenMessages
       // 
@@ -583,9 +585,10 @@
       // 
       // TabPageSettings
       // 
-      this.TabPageSettings.Controls.Add(this.EditConnectAtStartup);
+      this.TabPageSettings.Controls.Add(this.SelectStartupConnectAction);
       this.TabPageSettings.Controls.Add(LabelConsumerSecret);
       this.TabPageSettings.Controls.Add(this.EditConsumerSecret);
+      this.TabPageSettings.Controls.Add(LabelStartupConnectAction);
       this.TabPageSettings.Controls.Add(LabelConsumerKey);
       this.TabPageSettings.Controls.Add(this.EditConsumerKey);
       this.TabPageSettings.Controls.Add(LabelConsumerBackUrl);
@@ -598,16 +601,15 @@
       this.TabPageSettings.Text = "Settings";
       this.TabPageSettings.UseVisualStyleBackColor = true;
       // 
-      // EditConnectAtStartup
+      // SelectStartupConnectAction
       // 
-      this.EditConnectAtStartup.AutoSize = true;
-      this.EditConnectAtStartup.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.SettingsBindingSource, "ConnectAtStartup", true));
-      this.EditConnectAtStartup.Location = new System.Drawing.Point(23, 19);
-      this.EditConnectAtStartup.Name = "EditConnectAtStartup";
-      this.EditConnectAtStartup.Size = new System.Drawing.Size(160, 17);
-      this.EditConnectAtStartup.TabIndex = 7;
-      this.EditConnectAtStartup.Text = "Connect to Twitter at startup";
-      this.EditConnectAtStartup.UseVisualStyleBackColor = true;
+      this.SelectStartupConnectAction.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.SettingsBindingSource, "StartupConnectAction", true));
+      this.SelectStartupConnectAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.SelectStartupConnectAction.FormattingEnabled = true;
+      this.SelectStartupConnectAction.Location = new System.Drawing.Point(23, 39);
+      this.SelectStartupConnectAction.Name = "SelectStartupConnectAction";
+      this.SelectStartupConnectAction.Size = new System.Drawing.Size(121, 21);
+      this.SelectStartupConnectAction.TabIndex = 6;
       // 
       // SettingsBindingSource
       // 
@@ -616,7 +618,7 @@
       // EditConsumerSecret
       // 
       this.EditConsumerSecret.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsBindingSource, "ConsumerSecret", true));
-      this.EditConsumerSecret.Location = new System.Drawing.Point(117, 86);
+      this.EditConsumerSecret.Location = new System.Drawing.Point(23, 139);
       this.EditConsumerSecret.Name = "EditConsumerSecret";
       this.EditConsumerSecret.Size = new System.Drawing.Size(395, 20);
       this.EditConsumerSecret.TabIndex = 5;
@@ -624,7 +626,7 @@
       // EditConsumerKey
       // 
       this.EditConsumerKey.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsBindingSource, "ConsumerKey", true));
-      this.EditConsumerKey.Location = new System.Drawing.Point(117, 51);
+      this.EditConsumerKey.Location = new System.Drawing.Point(23, 94);
       this.EditConsumerKey.Name = "EditConsumerKey";
       this.EditConsumerKey.Size = new System.Drawing.Size(395, 20);
       this.EditConsumerKey.TabIndex = 3;
@@ -632,7 +634,7 @@
       // EditConsumerBackUrl
       // 
       this.EditConsumerBackUrl.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.SettingsBindingSource, "ConsumerBackUrl", true));
-      this.EditConsumerBackUrl.Location = new System.Drawing.Point(117, 121);
+      this.EditConsumerBackUrl.Location = new System.Drawing.Point(23, 184);
       this.EditConsumerBackUrl.Name = "EditConsumerBackUrl";
       this.EditConsumerBackUrl.Size = new System.Drawing.Size(395, 20);
       this.EditConsumerBackUrl.TabIndex = 1;
@@ -758,6 +760,15 @@
       // 
       this.TrashTableAdapter.ClearBeforeFill = true;
       // 
+      // LabelStartupConnectAction
+      // 
+      LabelStartupConnectAction.AutoSize = true;
+      LabelStartupConnectAction.Location = new System.Drawing.Point(20, 20);
+      LabelStartupConnectAction.Name = "LabelStartupConnectAction";
+      LabelStartupConnectAction.Size = new System.Drawing.Size(83, 13);
+      LabelStartupConnectAction.TabIndex = 2;
+      LabelStartupConnectAction.Text = "Startup connect";
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -853,7 +864,6 @@
     private System.Windows.Forms.BindingSource SettingsBindingSource;
     private System.Windows.Forms.TextBox EditConsumerKey;
     private System.Windows.Forms.TextBox EditConsumerBackUrl;
-    private System.Windows.Forms.CheckBox EditConnectAtStartup;
     private System.Windows.Forms.Panel PanelFilterUsers;
     public System.Windows.Forms.Button ActionFilterUsersClear;
     public System.Windows.Forms.TextBox EditFilterUsers;
@@ -868,5 +878,6 @@
     private ListTweets ListTweetsTrash;
     private System.Windows.Forms.BindingSource TrashBindingSource;
     private Data.DataSetTableAdapters.TrashTableAdapter TrashTableAdapter;
+    private System.Windows.Forms.ComboBox SelectStartupConnectAction;
   }
 }

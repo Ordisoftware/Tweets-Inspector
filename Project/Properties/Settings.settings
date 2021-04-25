@@ -27,8 +27,8 @@
     <Setting Name="SearchInMessage" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="ConnectAtStartup" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="StartupConnectAction" Type="Ordisoftware.TweetsInspector.StartupConnectAction" Scope="User">
+      <Value Profile="(Default)">None</Value>
     </Setting>
     <Setting Name="SingleClickUserFilter" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

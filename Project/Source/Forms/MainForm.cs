@@ -64,6 +64,7 @@ namespace Ordisoftware.TweetsInspector
       UsersDataTable.Columns.Add("Count", typeof(int));
       TweetsControl.Modified += TweetsControl_OnModified;
       SettingsBindingSource.DataSource = Settings;
+      SelectStartupConnectAction.DataSource = Enum.GetValues(typeof(StartupConnectAction));
     }
 
     private void MainForm_Load(object sender, EventArgs e)
@@ -77,8 +78,12 @@ namespace Ordisoftware.TweetsInspector
 
     private void MainForm_Shown(object sender, EventArgs e)
     {
-      if ( Settings.ConnectAtStartup )
+      if ( Settings.StartupConnectAction == StartupConnectAction.Auto )
         ActionConnect.PerformClick();
+      else
+      if ( Settings.StartupConnectAction == StartupConnectAction.Ask )
+        if ( DisplayManager.QueryYesNo("Connect to Twitter?") )
+          ActionConnect.PerformClick();
     }
 
     private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
