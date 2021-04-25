@@ -31,10 +31,10 @@ namespace Ordisoftware.TweetsInspector
     {
       InitializeComponent();
       MinimumSize = ListTweetsMain.MinimumSize;
-      SplitContainerTweetsMainAndReplies.Panel1MinSize = ListTweetsMain.MinimumSize.Height;
+      /*SplitContainerTweetsMainAndReplies.Panel1MinSize = ListTweetsMain.MinimumSize.Height;
       SplitContainerTweetsMainAndReplies.Panel2MinSize = ListTweetsMain.MinimumSize.Height;
       splitContainerTweetsAndRT.Panel1MinSize = ListTweetsMain.MinimumSize.Height * 2;
-      splitContainerTweetsAndRT.Panel2MinSize = ListTweetsMain.MinimumSize.Height;
+      splitContainerTweetsAndRT.Panel2MinSize = ListTweetsMain.MinimumSize.Height;*/
       ListTweetsMain.LabelTitle.Text = "TWEETS";
       ListTweetsReplies.LabelTitle.Text = "REPLIES";
       ListTweetsRTs.LabelTitle.Text = "RETWEETS";

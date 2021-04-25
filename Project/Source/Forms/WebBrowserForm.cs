@@ -36,6 +36,8 @@ namespace Ordisoftware.TweetsInspector
     {
       InitializeComponent();
       Icon = Globals.MainForm?.Icon;
+      var script = @"document.getElementById('allow').click();";
+      WebBrowser.ExecuteScriptAsyncWhenPageLoaded(script);
     }
 
   }

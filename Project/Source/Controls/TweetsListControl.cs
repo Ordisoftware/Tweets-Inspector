@@ -73,17 +73,18 @@ namespace Ordisoftware.TweetsInspector
     private void EditFilter_TextChanged(object sender, EventArgs e)
     {
       var ds = DataGridView.DataSource as BindingSource;
-      ds.Filter = DefaultFilter;
       if ( EditFilter.Text != "" )
       {
-        if ( MainForm.Instance.EditSearchUser.Checked && MainForm.Instance.EditSearchInMessage.Checked )
-          ds.Filter += $" AND ( Recipients LIKE '*{EditFilter.Text}*' OR Message LIKE '*{EditFilter.Text}*' )";
+        if ( MainForm.Instance.EditSearchInRecipients.Checked && MainForm.Instance.EditSearchInMessage.Checked )
+          ds.Filter = $"{DefaultFilter} AND ( Recipients LIKE '*{EditFilter.Text}*' OR Message LIKE '*{EditFilter.Text}*' )";
         else
-        if ( MainForm.Instance.EditSearchUser.Checked )
-          ds.Filter += $" AND Recipients LIKE '*{EditFilter.Text}*'";
+        if ( MainForm.Instance.EditSearchInRecipients.Checked )
+          ds.Filter = $"{DefaultFilter} AND Recipients LIKE '*{EditFilter.Text}*'";
         else
-          ds.Filter += $" AND Message LIKE '*{EditFilter.Text}*";
+          ds.Filter = $"{DefaultFilter} AND Message LIKE '*{EditFilter.Text}*'";
       }
+      else
+        ds.Filter = DefaultFilter;
       DataGridView.ClearSelection();
     }
 
