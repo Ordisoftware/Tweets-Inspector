@@ -30,6 +30,8 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 - Open selected tweets in browser.
 - Delete i.e. destroy selected tweets.
 - Automatic tweet deletion scheduler.
+- Checker for online destroyed tweets.
+- Bin of deleted tweets.
 - Export tweets, following and followers to CSV/JSON.
 - English, French.
 
