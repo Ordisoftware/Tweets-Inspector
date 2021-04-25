@@ -44,6 +44,17 @@ namespace Ordisoftware.TweetsInspector
                                           Message TEXT DEFAULT '' NOT NULL,
                                           PRIMARY KEY(Id)
                                         )");
+        LockFileConnection.CheckTable(@"Trash",
+                                      @"CREATE TABLE Trash
+                                        ( 
+                                          Id TEXT DEFAULT '' NOT NULL,
+                                          Date TEXT DEFAULT '' NOT NULL,
+                                          Type INTEGER DEFAULT 0 NOT NULL,
+                                          Recipients TEXT DEFAULT '' NOT NULL,
+                                          Message TEXT DEFAULT '' NOT NULL,
+                                          DateDeleted TEXT DEFAULT '' NOT NULL,
+                                          PRIMARY KEY(Id)
+                                        )");
         //
         LockFileConnection.CheckTable(@"Following",
                                       @"CREATE TABLE Following

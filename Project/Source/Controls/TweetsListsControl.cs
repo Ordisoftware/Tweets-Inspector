@@ -31,10 +31,6 @@ namespace Ordisoftware.TweetsInspector
     {
       InitializeComponent();
       MinimumSize = ListTweetsMain.MinimumSize;
-      /*SplitContainerTweetsMainAndReplies.Panel1MinSize = ListTweetsMain.MinimumSize.Height;
-      SplitContainerTweetsMainAndReplies.Panel2MinSize = ListTweetsMain.MinimumSize.Height;
-      splitContainerTweetsAndRT.Panel1MinSize = ListTweetsMain.MinimumSize.Height * 2;
-      splitContainerTweetsAndRT.Panel2MinSize = ListTweetsMain.MinimumSize.Height;*/
       ListTweetsMain.LabelTitle.Text = "TWEETS";
       ListTweetsReplies.LabelTitle.Text = "REPLIES";
       ListTweetsRTs.LabelTitle.Text = "RETWEETS";
@@ -81,13 +77,6 @@ namespace Ordisoftware.TweetsInspector
       ListTweetsRTs.EditFilter.Text = term;
     }
 
-    private void splitContainerTweetsAndRT_SplitterMoved(object sender, SplitterEventArgs e)
-    {
-      /*var dist = splitContainerTweetsAndRT.Panel1.Height / 2;
-      if ( dist <= SplitContainerTweetsMainAndReplies.Panel1MinSize )
-        dist = SplitContainerTweetsMainAndReplies.Panel1MinSize;
-      SplitContainerTweetsMainAndReplies.SplitterDistance = dist;*/
-    }
   }
 
 }
