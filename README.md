@@ -22,13 +22,15 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 
 ## Functionalities
 
+- Auto-connect to Twitter account.
 - Load tweets from the `tweet.js` file of a Twitter archive.
 - Display tweets dispatched in three views : main, replies and retweets.
-- Filter and search using a term and/or a user name.
-- Open a tweet in browser.
-- Delete i.e. destroy selected tweets.
 - Display following and followers with changes tracking.
-- Export tweets, following and followers to CSV.
+- Filter and search using terms and/or user names to include or exclude.
+- Open selected tweets in browser.
+- Delete i.e. destroy selected tweets.
+- Automatic tweet deletion scheduler.
+- Export tweets, following and followers to CSV/JSON.
 - English, French.
 
 ## Requirements
