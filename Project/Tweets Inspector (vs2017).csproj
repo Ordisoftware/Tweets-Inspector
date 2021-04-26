@@ -106,6 +106,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Dependencies\Core\GlobalSuppressions.cs" />
     <Compile Include="Source\Forms\MainForm.Connect.cs">
       <SubType>Form</SubType>
     </Compile>
