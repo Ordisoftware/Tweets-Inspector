@@ -171,7 +171,7 @@ namespace Ordisoftware.TweetsInspector
             SystemManager.TryCatch(() => MainForm.Tokens.Statuses.Destroy(long.Parse(tweet.Id)));
           else
             if ( !DisplayManager.QueryYesNo("Tweets will be deleted in the database but not in Twitter. Continue?") )
-              return;
+            return;
           tweet.Delete();
         }
         Modified?.Invoke(this, EventArgs.Empty);

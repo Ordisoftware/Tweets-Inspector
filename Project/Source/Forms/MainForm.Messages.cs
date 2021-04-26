@@ -42,7 +42,7 @@ namespace Ordisoftware.TweetsInspector
       }
       EditMessagesCleaned.Text = result.ToString();
     }
-    
+
   }
 
 }

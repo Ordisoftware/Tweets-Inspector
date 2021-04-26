@@ -52,9 +52,9 @@
       this.ColumnMessage = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.ContextMenuStrip.SuspendLayout();
       this.PanelBottom.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.DataSet)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.BindingSource)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).BeginInit();
+      ( (System.ComponentModel.ISupportInitialize)( this.DataSet ) ).BeginInit();
+      ( (System.ComponentModel.ISupportInitialize)( this.BindingSource ) ).BeginInit();
+      ( (System.ComponentModel.ISupportInitialize)( this.DataGridView ) ).BeginInit();
       this.SuspendLayout();
       // 
       // ContextMenuStrip
@@ -96,8 +96,8 @@
       // 
       // ActionOpen
       // 
-      this.ActionOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.ActionOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionOpen.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+      this.ActionOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       this.ActionOpen.Location = new System.Drawing.Point(515, 3);
       this.ActionOpen.Name = "ActionOpen";
       this.ActionOpen.Size = new System.Drawing.Size(45, 23);
@@ -108,8 +108,8 @@
       // 
       // ActionDelete
       // 
-      this.ActionDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.ActionDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionDelete.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+      this.ActionDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       this.ActionDelete.Location = new System.Drawing.Point(566, 3);
       this.ActionDelete.Name = "ActionDelete";
       this.ActionDelete.Size = new System.Drawing.Size(35, 23);
@@ -120,7 +120,7 @@
       // 
       // EditFilter
       // 
-      this.EditFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.EditFilter.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
       this.EditFilter.Location = new System.Drawing.Point(222, 4);
       this.EditFilter.Name = "EditFilter";
       this.EditFilter.Size = new System.Drawing.Size(200, 20);
@@ -129,8 +129,8 @@
       // 
       // ActionFilterClear
       // 
-      this.ActionFilterClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.ActionFilterClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionFilterClear.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+      this.ActionFilterClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       this.ActionFilterClear.Location = new System.Drawing.Point(428, 3);
       this.ActionFilterClear.Name = "ActionFilterClear";
       this.ActionFilterClear.Size = new System.Drawing.Size(23, 23);
@@ -141,8 +141,8 @@
       // 
       // ActionSelectAll
       // 
-      this.ActionSelectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.ActionSelectAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionSelectAll.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+      this.ActionSelectAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       this.ActionSelectAll.Location = new System.Drawing.Point(457, 3);
       this.ActionSelectAll.Name = "ActionSelectAll";
       this.ActionSelectAll.Size = new System.Drawing.Size(23, 23);
@@ -153,8 +153,8 @@
       // 
       // ActionSelectNone
       // 
-      this.ActionSelectNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.ActionSelectNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionSelectNone.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+      this.ActionSelectNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       this.ActionSelectNone.Location = new System.Drawing.Point(486, 3);
       this.ActionSelectNone.Name = "ActionSelectNone";
       this.ActionSelectNone.Size = new System.Drawing.Size(23, 23);
@@ -166,7 +166,7 @@
       // LabelTitle
       // 
       this.LabelTitle.Dock = System.Windows.Forms.DockStyle.Left;
-      this.LabelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.LabelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       this.LabelTitle.Location = new System.Drawing.Point(0, 0);
       this.LabelTitle.Name = "LabelTitle";
       this.LabelTitle.Size = new System.Drawing.Size(150, 30);
@@ -204,7 +204,7 @@
       this.DataGridView.AutoGenerateColumns = false;
       dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
       dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-      dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
       dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
       dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -275,9 +275,9 @@
       this.ContextMenuStrip.ResumeLayout(false);
       this.PanelBottom.ResumeLayout(false);
       this.PanelBottom.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.DataSet)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.BindingSource)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
+      ( (System.ComponentModel.ISupportInitialize)( this.DataSet ) ).EndInit();
+      ( (System.ComponentModel.ISupportInitialize)( this.BindingSource ) ).EndInit();
+      ( (System.ComponentModel.ISupportInitialize)( this.DataGridView ) ).EndInit();
       this.ResumeLayout(false);
 
     }
