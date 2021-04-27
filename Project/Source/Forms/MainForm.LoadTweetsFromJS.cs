@@ -40,7 +40,11 @@ namespace Ordisoftware.TweetsInspector
         if ( DataSet.Tweets.Count > 0 )
           if ( !DisplayManager.QueryYesNo("Replace all tweets in the database?") ) return;
         if ( OpenFileDialogJS.ShowDialog() != DialogResult.OK ) return;
+        LoadingForm.Instance.Initialize("Loading JS...", 1);
         string filepath = OpenFileDialogJS.FileName;
+        var tweets = TwitterJsonHelper.Get(filepath);
+        LoadingForm.Instance.DoProgress();
+        LoadingForm.Instance.Initialize(SysTranslations.ProgressCreatingData.GetLang(), tweets.Count);
         var command = new OdbcCommand("DELETE FROM Tweets", LockFileConnection);
         command.ExecuteNonQuery();
         TweetsTableAdapter.Fill(DataSet.Tweets);
@@ -48,28 +52,22 @@ namespace Ordisoftware.TweetsInspector
         TweetsBindingSourceReplies.ResetBindings(false);
         TweetsBindingSourceRTs.ResetBindings(false);
         Refresh();
-        var lines = File.ReadAllLines(filepath);
-        lines[0] = lines[0].Replace("window.YTD.tweet.part0 = ", "");
-        LoadingForm.Instance.Initialize("Loading JS...", 1);
-        dynamic tweets = JArray.Parse(string.Join(Environment.NewLine, lines));
-        LoadingForm.Instance.DoProgress();
-        LoadingForm.Instance.Initialize(SysTranslations.ProgressCreatingData.GetLang(), ( (JArray)tweets ).Count);
         try
         {
-          foreach ( var item in tweets )
+          foreach ( var tweet in tweets )
           {
             LoadingForm.Instance.DoProgress();
             var row = DataSet.Tweets.NewTweetsRow();
-            row.Id = (string)item.tweet.id;
-            var date = DateTime.ParseExact((string)item.tweet.created_at, TwitterDateTemplate, CultureEN);
+            row.Id = tweet.Id;
+            var date = DateTime.ParseExact(tweet.CreatedAt, TwitterDateTemplate, CultureEN);
             row.Date = SQLiteDate.ToString(date, true);
-            row.Message = (string)item.tweet.full_text;
+            row.Message = tweet.FullText;
             var recipients = new List<string>();
-            string replyto = (string)item.tweet.in_reply_to_screen_name;
+            string replyto = tweet.InReplyToScreenName;
             if ( !replyto.IsNullOrEmpty() ) recipients.Add(replyto);
-            foreach ( JToken mention in item.tweet.entities.user_mentions )
+            foreach ( var mention in tweet.Entities.UserMentions )
             {
-              string recipient = (string)mention["screen_name"];
+              string recipient = mention.ScreenName;
               if ( !recipients.Contains(recipient) )
                 recipients.Add(recipient);
             }

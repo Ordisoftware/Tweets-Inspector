@@ -139,7 +139,8 @@ namespace Ordisoftware.TweetsInspector
                            .ToDictionary(item => item.recipient, item => item.count);
         foreach ( var item in users )
           UsersDataTable.Rows.Add(item.Key, item.Value);
-        UserBindingSource.DataSource = UsersDataTable;
+        UsersBindingSource.DataSource = UsersDataTable;
+        DataGridViewUsers.Sort(ColumnUserCount, System.ComponentModel.ListSortDirection.Descending);
         LabelCountTweetsMainValue.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
         LabelCountTweetsRepliesValue.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
         LabelCountTweetsRTsValue.Text = TweetsControl.ListTweetsRTs.DataGridView.RowCount.ToString();

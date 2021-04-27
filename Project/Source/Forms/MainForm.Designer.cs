@@ -32,8 +32,8 @@
       System.Windows.Forms.Label LabelConsumerBackUrl;
       System.Windows.Forms.Label LabelConsumerKey;
       System.Windows.Forms.Label LabelConsumerSecret;
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
       System.Windows.Forms.Label LabelStartupConnectAction;
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
       this.ActionOpenMessages = new System.Windows.Forms.Button();
       this.OpenFileDialogJS = new System.Windows.Forms.OpenFileDialog();
       this.EditUser1 = new System.Windows.Forms.TextBox();
@@ -43,12 +43,9 @@
       this.TabControl = new System.Windows.Forms.TabControl();
       this.TabPageTweets = new System.Windows.Forms.TabPage();
       this.SplitContainerMain = new System.Windows.Forms.SplitContainer();
-      this.TweetsControl = new Ordisoftware.TweetsInspector.TweetsControl();
       this.panel1 = new System.Windows.Forms.Panel();
       this.DataGridViewUsers = new System.Windows.Forms.DataGridView();
-      this.ColumnUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.ColumnCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.UserBindingSource = new System.Windows.Forms.BindingSource(this.components);
+      this.UsersBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.PanelFilterUsers = new System.Windows.Forms.Panel();
       this.EditFilterUsers = new System.Windows.Forms.TextBox();
       this.ActionFilterUsersClear = new System.Windows.Forms.Button();
@@ -70,11 +67,9 @@
       this.ActionLoadFromJS = new System.Windows.Forms.Button();
       this.ActionSaveToCSV = new System.Windows.Forms.Button();
       this.TabPageDestroyed = new System.Windows.Forms.TabPage();
-      this.ListTweetsTrash = new Ordisoftware.TweetsInspector.ListTweets();
       this.TabPageMessages = new System.Windows.Forms.TabPage();
       this.TabPageSettings = new System.Windows.Forms.TabPage();
       this.SelectStartupConnectAction = new System.Windows.Forms.ComboBox();
-      this.SettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.EditConsumerSecret = new System.Windows.Forms.TextBox();
       this.EditConsumerKey = new System.Windows.Forms.TextBox();
       this.EditConsumerBackUrl = new System.Windows.Forms.TextBox();
@@ -88,6 +83,11 @@
       this.LabelCountAllRecipients = new System.Windows.Forms.ToolStripStatusLabel();
       this.LabelCountAllRecipientsValue = new System.Windows.Forms.ToolStripStatusLabel();
       this.PanelMain = new System.Windows.Forms.Panel();
+      this.ColumnUserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ColumnUserCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.TweetsControl = new Ordisoftware.TweetsInspector.TweetsControl();
+      this.ListTweetsTrash = new Ordisoftware.TweetsInspector.ListTweets();
+      this.SettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.DataSet = new Ordisoftware.TweetsInspector.Data.DataSet();
       this.TweetsBindingSourceMain = new System.Windows.Forms.BindingSource(this.components);
       this.TweetsTableAdapter = new Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TweetsTableAdapter();
@@ -108,15 +108,15 @@
       this.SplitContainerMain.SuspendLayout();
       this.panel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.DataGridViewUsers)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.UserBindingSource)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.UsersBindingSource)).BeginInit();
       this.PanelFilterUsers.SuspendLayout();
       this.PanelTweetsTop.SuspendLayout();
       this.TabPageDestroyed.SuspendLayout();
       this.TabPageMessages.SuspendLayout();
       this.TabPageSettings.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.SettingsBindingSource)).BeginInit();
       this.StatusStrip.SuspendLayout();
       this.PanelMain.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.SettingsBindingSource)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.DataSet)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceMain)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceReplies)).BeginInit();
@@ -150,6 +150,15 @@
       LabelConsumerSecret.Size = new System.Drawing.Size(88, 13);
       LabelConsumerSecret.TabIndex = 4;
       LabelConsumerSecret.Text = "Consumer Secret";
+      // 
+      // LabelStartupConnectAction
+      // 
+      LabelStartupConnectAction.AutoSize = true;
+      LabelStartupConnectAction.Location = new System.Drawing.Point(20, 20);
+      LabelStartupConnectAction.Name = "LabelStartupConnectAction";
+      LabelStartupConnectAction.Size = new System.Drawing.Size(83, 13);
+      LabelStartupConnectAction.TabIndex = 2;
+      LabelStartupConnectAction.Text = "Startup connect";
       // 
       // ActionOpenMessages
       // 
@@ -239,15 +248,6 @@
       this.SplitContainerMain.SplitterDistance = 730;
       this.SplitContainerMain.TabIndex = 9;
       // 
-      // TweetsControl
-      // 
-      this.TweetsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.TweetsControl.Location = new System.Drawing.Point(0, 0);
-      this.TweetsControl.MinimumSize = new System.Drawing.Size(700, 120);
-      this.TweetsControl.Name = "TweetsControl";
-      this.TweetsControl.Size = new System.Drawing.Size(730, 468);
-      this.TweetsControl.TabIndex = 0;
-      // 
       // panel1
       // 
       this.panel1.Controls.Add(this.DataGridViewUsers);
@@ -276,9 +276,9 @@
       this.DataGridViewUsers.ColumnHeadersHeight = 25;
       this.DataGridViewUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
       this.DataGridViewUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnUser,
-            this.ColumnCount});
-      this.DataGridViewUsers.DataSource = this.UserBindingSource;
+            this.ColumnUserName,
+            this.ColumnUserCount});
+      this.DataGridViewUsers.DataSource = this.UsersBindingSource;
       this.DataGridViewUsers.Dock = System.Windows.Forms.DockStyle.Fill;
       this.DataGridViewUsers.EnableHeadersVisualStyles = false;
       this.DataGridViewUsers.Location = new System.Drawing.Point(5, 30);
@@ -292,22 +292,6 @@
       this.DataGridViewUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewUsers_CellClick);
       this.DataGridViewUsers.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewUsers_CellDoubleClick);
       this.DataGridViewUsers.SelectionChanged += new System.EventHandler(this.DataGridViewUsers_SelectionChanged);
-      // 
-      // ColumnUser
-      // 
-      this.ColumnUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-      this.ColumnUser.DataPropertyName = "User";
-      this.ColumnUser.HeaderText = "User";
-      this.ColumnUser.Name = "ColumnUser";
-      this.ColumnUser.ReadOnly = true;
-      // 
-      // ColumnCount
-      // 
-      this.ColumnCount.DataPropertyName = "Count";
-      this.ColumnCount.HeaderText = "Count";
-      this.ColumnCount.Name = "ColumnCount";
-      this.ColumnCount.ReadOnly = true;
-      this.ColumnCount.Width = 50;
       // 
       // PanelFilterUsers
       // 
@@ -557,17 +541,6 @@
       this.TabPageDestroyed.Text = "Trash";
       this.TabPageDestroyed.UseVisualStyleBackColor = true;
       // 
-      // ListTweetsTrash
-      // 
-      this.ListTweetsTrash.DefaultFilter = null;
-      this.ListTweetsTrash.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.ListTweetsTrash.Location = new System.Drawing.Point(3, 3);
-      this.ListTweetsTrash.MinimumSize = new System.Drawing.Size(600, 120);
-      this.ListTweetsTrash.Name = "ListTweetsTrash";
-      this.ListTweetsTrash.Size = new System.Drawing.Size(850, 532);
-      this.ListTweetsTrash.TabIndex = 0;
-      this.ListTweetsTrash.Title = "DESTROYED";
-      // 
       // TabPageMessages
       // 
       this.TabPageMessages.BackColor = System.Drawing.SystemColors.Control;
@@ -610,10 +583,6 @@
       this.SelectStartupConnectAction.Name = "SelectStartupConnectAction";
       this.SelectStartupConnectAction.Size = new System.Drawing.Size(121, 21);
       this.SelectStartupConnectAction.TabIndex = 6;
-      // 
-      // SettingsBindingSource
-      // 
-      this.SettingsBindingSource.DataSource = typeof(System.Configuration.ApplicationSettingsBase);
       // 
       // EditConsumerSecret
       // 
@@ -717,6 +686,46 @@
       this.PanelMain.Size = new System.Drawing.Size(884, 587);
       this.PanelMain.TabIndex = 5;
       // 
+      // ColumnUserName
+      // 
+      this.ColumnUserName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+      this.ColumnUserName.DataPropertyName = "User";
+      this.ColumnUserName.HeaderText = "User";
+      this.ColumnUserName.Name = "ColumnUserName";
+      this.ColumnUserName.ReadOnly = true;
+      // 
+      // ColumnUserCount
+      // 
+      this.ColumnUserCount.DataPropertyName = "Count";
+      this.ColumnUserCount.HeaderText = "Count";
+      this.ColumnUserCount.Name = "ColumnUserCount";
+      this.ColumnUserCount.ReadOnly = true;
+      this.ColumnUserCount.Width = 50;
+      // 
+      // TweetsControl
+      // 
+      this.TweetsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.TweetsControl.Location = new System.Drawing.Point(0, 0);
+      this.TweetsControl.MinimumSize = new System.Drawing.Size(700, 120);
+      this.TweetsControl.Name = "TweetsControl";
+      this.TweetsControl.Size = new System.Drawing.Size(730, 468);
+      this.TweetsControl.TabIndex = 0;
+      // 
+      // ListTweetsTrash
+      // 
+      this.ListTweetsTrash.DefaultFilter = null;
+      this.ListTweetsTrash.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.ListTweetsTrash.Location = new System.Drawing.Point(3, 3);
+      this.ListTweetsTrash.MinimumSize = new System.Drawing.Size(600, 120);
+      this.ListTweetsTrash.Name = "ListTweetsTrash";
+      this.ListTweetsTrash.Size = new System.Drawing.Size(850, 532);
+      this.ListTweetsTrash.TabIndex = 0;
+      this.ListTweetsTrash.Title = "DESTROYED";
+      // 
+      // SettingsBindingSource
+      // 
+      this.SettingsBindingSource.DataSource = typeof(System.Configuration.ApplicationSettingsBase);
+      // 
       // DataSet
       // 
       this.DataSet.DataSetName = "DataSet";
@@ -760,15 +769,6 @@
       // 
       this.TrashTableAdapter.ClearBeforeFill = true;
       // 
-      // LabelStartupConnectAction
-      // 
-      LabelStartupConnectAction.AutoSize = true;
-      LabelStartupConnectAction.Location = new System.Drawing.Point(20, 20);
-      LabelStartupConnectAction.Name = "LabelStartupConnectAction";
-      LabelStartupConnectAction.Size = new System.Drawing.Size(83, 13);
-      LabelStartupConnectAction.TabIndex = 2;
-      LabelStartupConnectAction.Text = "Startup connect";
-      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -791,7 +791,7 @@
       this.SplitContainerMain.ResumeLayout(false);
       this.panel1.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.DataGridViewUsers)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.UserBindingSource)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.UsersBindingSource)).EndInit();
       this.PanelFilterUsers.ResumeLayout(false);
       this.PanelFilterUsers.PerformLayout();
       this.PanelTweetsTop.ResumeLayout(false);
@@ -801,10 +801,10 @@
       this.TabPageMessages.PerformLayout();
       this.TabPageSettings.ResumeLayout(false);
       this.TabPageSettings.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.SettingsBindingSource)).EndInit();
       this.StatusStrip.ResumeLayout(false);
       this.StatusStrip.PerformLayout();
       this.PanelMain.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.SettingsBindingSource)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.DataSet)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceMain)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceReplies)).EndInit();
@@ -867,11 +867,9 @@
     private System.Windows.Forms.Panel PanelFilterUsers;
     public System.Windows.Forms.Button ActionFilterUsersClear;
     public System.Windows.Forms.TextBox EditFilterUsers;
-    private System.Windows.Forms.BindingSource UserBindingSource;
+    private System.Windows.Forms.BindingSource UsersBindingSource;
     private System.Windows.Forms.Panel panel1;
     public System.Windows.Forms.DataGridView DataGridViewUsers;
-    private System.Windows.Forms.DataGridViewTextBoxColumn ColumnUser;
-    private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCount;
     private System.Windows.Forms.CheckBox EditSingleClickUserFilter;
     private System.Windows.Forms.Button ActionCheckOnlineDestroyed;
     private System.Windows.Forms.TabPage TabPageDestroyed;
@@ -879,5 +877,7 @@
     private System.Windows.Forms.BindingSource TrashBindingSource;
     private Data.DataSetTableAdapters.TrashTableAdapter TrashTableAdapter;
     private System.Windows.Forms.ComboBox SelectStartupConnectAction;
+    private System.Windows.Forms.DataGridViewTextBoxColumn ColumnUserName;
+    private System.Windows.Forms.DataGridViewTextBoxColumn ColumnUserCount;
   }
 }
