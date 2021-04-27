@@ -6,28 +6,29 @@ using System.Text;
 
 namespace Ordisoftware.TweetsInspector
 {
-  static public class TwitterJsonHelper
+  static public class JsonHelper
   {
-    static public List<QuickType.Tweet> Get(string filePath)
+    static public List<Json.Tweet.TweetItem> LoadTweets(string filePath)
     {
       var builder = new StringBuilder();
       using ( var stream = File.OpenText(filePath) )
       {
         string line = stream.ReadLine();
-        if ( line == null ) return new List<QuickType.Tweet>();
+        if ( line == null ) return new List<Json.Tweet.TweetItem>();
         line = line.Replace("window.YTD.tweet.part0 = ", "");
         builder.Append(line);
         while ( ( line = stream.ReadLine() ) != null )
           builder.Append(line);
       }
-      return QuickType.TweetJson.FromJson(builder.ToString()).Select(item => item.Tweet).ToList();
+      return Json.Tweet.JsonTweet.FromJson(builder.ToString()).Select(tweet => tweet.Item).ToList();
     }
   }
 }
 
 // https://github.com/quicktype/quicktype-vs
-namespace Ordisoftware.TweetsInspector.QuickType
+namespace Ordisoftware.TweetsInspector.Json.Tweet
 {
+
   using System;
   using System.Collections.Generic;
 
@@ -35,13 +36,13 @@ namespace Ordisoftware.TweetsInspector.QuickType
   using Newtonsoft.Json;
   using Newtonsoft.Json.Converters;
 
-  public partial class TweetJson
+  public partial class JsonTweet
   {
     [JsonProperty("tweet")]
-    public Tweet Tweet { get; set; }
+    public TweetItem Item { get; set; }
   }
 
-  public partial class Tweet
+  public partial class TweetItem
   {
     [JsonProperty("retweeted")]
     public bool Retweeted { get; set; }
@@ -331,14 +332,14 @@ namespace Ordisoftware.TweetsInspector.QuickType
 
   public enum Lang { Ar, Ca, Cs, Cy, Da, De, En, Es, Et, Eu, Fi, Fr, Hi, Ht, Hu, In, Is, It, Iw, Lt, Nl, No, Pt, Ro, Sl, Sv, Tl, Und };
 
-  public partial class TweetJson
+  public partial class JsonTweet
   {
-    public static TweetJson[] FromJson(string json) => JsonConvert.DeserializeObject<TweetJson[]>(json, QuickType.Converter.Settings);
+    public static JsonTweet[] FromJson(string json) => JsonConvert.DeserializeObject<JsonTweet[]>(json, Converter.Settings);
   }
 
   public static class Serialize
   {
-    public static string ToJson(this TweetJson[] self) => JsonConvert.SerializeObject(self, QuickType.Converter.Settings);
+    public static string ToJson(this JsonTweet[] self) => JsonConvert.SerializeObject(self, Converter.Settings);
   }
 
   internal static class Converter

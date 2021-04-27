@@ -42,7 +42,7 @@ namespace Ordisoftware.TweetsInspector
         if ( OpenFileDialogJS.ShowDialog() != DialogResult.OK ) return;
         LoadingForm.Instance.Initialize("Loading JS...", 1);
         string filepath = OpenFileDialogJS.FileName;
-        var tweets = TwitterJsonHelper.Get(filepath);
+        var tweets = JsonHelper.LoadTweets(filepath);
         LoadingForm.Instance.DoProgress();
         LoadingForm.Instance.Initialize(SysTranslations.ProgressCreatingData.GetLang(), tweets.Count);
         var command = new OdbcCommand("DELETE FROM Tweets", LockFileConnection);

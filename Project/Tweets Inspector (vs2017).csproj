@@ -304,7 +304,7 @@
       <DependentUpon>TweetsListsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\Program\StartupConnectAction.cs" />
-    <Compile Include="Source\Program\TweetJSON.cs" />
+    <Compile Include="Source\Program\JsonTweet.cs" />
     <EmbeddedResource Include="Dependencies\Core\WinForms.Controls\ComboBoxNavigator.resx">
       <DependentUpon>ComboBoxNavigator.cs</DependentUpon>
     </EmbeddedResource>
