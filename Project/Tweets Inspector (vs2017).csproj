@@ -408,9 +408,6 @@
     <None Include="Data\DataSet.xss">
       <DependentUpon>DataSet.xsd</DependentUpon>
     </None>
-    <None Include="Dependencies\Windows Global Hotkey\Windows Global Hotkey.url" />
-    <None Include="Dependencies\Windows Global Hotkey\Windows-Global-Hotkey-master-modified-2020.12.19.zip" />
-    <None Include="Dependencies\Windows Global Hotkey\Windows-Global-Hotkey-master.zip" />
     <None Include="Packages.config" />
     <None Include="Properties\DataSources\Ordisoftware.TweetsInspector.Properties.Settings.datasource" />
     <None Include="Properties\Settings.settings">
