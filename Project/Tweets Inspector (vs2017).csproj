@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\CefSharp.Common.89.0.170\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.89.0.170\build\CefSharp.Common.props')" />
-  <Import Project="packages\cef.redist.x86.89.0.17\build\cef.redist.x86.props" Condition="Exists('packages\cef.redist.x86.89.0.17\build\cef.redist.x86.props')" />
-  <Import Project="packages\cef.redist.x64.89.0.17\build\cef.redist.x64.props" Condition="Exists('packages\cef.redist.x64.89.0.17\build\cef.redist.x64.props')" />
+  <Import Project="packages\CefSharp.Common.90.6.50\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.90.6.50\build\CefSharp.Common.props')" />
+  <Import Project="packages\cef.redist.x86.90.6.5\build\cef.redist.x86.props" Condition="Exists('packages\cef.redist.x86.90.6.5\build\cef.redist.x86.props')" />
+  <Import Project="packages\cef.redist.x64.90.6.5\build\cef.redist.x64.props" Condition="Exists('packages\cef.redist.x64.90.6.5\build\cef.redist.x64.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -47,14 +47,14 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CefSharp, Version=89.0.170.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
-      <HintPath>packages\CefSharp.Common.89.0.170\lib\net452\CefSharp.dll</HintPath>
+    <Reference Include="CefSharp, Version=90.6.50.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>packages\CefSharp.Common.90.6.50\lib\net452\CefSharp.dll</HintPath>
     </Reference>
-    <Reference Include="CefSharp.Core, Version=89.0.170.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
-      <HintPath>packages\CefSharp.Common.89.0.170\lib\net452\CefSharp.Core.dll</HintPath>
+    <Reference Include="CefSharp.Core, Version=90.6.50.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>packages\CefSharp.Common.90.6.50\lib\net452\CefSharp.Core.dll</HintPath>
     </Reference>
-    <Reference Include="CefSharp.WinForms, Version=89.0.170.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
-      <HintPath>packages\CefSharp.WinForms.89.0.170\lib\net452\CefSharp.WinForms.dll</HintPath>
+    <Reference Include="CefSharp.WinForms, Version=90.6.50.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>packages\CefSharp.WinForms.90.6.50\lib\net452\CefSharp.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="CommandLine, Version=2.8.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
       <HintPath>packages\CommandLineParser.2.8.0\lib\net461\CommandLine.dll</HintPath>
@@ -77,10 +77,35 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SQLite-net, Version=1.7.335.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\sqlite-net-pcl.1.7.335\lib\netstandard2.0\SQLite-net.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.batteries_v2, Version=2.0.4.976, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
+      <HintPath>packages\SQLitePCLRaw.bundle_green.2.0.4\lib\net461\SQLitePCLRaw.batteries_v2.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.core, Version=2.0.4.976, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
+      <HintPath>packages\SQLitePCLRaw.core.2.0.4\lib\netstandard2.0\SQLitePCLRaw.core.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.nativelibrary, Version=2.0.4.976, Culture=neutral, PublicKeyToken=502ed628492ab262, processorArchitecture=MSIL">
+      <HintPath>packages\SQLitePCLRaw.bundle_green.2.0.4\lib\net461\SQLitePCLRaw.nativelibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.provider.dynamic_cdecl, Version=2.0.4.976, Culture=neutral, PublicKeyToken=b68184102cba0b3b, processorArchitecture=MSIL">
+      <HintPath>packages\SQLitePCLRaw.provider.dynamic_cdecl.2.0.4\lib\netstandard2.0\SQLitePCLRaw.provider.dynamic_cdecl.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
@@ -105,16 +130,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Dependencies\Core\GlobalSuppressions.cs" />
-    <Compile Include="Source\Forms\MainForm.Connect.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Source\Forms\WebBrowserForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Source\Forms\WebBrowserForm.Designer.cs">
-      <DependentUpon>WebBrowserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Dependencies\Core\Classes\Chronometer.cs" />
     <Compile Include="Dependencies\Core\Classes\EnumHelper.cs" />
@@ -143,7 +158,10 @@
     <Compile Include="Dependencies\Core\Collections\SortedAutoDictionary.cs" />
     <Compile Include="Dependencies\Core\Data\DataFile.cs" />
     <Compile Include="Dependencies\Core\Data\DataFileFolder.cs" />
+    <Compile Include="Dependencies\Core\Data\DataTableHelper.cs" />
+    <Compile Include="Dependencies\Core\Data\SQLiteDatabase.cs" />
     <Compile Include="Dependencies\Core\Data\SQLiteDate.cs" />
+    <Compile Include="Dependencies\Core\Data\SQLiteNetHelper.cs" />
     <Compile Include="Dependencies\Core\Data\SQLiteOdbcHelper.cs" />
     <Compile Include="Dependencies\Core\Exceptions\AbortException.cs" />
     <Compile Include="Dependencies\Core\Exceptions\ExceptionInfo.cs" />
@@ -159,6 +177,7 @@
     <Compile Include="Dependencies\Core\Globalization\SysTranslations.Processing.cs" />
     <Compile Include="Dependencies\Core\Globalization\SysTranslations.Settings.cs" />
     <Compile Include="Dependencies\Core\Globalization\SysTranslations.WebUpdate.cs" />
+    <Compile Include="Dependencies\Core\GlobalSuppressions.cs" />
     <Compile Include="Dependencies\Core\Globals\Globals.Assembly.cs" />
     <Compile Include="Dependencies\Core\Globals\Globals.cs" />
     <Compile Include="Dependencies\Core\Globals\Globals.Files.cs" />
@@ -265,6 +284,15 @@
     </Compile>
     <Compile Include="Dependencies\Core\WinForms\WebUpdateForm.Designer.cs">
       <DependentUpon>WebUpdateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\Forms\MainForm.Connect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Forms\WebBrowserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Forms\WebBrowserForm.Designer.cs">
+      <DependentUpon>WebBrowserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Dependencies\Windows Global Hotkey\Hotkey.cs" />
     <Compile Include="Dependencies\Windows Global Hotkey\HotkeyAction.cs" />
@@ -432,10 +460,12 @@
     <PropertyGroup>
       <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\cef.redist.x64.89.0.17\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x64.89.0.17\build\cef.redist.x64.props'))" />
-    <Error Condition="!Exists('packages\cef.redist.x86.89.0.17\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x86.89.0.17\build\cef.redist.x86.props'))" />
-    <Error Condition="!Exists('packages\CefSharp.Common.89.0.170\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.89.0.170\build\CefSharp.Common.props'))" />
-    <Error Condition="!Exists('packages\CefSharp.Common.89.0.170\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.89.0.170\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('packages\cef.redist.x64.90.6.5\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x64.90.6.5\build\cef.redist.x64.props'))" />
+    <Error Condition="!Exists('packages\cef.redist.x86.90.6.5\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x86.90.6.5\build\cef.redist.x86.props'))" />
+    <Error Condition="!Exists('packages\CefSharp.Common.90.6.50\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.90.6.50\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('packages\CefSharp.Common.90.6.50\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.90.6.50\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('packages\SQLitePCLRaw.lib.e_sqlite3.2.0.4\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SQLitePCLRaw.lib.e_sqlite3.2.0.4\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets'))" />
   </Target>
-  <Import Project="packages\CefSharp.Common.89.0.170\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.89.0.170\build\CefSharp.Common.targets')" />
+  <Import Project="packages\CefSharp.Common.90.6.50\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.90.6.50\build\CefSharp.Common.targets')" />
+  <Import Project="packages\SQLitePCLRaw.lib.e_sqlite3.2.0.4\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets" Condition="Exists('packages\SQLitePCLRaw.lib.e_sqlite3.2.0.4\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" />
 </Project>
