@@ -77,6 +77,15 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>packages\Serilog.2.10.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>packages\Serilog.Sinks.File.4.1.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.WinForms, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Serilog.Sinks.WinForms.2.3.0\lib\net46\Serilog.Sinks.WinForms.dll</HintPath>
+    </Reference>
     <Reference Include="SQLite-net, Version=1.7.335.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\sqlite-net-pcl.1.7.335\lib\netstandard2.0\SQLite-net.dll</HintPath>
     </Reference>
@@ -187,16 +196,21 @@
     <Compile Include="Dependencies\Core\Managers.Debug\DebugManager.cs" />
     <Compile Include="Dependencies\Core\Managers.Debug\DebugManager.Delegates.cs" />
     <Compile Include="Dependencies\Core\Managers.Debug\DebugManager.Enums.cs" />
-    <Compile Include="Dependencies\Core\Managers.Debug\DebugManager.Listener.cs" />
     <Compile Include="Dependencies\Core\Managers.Debug\DebugManager.Trace.cs" />
     <Compile Include="Dependencies\Core\Managers.Display\DisplayManager.cs" />
     <Compile Include="Dependencies\Core\Managers.Display\DisplayManager.Query.cs" />
     <Compile Include="Dependencies\Core\Managers.Display\DisplayManager.QueryValue.cs" />
     <Compile Include="Dependencies\Core\Managers.Display\DisplayManager.Show.cs" />
+    <Compile Include="Dependencies\Core\Managers.System\PowerActions.cs" />
     <Compile Include="Dependencies\Core\Managers.System\SystemManager.cs" />
+    <Compile Include="Dependencies\Core\Managers.System\SystemManager.IPC.cs" />
     <Compile Include="Dependencies\Core\Managers.System\SystemManager.Platform.cs" />
+    <Compile Include="Dependencies\Core\Managers.System\SystemManager.Power.cs" />
     <Compile Include="Dependencies\Core\Managers.System\SystemManager.Shell.cs" />
     <Compile Include="Dependencies\Core\Managers.System\SystemManager.SSL.cs" />
+    <Compile Include="Dependencies\Core\WinForms.Controls\CheckBoxToolStripItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Dependencies\Core\WinForms.Controls\ComboBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
