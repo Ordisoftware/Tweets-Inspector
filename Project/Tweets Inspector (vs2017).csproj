@@ -208,6 +208,7 @@
     <Compile Include="Dependencies\Core\Managers.System\SystemManager.Power.cs" />
     <Compile Include="Dependencies\Core\Managers.System\SystemManager.Shell.cs" />
     <Compile Include="Dependencies\Core\Managers.System\SystemManager.SSL.cs" />
+    <Compile Include="Dependencies\Core\Managers.System\SystemManager.Try.cs" />
     <Compile Include="Dependencies\Core\WinForms.Controls\CheckBoxToolStripItem.cs">
       <SubType>Component</SubType>
     </Compile>
