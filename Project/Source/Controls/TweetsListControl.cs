@@ -15,9 +15,10 @@
 using System;
 using System.Data;
 using System.Linq;
-using System.Windows.Forms;
-using Ordisoftware.Core;
 using System.Threading;
+using System.Windows.Forms;
+using CoreTweet;
+using Ordisoftware.Core;
 
 namespace Ordisoftware.TweetsInspector
 {
@@ -28,7 +29,7 @@ namespace Ordisoftware.TweetsInspector
     static public int ConfirmDeleteMaxIdsToShow = 10;
     static public int ConfirmOpenMaxIds = 5;
     static public int OpenMaxIds = 20;
-    static public int OpenDelay = 1000;
+    static public int LimitDelay = 1000;
 
     public event EventHandler Modified;
 
@@ -123,7 +124,7 @@ namespace Ordisoftware.TweetsInspector
     private void OpenTweet(DataGridViewRow row, bool delay = false)
     {
       System.Diagnostics.Process.Start(GetTweetRow(row).Url);
-      if ( delay ) Thread.Sleep(OpenDelay);
+      if ( delay ) Thread.Sleep(LimitDelay);
     }
 
     private void ActionOpen_Click(object sender, EventArgs e)
@@ -143,6 +144,7 @@ namespace Ordisoftware.TweetsInspector
 
     private void ActionDelete_Click(object sender, EventArgs e)
     {
+      bool delay = false;
       if ( DataGridView.SelectedRows.Count == 0 ) return;
       if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
         if ( !MainForm.IsConnected(true) ) return;
@@ -156,23 +158,43 @@ namespace Ordisoftware.TweetsInspector
                    : string.Join(Globals.NL, listIds);
       if ( !DisplayManager.QueryYesNo($"Delete {listRows.Count} {LabelTitle.Text} ?" + Globals.NL2 + msg) )
         return;
+      if ( Properties.Settings.Default.DeleteOnlyLocalMode )
+        if ( !DisplayManager.QueryYesNo("Tweets will be deleted in the database but not in Twitter. Continue?") )
+          return;
       if ( listRows.Count > 2 )
       {
+        delay = true;
         Cursor = Cursors.WaitCursor;
         Enabled = false;
-        LoadingForm.Instance.Initialize("Deleting...", listRows.Count);
+        Parent.Enabled = false;
+        ParentForm.Enabled = false;
+        LoadingForm.Instance.Initialize("Deleting...", listRows.Count, 0, false, showCounter: true, canCancel: true);
+        LoadingForm.Instance.TopMost = false;
       }
       try
       {
         foreach ( var tweet in listRows )
         {
           LoadingForm.Instance.DoProgress();
+          if ( LoadingForm.Instance.CancelRequired ) break;
           if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
-            SystemManager.TryCatch(() => MainForm.Tokens.Statuses.Destroy(long.Parse(tweet.Id)));
-          else
-            if ( !DisplayManager.QueryYesNo("Tweets will be deleted in the database but not in Twitter. Continue?") )
-            return;
-          tweet.Delete();
+            try
+            {
+              if ( delay ) Thread.Sleep(LimitDelay);
+              MainForm.Tokens.Statuses.Destroy(long.Parse(tweet.Id));
+              tweet.Delete();
+            }
+            catch ( TwitterException ex )
+            {
+              if ( ex.Status == System.Net.HttpStatusCode.NotFound )
+                tweet.Delete();
+              else
+                ex.Manage();
+            }
+            catch ( Exception ex )
+            {
+              ex.Manage();
+            }
         }
         Modified?.Invoke(this, EventArgs.Empty);
       }
@@ -181,6 +203,8 @@ namespace Ordisoftware.TweetsInspector
         if ( !Enabled )
         {
           Enabled = true;
+          Parent.Enabled = true;
+          ParentForm.Enabled = true;
           Cursor = Cursors.Default;
           LoadingForm.Instance.Hide();
         }
@@ -188,6 +212,71 @@ namespace Ordisoftware.TweetsInspector
       MainForm.Instance.TableAdapterManager.UpdateAll(MainForm.Instance.DataSet);
     }
 
+    // TODO move to trash on delete
+
+    private void checkOnlineToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      bool delay = false;
+      int count = 0;
+      if ( DataGridView.SelectedRows.Count == 0 ) return;
+      if ( !MainForm.IsConnected(true) ) return;
+      var listRows = DataGridView.SelectedRows
+                                 .Cast<DataGridViewRow>()
+                                 .Select(item => GetTweetRow(item))
+                                 .ToList();
+      if ( listRows.Count > 2 )
+      {
+        delay = true;
+        Cursor = Cursors.WaitCursor;
+        Enabled = false;
+        Parent.Enabled = false;
+        ParentForm.Enabled = false;
+        LoadingForm.Instance.Initialize("Checking to delete...", listRows.Count, 0, false, showCounter: true, canCancel: true);
+        LoadingForm.Instance.TopMost = false;
+      }
+      try
+      {
+        foreach ( var tweet in listRows )
+        {
+          LoadingForm.Instance.DoProgress();
+          if ( LoadingForm.Instance.CancelRequired ) break;
+          if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
+            try
+            {
+              if ( delay ) Thread.Sleep(LimitDelay);
+              MainForm.Tokens.Statuses.Show(long.Parse(tweet.Id));
+            }
+            catch ( TwitterException ex )
+            {
+              if ( ex.Status == System.Net.HttpStatusCode.NotFound )
+              {
+                tweet.Delete();
+                count++;
+              }
+              else
+                ex.Manage();
+            }
+            catch ( Exception ex )
+            {
+              ex.Manage();
+            }
+        }
+        Modified?.Invoke(this, EventArgs.Empty);
+      }
+      finally
+      {
+        if ( !Enabled )
+        {
+          Enabled = true;
+          Parent.Enabled = true;
+          ParentForm.Enabled = true;
+          Cursor = Cursors.Default;
+          LoadingForm.Instance.Hide();
+        }
+      }
+      DisplayManager.Show($"Deleted tweets: {count}");
+      MainForm.Instance.TableAdapterManager.UpdateAll(MainForm.Instance.DataSet);
+    }
   }
 
 }

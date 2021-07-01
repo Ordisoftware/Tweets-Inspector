@@ -11,7 +11,7 @@
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
 /// <created> 2016-04 </created>
-/// <edited> 2021-04 </edited>
+/// <edited> 2021-05 </edited>
 using System;
 
 namespace Ordisoftware.Core
@@ -57,6 +57,13 @@ namespace Ordisoftware.Core
       {
         [Language.EN] = "Term \"{0}\" not found.",
         [Language.FR] = "Terme \"{0}\" non trouvé."
+      };
+
+    static public readonly TranslationsDictionary AskToDeleteFile
+      = new TranslationsDictionary
+      {
+        [Language.EN] = $"Delete file:{Globals.NL2}{{0}}?",
+        [Language.FR] = $"Effacer le fichier :{Globals.NL2}{{0}}?",
       };
 
     static public readonly TranslationsDictionary AskToOpenAllLinks
@@ -178,6 +185,20 @@ namespace Ordisoftware.Core
         [Language.FR] = "Notes"
       };
 
+    static public readonly TranslationsDictionary Memo
+      = new TranslationsDictionary
+      {
+        [Language.EN] = "Memo",
+        [Language.FR] = "Mémo"
+      };
+
+    static public readonly TranslationsDictionary Board
+      = new TranslationsDictionary
+      {
+        [Language.EN] = "Board",
+        [Language.FR] = "Tableau"
+      };
+
     static public readonly TranslationsDictionary ReadOnly
       = new TranslationsDictionary
       {
@@ -268,7 +289,7 @@ namespace Ordisoftware.Core
           "{3} s",
           "{2} m {3} s",
           "{1} h {2} m {3} s",
-          "{0} j {1} h {2} m {3} s",
+          "{0} j {1} h {2} m {3} s"
         }
       };
 

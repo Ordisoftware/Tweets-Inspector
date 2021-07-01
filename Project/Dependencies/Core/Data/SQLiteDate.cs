@@ -11,7 +11,7 @@
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
 /// <created> 2019-01 </created>
-/// <edited> 2021-04 </edited>
+/// <edited> 2021-05 </edited>
 using System;
 using System.Globalization;
 
@@ -63,7 +63,7 @@ namespace Ordisoftware.Core
     /// <param name="day">The day.</param>
     static public string ToString(int year, int month, int day)
     {
-      return $"{year.ToString("0000")}-{month.ToString("00")}-{day.ToString("00")}";
+      return $"{year:0000}-{month:00)}-{day:00}";
     }
 
     /// <summary>
@@ -73,7 +73,22 @@ namespace Ordisoftware.Core
     /// <returns>An empty string if time is null</returns>
     static public string ToString(TimeSpan? time)
     {
-      return time.HasValue ? $"{time.Value.Hours.ToString("00")}:{time.Value.Minutes.ToString("00")}" : string.Empty;
+      return time.HasValue ? $"{time.Value.Hours:00}:{time.Value.Minutes:00}" : string.Empty;
+    }
+
+    /// <summary>
+    /// Get a time like "18:00".
+    /// </summary>
+    /// <param name="date">The date time.</param>
+    /// <returns>An empty string if time is null</returns>
+    static string ToStringFromTime(DateTime? date)
+    {
+      return date.HasValue ? $"{date.Value.Hour:00}:{date.Value.Minute:00}" : string.Empty;
+    }
+
+    static public DateTime? Add(TimeSpan? time, DateTime date)
+    {
+      return time.HasValue ? (DateTime?)date.AddHours(time.Value.Hours).AddMinutes(time.Value.Minutes) : null;
     }
 
     /// <summary>

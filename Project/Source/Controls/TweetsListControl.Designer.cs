@@ -50,6 +50,7 @@
       this.ColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.ColumnRecipients = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.ColumnMessage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.checkOnlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.ContextMenuStrip.SuspendLayout();
       this.PanelBottom.SuspendLayout();
       ( (System.ComponentModel.ISupportInitialize)( this.DataSet ) ).BeginInit();
@@ -61,21 +62,22 @@
       // 
       this.ContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuOpen,
-            this.MenuDelete});
+            this.MenuDelete,
+            this.checkOnlineToolStripMenuItem});
       this.ContextMenuStrip.Name = "ContextMenuStrip";
-      this.ContextMenuStrip.Size = new System.Drawing.Size(108, 48);
+      this.ContextMenuStrip.Size = new System.Drawing.Size(181, 92);
       // 
       // MenuOpen
       // 
       this.MenuOpen.Name = "MenuOpen";
-      this.MenuOpen.Size = new System.Drawing.Size(107, 22);
+      this.MenuOpen.Size = new System.Drawing.Size(180, 22);
       this.MenuOpen.Text = "Open";
       this.MenuOpen.Click += new System.EventHandler(this.ActionOpen_Click);
       // 
       // MenuDelete
       // 
       this.MenuDelete.Name = "MenuDelete";
-      this.MenuDelete.Size = new System.Drawing.Size(107, 22);
+      this.MenuDelete.Size = new System.Drawing.Size(180, 22);
       this.MenuDelete.Text = "Delete";
       this.MenuDelete.Click += new System.EventHandler(this.ActionDelete_Click);
       // 
@@ -190,9 +192,11 @@
       // 
       // TableAdapterManager
       // 
+      this.TableAdapterManager.AutoDeleteTableAdapter = null;
       this.TableAdapterManager.BackupDataSetBeforeUpdate = false;
       this.TableAdapterManager.FollowersTableAdapter = null;
       this.TableAdapterManager.FollowingTableAdapter = null;
+      this.TableAdapterManager.TrashTableAdapter = null;
       this.TableAdapterManager.TweetsTableAdapter = this.TweetsTableAdapter;
       this.TableAdapterManager.UpdateOrder = Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
       // 
@@ -263,6 +267,13 @@
       this.ColumnMessage.Name = "ColumnMessage";
       this.ColumnMessage.ReadOnly = true;
       // 
+      // checkOnlineToolStripMenuItem
+      // 
+      this.checkOnlineToolStripMenuItem.Name = "checkOnlineToolStripMenuItem";
+      this.checkOnlineToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.checkOnlineToolStripMenuItem.Text = "Check online";
+      this.checkOnlineToolStripMenuItem.Click += new System.EventHandler(this.checkOnlineToolStripMenuItem_Click);
+      // 
       // ListTweets
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -303,5 +314,6 @@
     private System.Windows.Forms.DataGridViewTextBoxColumn ColumnId;
     private System.Windows.Forms.DataGridViewTextBoxColumn ColumnRecipients;
     private System.Windows.Forms.DataGridViewTextBoxColumn ColumnMessage;
+    private System.Windows.Forms.ToolStripMenuItem checkOnlineToolStripMenuItem;
   }
 }

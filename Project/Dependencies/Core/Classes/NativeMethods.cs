@@ -11,7 +11,7 @@
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
 /// <created> 2016-04 </created>
-/// <edited> 2021-04 </edited>
+/// <edited> 2021-06 </edited>
 using System;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -23,15 +23,42 @@ using System.Runtime.InteropServices;
 namespace Ordisoftware.Core
 {
 
-  static partial class NativeMethods
+  static class NativeMethods
   {
 
-    // WorkStation
+    #region WorkStation
+
+    public const int WM_QUERYENDSESSION = 0x11;
 
     [DllImport("user32.dll", SetLastError = true)]
     static public extern bool LockWorkStation();
 
-    // Windows
+    [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+    static public extern EXECUTIONSTATE SetThreadExecutionState(EXECUTIONSTATE esFlags);
+
+    [DllImport("powrprof.dll", SetLastError = true)]
+    static public extern bool IsPwrSuspendAllowed();
+
+    [Flags]
+    public enum EXECUTIONSTATE : uint
+    {
+      EsAwaymodeRequired = 0x00000040,
+      EsContinuous = 0x80000000,
+      EsDisplayRequired = 0x00000002,
+      EsSystemRequired = 0x00000001
+    }
+
+    static public EXECUTIONSTATE SleepDisallow = EXECUTIONSTATE.EsContinuous
+                                               | EXECUTIONSTATE.EsSystemRequired
+                                               | EXECUTIONSTATE.EsAwaymodeRequired;
+
+    static public EXECUTIONSTATE SleepAllow = EXECUTIONSTATE.EsContinuous;
+
+    #endregion
+
+    #region Windows
+
+    public const int WM_DRAWCLIPBOARD = 0x308;
 
     public const int MAX_PATH = 260;
 
@@ -54,15 +81,15 @@ namespace Ordisoftware.Core
       public ushort ParamH;
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    public struct KEYBDINPUT
-    {
-      public ushort Vk;
-      public ushort Scan;
-      public uint Flags;
-      public uint Time;
-      public IntPtr ExtraInfo;
-    }
+      [StructLayout(LayoutKind.Sequential)]
+      public struct KEYBDINPUT
+      {
+        public ushort Vk;
+        public ushort Scan;
+        public uint Flags;
+        public uint Time;
+        public IntPtr ExtraInfo;
+      }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct MOUSEINPUT
@@ -86,11 +113,23 @@ namespace Ordisoftware.Core
       public MOUSEINPUT Mouse;
     }
 
+      [StructLayout(LayoutKind.Sequential)]
+      public struct INPUT
+      {
+        public uint Type;
+        public MOUSEKEYBDHARDWAREINPUT Data;
+      }
+
     [StructLayout(LayoutKind.Sequential)]
-    public struct INPUT
+    public struct PointStruct
     {
-      public uint Type;
-      public MOUSEKEYBDHARDWAREINPUT Data;
+      public int X;
+      public int Y;
+      public PointStruct(int x, int y)
+      {
+        X = x;
+        Y = y;
+      }
     }
 
     [DllImport("user32.dll")]
@@ -102,7 +141,17 @@ namespace Ordisoftware.Core
     [DllImport("user32.dll")]
     static public extern int ShowWindow(IntPtr hWnd, uint Msg);
 
-    // WinMedia
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    static public extern bool GetCursorPos(out System.Drawing.Point lpPoint);
+
+    [DllImport("user32.dll")]
+    static public extern IntPtr WindowFromPoint(PointStruct Point);
+
+
+    #endregion
+
+    #region WinMedia
 
     public const int WM_APPCOMMAND = 0x319;
     public const int APPCOMMAND_VOLUME_MUTE = 0x80000;
@@ -110,7 +159,9 @@ namespace Ordisoftware.Core
     [DllImport("winmm.dll", CharSet = CharSet.Unicode)]
     static public extern uint mciSendString(string command, StringBuilder returnValue, int returnLength, IntPtr winHandle);
 
-    // Screensaver
+    #endregion
+
+    #region Screensaver
 
     public const int WM_SYSCOMMAND = 0x0112;
     public const int SC_SCREENSAVE = 0xF140;
@@ -125,13 +176,17 @@ namespace Ordisoftware.Core
     [DllImport("user32.dll")]
     static public extern IntPtr GetForegroundWindow();
 
-    // Clipboard
+    #endregion
+
+    #region Clipboard
 
     [DllImport("User32.dll", CharSet = CharSet.Auto)]
     static public extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
     static public IntPtr ClipboardViewerNext { get; set; }
 
-    // Taskbar
+    #endregion
+
+    #region Taskbar
 
     public const int ABM_GETTASKBARPOS = 5;
 
@@ -148,7 +203,10 @@ namespace Ordisoftware.Core
     [DllImport("shell32.dll")]
     public static extern IntPtr SHAppBarMessage(int msg, ref APPBARDATA data);
 
-    // Shell icons
+    #endregion
+
+    #region Shell icons
+
     // https://stackoverflow.com/questions/1309738/how-do-i-get-an-image-for-the-various-messageboximages-or-messageboxicons#25429905
 
     public enum SHSTOCKICONID : uint
@@ -276,7 +334,9 @@ namespace Ordisoftware.Core
     [DllImport("Shell32.dll", SetLastError = false)]
     static public extern Int32 SHGetStockIconInfo(SHSTOCKICONID siid, SHGSI uFlags, ref SHSTOCKICONINFO psii);
 
-    // RichTextBox
+    #endregion
+
+    #region RichTextBox
 
     // Constants from the Platform SDK.
     public const int EM_SETEVENTMASK = 1073;
@@ -327,6 +387,8 @@ namespace Ordisoftware.Core
 
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     static public extern int SendMessage(HandleRef hWnd, int msg, int wParam, ref PARAFORMAT lp);
+
+    #endregion
 
   }
 
