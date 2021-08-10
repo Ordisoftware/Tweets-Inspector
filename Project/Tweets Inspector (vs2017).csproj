@@ -155,7 +155,7 @@
     <Compile Include="Dependencies\Core\Classes\SystemCommandLine.cs" />
     <Compile Include="Dependencies\Core\Classes\SystemHotKey.cs" />
     <Compile Include="Dependencies\Core\Classes\SystemStatistics.cs" />
-    <Compile Include="Dependencies\Core\Classes\VolumeMixer.cs" />
+    <Compile Include="Dependencies\Core\Classes\MediaMixer.cs" />
     <Compile Include="Dependencies\Core\Classes\WebCheckUpdate.cs" />
     <Compile Include="Dependencies\Core\Collections\AutoResizedList.cs" />
     <Compile Include="Dependencies\Core\Collections\NullSafeDictionary.cs" />
