@@ -11,7 +11,7 @@
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
 /// <created> 2019-01 </created>
-/// <edited> 2021-02 </edited>
+/// <edited> 2021-08 </edited>
 using System;
 using System.Windows.Forms;
 
@@ -37,6 +37,7 @@ namespace Ordisoftware.Core
 
     public event Action Progressing;
     public bool CancelRequired { get; set; }
+    public bool Hidden { get; set; }
 
     private LoadingForm()
     {
@@ -51,7 +52,7 @@ namespace Ordisoftware.Core
 
     public void Relocalize()
     {
-      LabelTitle.Text = Globals.AssemblyTitle;
+      LabelTitle.Text = Globals.AssemblyTitle; // TODO remove ?
     }
 
     public void Initialize(string text,
@@ -63,17 +64,19 @@ namespace Ordisoftware.Core
                            bool canCancel = false,
                            bool topMost = false)
     {
+      LabelTitle.Text = Globals.AssemblyTitle;
       TopMost = topMost;
       CancelRequired = false;
       ActionCancel.Visible = canCancel;
       LabelCount.Visible = showCounter;
       QuantaTotal = quantaTotal;
       this.CenterToMainFormElseScreen();
-      if ( minimum == 0 || ( minimum > 0 && count > minimum ) )
-      {
-        Show();
-        BringToFront();
-      }
+      if ( !Hidden )
+        if ( minimum == 0 || ( minimum > 0 && count > minimum ) )
+        {
+          Show();
+          BringToFront();
+        }
       if ( count <= 0 ) count = 1;
       UseQuanta = quantify && count > QuantaTotal;
       QuantaLevel = UseQuanta ? count / QuantaTotal : 1;
