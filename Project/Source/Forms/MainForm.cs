@@ -228,34 +228,49 @@ namespace Ordisoftware.TweetsInspector
 
     private void ActionGetFollowers_Click(object sender, EventArgs e)
     {
-      if ( !IsConnected(true) ) return;
-      int count = APIStep;
-      var users = new List<User>();
-      long? cursor = null;
-      while ( count == APIStep )
+      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
       {
-        var list = Tokens.Followers.List(Tokens.UserId, count: APIStep, cursor: cursor);
-        cursor = list.NextCursor;
-        count = list.Count;
-        users.AddRange(list.ToList());
-      }
-      DisplayManager.Show(string.Join(", ", users.Select(user => user.ScreenName)));
+        if ( !IsConnected(true) ) return;
+        int count = APIStep;
+        var users = new List<User>();
+        long? cursor = null;
+        while ( count == APIStep )
+        {
+          var list = Tokens.Followers.List(Tokens.UserId, count: APIStep, cursor: cursor);
+          cursor = list.NextCursor;
+          count = list.Count;
+          users.AddRange(list.ToList());
+        }
+        ShowUsers("Fellowers", users);
+      });
     }
 
     private void ActionGetFellowing_Click(object sender, EventArgs e)
     {
-      if ( !IsConnected(true) ) return;
-      int count = APIStep;
-      var users = new List<User>();
-      long? cursor = null;
-      while ( count == APIStep )
+      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
       {
-        var list = Tokens.Friends.List(Tokens.UserId, count: APIStep, cursor: cursor);
-        cursor = list.NextCursor;
-        count = list.Count;
-        users.AddRange(list.ToList());
-      }
-      DisplayManager.Show(string.Join(", ", users.Select(user => user.ScreenName)));
+        if ( !IsConnected(true) ) return;
+        int count = APIStep;
+        var users = new List<User>();
+        long? cursor = null;
+        while ( count == APIStep )
+        {
+          var list = Tokens.Friends.List(Tokens.UserId, count: APIStep, cursor: cursor);
+          cursor = list.NextCursor;
+          count = list.Count;
+          users.AddRange(list.ToList());
+        }
+        ShowUsers("Fellowing", users);
+      });
+    }
+
+    private void ShowUsers(string title, List<User> users)
+    {
+      var items = users.Select((user, index) => $"{index + 1}. {user.ScreenName} : {user.Name} - {user.Description.Replace(Environment.NewLine, " | ").Replace("\n", " | ")}");
+      string text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
+                    Environment.NewLine +
+                    string.Join(Environment.NewLine, items);
+      new ShowTextForm(title, text, width: 1000, height: 1000, wrap: false).ShowDialog();
     }
 
     private void ActionGetLikes_Click(object sender, EventArgs e)
