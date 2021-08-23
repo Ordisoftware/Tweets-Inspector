@@ -11,7 +11,7 @@
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
 /// <created> 2021-04 </created>
-/// <edited> 2021-04 </edited>
+/// <edited> 2021-08 </edited>
 using System;
 using System.IO;
 using System.Linq;
@@ -21,6 +21,7 @@ using CoreTweet;
 using Ordisoftware.Core;
 using System.Drawing;
 using System.Data;
+using System.Threading;
 
 namespace Ordisoftware.TweetsInspector
 {
@@ -226,6 +227,15 @@ namespace Ordisoftware.TweetsInspector
       TweetsControl.SetSearchTerm(EditSearch.Text);
     }
 
+    private void ShowUsers(string title, List<User> users)
+    {
+      var items = users.Select((user, index) => $"{index + 1}. {user.ScreenName} : {user.Name} - {user.Description.Replace(Environment.NewLine, " | ").Replace("\n", " | ")}");
+      string text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
+                    Environment.NewLine +
+                    string.Join(Environment.NewLine, items);
+      new ShowTextForm(title, text, width: 1000, height: 1000, wrap: false).ShowDialog();
+    }
+
     private void ActionGetFollowers_Click(object sender, EventArgs e)
     {
       SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
@@ -240,6 +250,7 @@ namespace Ordisoftware.TweetsInspector
           cursor = list.NextCursor;
           count = list.Count;
           users.AddRange(list.ToList());
+          Thread.Sleep(ListTweets.LimitDelay);
         }
         ShowUsers("Fellowers", users);
       });
@@ -259,18 +270,50 @@ namespace Ordisoftware.TweetsInspector
           cursor = list.NextCursor;
           count = list.Count;
           users.AddRange(list.ToList());
+          Thread.Sleep(ListTweets.LimitDelay);
         }
         ShowUsers("Fellowing", users);
       });
     }
 
-    private void ShowUsers(string title, List<User> users)
+    private void ActionGetMutes_Click(object sender, EventArgs e)
     {
-      var items = users.Select((user, index) => $"{index + 1}. {user.ScreenName} : {user.Name} - {user.Description.Replace(Environment.NewLine, " | ").Replace("\n", " | ")}");
-      string text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
-                    Environment.NewLine +
-                    string.Join(Environment.NewLine, items);
-      new ShowTextForm(title, text, width: 1000, height: 1000, wrap: false).ShowDialog();
+      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
+      {
+        if ( !IsConnected(true) ) return;
+        int count = 20;
+        var users = new List<User>();
+        long? cursor = null;
+        while ( count == 20 )
+        {
+          var list = Tokens.Mutes.Users.List(cursor: cursor);
+          cursor = list.NextCursor;
+          count = list.Count;
+          users.AddRange(list.ToList());
+          Thread.Sleep(ListTweets.LimitDelay);
+        }
+        ShowUsers("Mutes", users);
+      });
+    }
+
+    private void ActionGetBlocks_Click(object sender, EventArgs e)
+    {
+      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
+      {
+        if ( !IsConnected(true) ) return;
+        int count = 20;
+        var users = new List<User>();
+        long? cursor = null;
+        while ( count == 20 )
+        {
+          var list = Tokens.Blocks.List(cursor: cursor);
+          cursor = list.NextCursor;
+          count = list.Count;
+          users.AddRange(list.ToList());
+          Thread.Sleep(ListTweets.LimitDelay);
+        }
+        ShowUsers("Blocks", users);
+      });
     }
 
     private void ActionGetLikes_Click(object sender, EventArgs e)
