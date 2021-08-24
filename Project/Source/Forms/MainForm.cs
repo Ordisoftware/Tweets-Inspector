@@ -50,7 +50,7 @@ namespace Ordisoftware.TweetsInspector
     internal static bool IsConnected(bool showMessage)
     {
       if ( Tokens != null ) return true;
-      if (showMessage) DisplayManager.ShowWarning("Not connected.");
+      if ( showMessage ) DisplayManager.ShowWarning("Not connected.");
       return false;
     }
 
@@ -204,7 +204,7 @@ namespace Ordisoftware.TweetsInspector
       TweetsControl.DeleteSelected();
       TweetsControl.Modified -= onModified;
       TweetsControl.Modified += TweetsControl_OnModified;
-      if (modified) TweetsControl_OnModified(null, null);
+      if ( modified ) TweetsControl_OnModified(null, null);
     }
 
     private void ActionSelectAll_Click(object sender, EventArgs e)
@@ -233,16 +233,17 @@ namespace Ordisoftware.TweetsInspector
       string text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
                     Environment.NewLine +
                     string.Join(Environment.NewLine, items);
-      new ShowTextForm(title, text, width: 1000, height: 1000, wrap: false).ShowDialog();
+      EditUsers.Text = text;
+      //new ShowTextForm(title, text, width: 1000, height: 1000, wrap: false).ShowDialog();
     }
 
     private void ActionGetFollowers_Click(object sender, EventArgs e)
     {
+      var users = new List<User>();
       SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
       {
         if ( !IsConnected(true) ) return;
         int count = APIStep;
-        var users = new List<User>();
         long? cursor = null;
         while ( count == APIStep )
         {
@@ -250,59 +251,82 @@ namespace Ordisoftware.TweetsInspector
           cursor = list.NextCursor;
           count = list.Count;
           users.AddRange(list.ToList());
-          Thread.Sleep(ListTweets.LimitDelay);
+          Thread.Sleep(ListTweets.LimitDelay * 2);
         }
-        ShowUsers("Fellowers", users);
       });
+      ShowUsers("Fellowers", users);
     }
 
     private void ActionGetFellowing_Click(object sender, EventArgs e)
     {
+      var temp = LoadingForm.Instance.ProgressBar.Style;
+      var temp2 = LoadingForm.Instance.LabelCount.Visible;
+      LoadingForm.Instance.Initialize("Reading users data...", 10, 0, false, canCancel: true);
+      LoadingForm.Instance.ProgressBar.Style = ProgressBarStyle.Marquee;
+      LoadingForm.Instance.LabelCount.Visible = true;
+      var users = new List<User>();
       SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
       {
         if ( !IsConnected(true) ) return;
+        int total = 0;
         int count = APIStep;
-        var users = new List<User>();
         long? cursor = null;
         while ( count == APIStep )
         {
+          if ( LoadingForm.Instance.CancelRequired ) break;
+          LoadingForm.Instance.LabelCount.Text = total.ToString();
+          LoadingForm.Instance.Refresh();
+          total += APIStep;
           var list = Tokens.Friends.List(Tokens.UserId, count: APIStep, cursor: cursor);
           cursor = list.NextCursor;
           count = list.Count;
           users.AddRange(list.ToList());
-          Thread.Sleep(ListTweets.LimitDelay);
+          Thread.Sleep(ListTweets.LimitDelay * 2);
         }
-        ShowUsers("Fellowing", users);
       });
+      ShowUsers("Fellowing", users);
+      LoadingForm.Instance.LabelCount.Visible = temp2;
+      LoadingForm.Instance.ProgressBar.Style = temp;
+      LoadingForm.Instance.Close();
     }
 
     private void ActionGetMutes_Click(object sender, EventArgs e)
     {
+      var temp = LoadingForm.Instance.ProgressBar.Style;
+      LoadingForm.Instance.Initialize("Reading users data...", 10, 0, false, canCancel: true);
+      LoadingForm.Instance.ProgressBar.Style = ProgressBarStyle.Marquee;
+      var users = new List<User>();
       SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
       {
         if ( !IsConnected(true) ) return;
+        int total = 0;
         int count = 20;
-        var users = new List<User>();
         long? cursor = null;
         while ( count == 20 )
         {
+          if ( LoadingForm.Instance.CancelRequired ) break;
+          LoadingForm.Instance.LabelCount.Text = total.ToString();
+          LoadingForm.Instance.Refresh();
+          total += 20;
           var list = Tokens.Mutes.Users.List(cursor: cursor);
           cursor = list.NextCursor;
           count = list.Count;
           users.AddRange(list.ToList());
-          Thread.Sleep(ListTweets.LimitDelay);
+          Thread.Sleep(ListTweets.LimitDelay * 5);
         }
-        ShowUsers("Mutes", users);
       });
+      ShowUsers("Mutes", users);
+      LoadingForm.Instance.ProgressBar.Style = temp;
+      LoadingForm.Instance.Close();
     }
 
     private void ActionGetBlocks_Click(object sender, EventArgs e)
     {
+      var users = new List<User>();
       SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
       {
         if ( !IsConnected(true) ) return;
         int count = 20;
-        var users = new List<User>();
         long? cursor = null;
         while ( count == 20 )
         {
@@ -310,10 +334,10 @@ namespace Ordisoftware.TweetsInspector
           cursor = list.NextCursor;
           count = list.Count;
           users.AddRange(list.ToList());
-          Thread.Sleep(ListTweets.LimitDelay);
+          Thread.Sleep(ListTweets.LimitDelay * 5);
         }
-        ShowUsers("Blocks", users);
       });
+      ShowUsers("Blocks", users);
     }
 
     private void ActionGetLikes_Click(object sender, EventArgs e)
