@@ -308,6 +308,7 @@ namespace Ordisoftware.TweetsInspector
         int count = quanta;
         while ( count == quanta )
         {
+          callback(quanta);
           var list = Tokens.Mutes.Users.List(cursor: cursor);
           cursor = list.NextCursor;
           count = list.Count;
@@ -326,6 +327,7 @@ namespace Ordisoftware.TweetsInspector
         int count = quanta;
         while ( count == 20 )
         {
+          callback(quanta);
           var list = Tokens.Blocks.List(cursor: cursor);
           cursor = list.NextCursor;
           count = list.Count;
