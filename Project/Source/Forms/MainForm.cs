@@ -237,16 +237,40 @@ namespace Ordisoftware.TweetsInspector
       //new ShowTextForm(title, text, width: 1000, height: 1000, wrap: false).ShowDialog();
     }
 
+    private void ProcessWithLoadingForm(object sender, Action<List<User>, Action<int>> action)
+    {
+      if ( !IsConnected(true) ) return;
+      var tempProgressBar = LoadingForm.Instance.ProgressBar.Style;
+      var tempLabelCount = LoadingForm.Instance.LabelCount.Visible;
+      string title = ( sender as Control )?.Text ?? "Users";
+      LoadingForm.Instance.Initialize($"Reading {title}...", 10, 0, false, canCancel: true);
+      LoadingForm.Instance.ProgressBar.Style = ProgressBarStyle.Marquee;
+      LoadingForm.Instance.LabelCount.Visible = true;
+      var users = new List<User>();
+      int total = 0;
+      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () => action(users, quanta =>
+      {
+        if ( LoadingForm.Instance.CancelRequired ) throw new AbortException();
+        LoadingForm.Instance.LabelCount.Text = total.ToString();
+        LoadingForm.Instance.Refresh();
+        total += quanta;
+      }));
+      ShowUsers(title, users);
+      LoadingForm.Instance.LabelCount.Visible = tempLabelCount;
+      LoadingForm.Instance.ProgressBar.Style = tempProgressBar;
+      LoadingForm.Instance.Close();
+    }
+
     private void ActionGetFollowers_Click(object sender, EventArgs e)
     {
-      var users = new List<User>();
-      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
+      ProcessWithLoadingForm(sender, (users, callback) =>
       {
-        if ( !IsConnected(true) ) return;
-        int count = APIStep;
         long? cursor = null;
-        while ( count == APIStep )
+        int quanta = APIStep;
+        int count = quanta;
+        while ( count == quanta )
         {
+          callback(quanta);
           var list = Tokens.Followers.List(Tokens.UserId, count: APIStep, cursor: cursor);
           cursor = list.NextCursor;
           count = list.Count;
@@ -254,29 +278,18 @@ namespace Ordisoftware.TweetsInspector
           Thread.Sleep(ListTweets.LimitDelay * 2);
         }
       });
-      ShowUsers("Fellowers", users);
     }
 
     private void ActionGetFellowing_Click(object sender, EventArgs e)
     {
-      var temp = LoadingForm.Instance.ProgressBar.Style;
-      var temp2 = LoadingForm.Instance.LabelCount.Visible;
-      LoadingForm.Instance.Initialize("Reading users data...", 10, 0, false, canCancel: true);
-      LoadingForm.Instance.ProgressBar.Style = ProgressBarStyle.Marquee;
-      LoadingForm.Instance.LabelCount.Visible = true;
-      var users = new List<User>();
-      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
+      ProcessWithLoadingForm(sender, (users, callback) =>
       {
-        if ( !IsConnected(true) ) return;
-        int total = 0;
-        int count = APIStep;
         long? cursor = null;
-        while ( count == APIStep )
+        int quanta = APIStep;
+        int count = quanta;
+        while ( count == quanta )
         {
-          if ( LoadingForm.Instance.CancelRequired ) break;
-          LoadingForm.Instance.LabelCount.Text = total.ToString();
-          LoadingForm.Instance.Refresh();
-          total += APIStep;
+          callback(quanta);
           var list = Tokens.Friends.List(Tokens.UserId, count: APIStep, cursor: cursor);
           cursor = list.NextCursor;
           count = list.Count;
@@ -284,30 +297,17 @@ namespace Ordisoftware.TweetsInspector
           Thread.Sleep(ListTweets.LimitDelay * 2);
         }
       });
-      ShowUsers("Fellowing", users);
-      LoadingForm.Instance.LabelCount.Visible = temp2;
-      LoadingForm.Instance.ProgressBar.Style = temp;
-      LoadingForm.Instance.Close();
     }
 
     private void ActionGetMutes_Click(object sender, EventArgs e)
     {
-      var temp = LoadingForm.Instance.ProgressBar.Style;
-      LoadingForm.Instance.Initialize("Reading users data...", 10, 0, false, canCancel: true);
-      LoadingForm.Instance.ProgressBar.Style = ProgressBarStyle.Marquee;
-      var users = new List<User>();
-      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
+      ProcessWithLoadingForm(sender, (users, callback) =>
       {
-        if ( !IsConnected(true) ) return;
-        int total = 0;
-        int count = 20;
         long? cursor = null;
-        while ( count == 20 )
+        int quanta = 20;
+        int count = quanta;
+        while ( count == quanta )
         {
-          if ( LoadingForm.Instance.CancelRequired ) break;
-          LoadingForm.Instance.LabelCount.Text = total.ToString();
-          LoadingForm.Instance.Refresh();
-          total += 20;
           var list = Tokens.Mutes.Users.List(cursor: cursor);
           cursor = list.NextCursor;
           count = list.Count;
@@ -315,19 +315,15 @@ namespace Ordisoftware.TweetsInspector
           Thread.Sleep(ListTweets.LimitDelay * 5);
         }
       });
-      ShowUsers("Mutes", users);
-      LoadingForm.Instance.ProgressBar.Style = temp;
-      LoadingForm.Instance.Close();
     }
 
     private void ActionGetBlocks_Click(object sender, EventArgs e)
     {
-      var users = new List<User>();
-      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
+      ProcessWithLoadingForm(sender, (users, callback) =>
       {
-        if ( !IsConnected(true) ) return;
-        int count = 20;
         long? cursor = null;
+        int quanta = 20;
+        int count = quanta;
         while ( count == 20 )
         {
           var list = Tokens.Blocks.List(cursor: cursor);
@@ -337,18 +333,17 @@ namespace Ordisoftware.TweetsInspector
           Thread.Sleep(ListTweets.LimitDelay * 5);
         }
       });
-      ShowUsers("Blocks", users);
     }
 
     private void ActionGetLikes_Click(object sender, EventArgs e)
     {
-      if ( !IsConnected(true) ) return;
+      /*if ( !IsConnected(true) ) return;
       var list = Tokens.Favorites.List(Tokens.UserId, count: 200);
       foreach ( var item in list )
       {
         if ( item.User.ScreenName.ToLower().Contains("") )
           ;
-      }
+      }*/
     }
 
   }
