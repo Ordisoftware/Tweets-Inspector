@@ -50,7 +50,7 @@ namespace Ordisoftware.TweetsInspector
     internal static bool IsConnected(bool showMessage)
     {
       if ( Tokens != null ) return true;
-      if (showMessage) DisplayManager.ShowWarning("Not connected.");
+      if ( showMessage ) DisplayManager.ShowWarning("Not connected.");
       return false;
     }
 
@@ -204,7 +204,7 @@ namespace Ordisoftware.TweetsInspector
       TweetsControl.DeleteSelected();
       TweetsControl.Modified -= onModified;
       TweetsControl.Modified += TweetsControl_OnModified;
-      if (modified) TweetsControl_OnModified(null, null);
+      if ( modified ) TweetsControl_OnModified(null, null);
     }
 
     private void ActionSelectAll_Click(object sender, EventArgs e)
@@ -233,98 +233,119 @@ namespace Ordisoftware.TweetsInspector
       string text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
                     Environment.NewLine +
                     string.Join(Environment.NewLine, items);
-      new ShowTextForm(title, text, width: 1000, height: 1000, wrap: false).ShowDialog();
+      EditUsers.Text = text;
+      //new ShowTextForm(title, text, width: 1000, height: 1000, wrap: false).ShowDialog();
+    }
+
+    private void ProcessWithLoadingForm(object sender, Action<List<User>, Action<int>> action)
+    {
+      if ( !IsConnected(true) ) return;
+      var tempProgressBar = LoadingForm.Instance.ProgressBar.Style;
+      var tempLabelCount = LoadingForm.Instance.LabelCount.Visible;
+      string title = ( sender as Control )?.Text ?? "Users";
+      LoadingForm.Instance.Initialize($"Reading {title}...", 10, 0, false, canCancel: true);
+      LoadingForm.Instance.ProgressBar.Style = ProgressBarStyle.Marquee;
+      LoadingForm.Instance.LabelCount.Visible = true;
+      var users = new List<User>();
+      int total = 0;
+      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () => action(users, quanta =>
+      {
+        if ( LoadingForm.Instance.CancelRequired ) throw new AbortException();
+        LoadingForm.Instance.LabelCount.Text = total.ToString();
+        LoadingForm.Instance.Refresh();
+        total += quanta;
+      }));
+      ShowUsers(title, users);
+      LoadingForm.Instance.LabelCount.Visible = tempLabelCount;
+      LoadingForm.Instance.ProgressBar.Style = tempProgressBar;
+      LoadingForm.Instance.Close();
     }
 
     private void ActionGetFollowers_Click(object sender, EventArgs e)
     {
-      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
+      ProcessWithLoadingForm(sender, (users, callback) =>
       {
-        if ( !IsConnected(true) ) return;
-        int count = APIStep;
-        var users = new List<User>();
         long? cursor = null;
-        while ( count == APIStep )
+        int quanta = APIStep;
+        int count = quanta;
+        while ( count == quanta )
         {
+          callback(quanta);
           var list = Tokens.Followers.List(Tokens.UserId, count: APIStep, cursor: cursor);
           cursor = list.NextCursor;
           count = list.Count;
           users.AddRange(list.ToList());
-          Thread.Sleep(ListTweets.LimitDelay);
+          Thread.Sleep(ListTweets.LimitDelay * 2);
         }
-        ShowUsers("Fellowers", users);
       });
     }
 
     private void ActionGetFellowing_Click(object sender, EventArgs e)
     {
-      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
+      ProcessWithLoadingForm(sender, (users, callback) =>
       {
-        if ( !IsConnected(true) ) return;
-        int count = APIStep;
-        var users = new List<User>();
         long? cursor = null;
-        while ( count == APIStep )
+        int quanta = APIStep;
+        int count = quanta;
+        while ( count == quanta )
         {
+          callback(quanta);
           var list = Tokens.Friends.List(Tokens.UserId, count: APIStep, cursor: cursor);
           cursor = list.NextCursor;
           count = list.Count;
           users.AddRange(list.ToList());
-          Thread.Sleep(ListTweets.LimitDelay);
+          Thread.Sleep(ListTweets.LimitDelay * 2);
         }
-        ShowUsers("Fellowing", users);
       });
     }
 
     private void ActionGetMutes_Click(object sender, EventArgs e)
     {
-      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
+      ProcessWithLoadingForm(sender, (users, callback) =>
       {
-        if ( !IsConnected(true) ) return;
-        int count = 20;
-        var users = new List<User>();
         long? cursor = null;
-        while ( count == 20 )
+        int quanta = 20;
+        int count = quanta;
+        while ( count == quanta )
         {
+          callback(quanta);
           var list = Tokens.Mutes.Users.List(cursor: cursor);
           cursor = list.NextCursor;
           count = list.Count;
           users.AddRange(list.ToList());
-          Thread.Sleep(ListTweets.LimitDelay);
+          Thread.Sleep(ListTweets.LimitDelay * 5);
         }
-        ShowUsers("Mutes", users);
       });
     }
 
     private void ActionGetBlocks_Click(object sender, EventArgs e)
     {
-      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () =>
+      ProcessWithLoadingForm(sender, (users, callback) =>
       {
-        if ( !IsConnected(true) ) return;
-        int count = 20;
-        var users = new List<User>();
         long? cursor = null;
+        int quanta = 20;
+        int count = quanta;
         while ( count == 20 )
         {
+          callback(quanta);
           var list = Tokens.Blocks.List(cursor: cursor);
           cursor = list.NextCursor;
           count = list.Count;
           users.AddRange(list.ToList());
-          Thread.Sleep(ListTweets.LimitDelay);
+          Thread.Sleep(ListTweets.LimitDelay * 5);
         }
-        ShowUsers("Blocks", users);
       });
     }
 
     private void ActionGetLikes_Click(object sender, EventArgs e)
     {
-      if ( !IsConnected(true) ) return;
+      /*if ( !IsConnected(true) ) return;
       var list = Tokens.Favorites.List(Tokens.UserId, count: 200);
       foreach ( var item in list )
       {
         if ( item.User.ScreenName.ToLower().Contains("") )
           ;
-      }
+      }*/
     }
 
   }
