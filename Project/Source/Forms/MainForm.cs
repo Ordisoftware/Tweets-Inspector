@@ -346,6 +346,10 @@ namespace Ordisoftware.TweetsInspector
       }*/
     }
 
+    private void ActionCheckOnlineDestroyed_Click(object sender, EventArgs e)
+    {
+
+    }
   }
 
 }

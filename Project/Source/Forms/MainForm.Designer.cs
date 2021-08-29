@@ -62,10 +62,6 @@
       this.ActionSelectAll = new System.Windows.Forms.Button();
       this.ActionSelectNone = new System.Windows.Forms.Button();
       this.ActionFilterClear = new System.Windows.Forms.Button();
-      this.ActionGetFellowing = new System.Windows.Forms.Button();
-      this.ActionGetBlocks = new System.Windows.Forms.Button();
-      this.ActionGetMutes = new System.Windows.Forms.Button();
-      this.ActionGetFollowers = new System.Windows.Forms.Button();
       this.EditDeleteOnlyLocal = new System.Windows.Forms.CheckBox();
       this.EditSearch = new System.Windows.Forms.TextBox();
       this.ActionConnect = new System.Windows.Forms.Button();
@@ -74,6 +70,12 @@
       this.TabPageDestroyed = new System.Windows.Forms.TabPage();
       this.ListTweetsTrash = new Ordisoftware.TweetsInspector.ListTweets();
       this.TabPageMessages = new System.Windows.Forms.TabPage();
+      this.TabPageUsers = new System.Windows.Forms.TabPage();
+      this.EditUsers = new Ordisoftware.Core.RichTextBoxEx();
+      this.ActionGetFellowing = new System.Windows.Forms.Button();
+      this.ActionGetMutes = new System.Windows.Forms.Button();
+      this.ActionGetBlocks = new System.Windows.Forms.Button();
+      this.ActionGetFollowers = new System.Windows.Forms.Button();
       this.TabPageSettings = new System.Windows.Forms.TabPage();
       this.SelectStartupConnectAction = new System.Windows.Forms.ComboBox();
       this.SettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -98,8 +100,6 @@
       this.TweetsBindingSourceRTs = new System.Windows.Forms.BindingSource(this.components);
       this.TrashBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.TrashTableAdapter = new Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TrashTableAdapter();
-      this.TabPageUsers = new System.Windows.Forms.TabPage();
-      this.EditUsers = new Ordisoftware.Core.RichTextBoxEx();
       LabelConsumerBackUrl = new System.Windows.Forms.Label();
       LabelConsumerKey = new System.Windows.Forms.Label();
       LabelConsumerSecret = new System.Windows.Forms.Label();
@@ -117,6 +117,7 @@
       this.PanelTweetsTop.SuspendLayout();
       this.TabPageDestroyed.SuspendLayout();
       this.TabPageMessages.SuspendLayout();
+      this.TabPageUsers.SuspendLayout();
       this.TabPageSettings.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.SettingsBindingSource)).BeginInit();
       this.StatusStrip.SuspendLayout();
@@ -126,7 +127,6 @@
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceReplies)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceRTs)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.TrashBindingSource)).BeginInit();
-      this.TabPageUsers.SuspendLayout();
       this.SuspendLayout();
       // 
       // LabelConsumerBackUrl
@@ -380,12 +380,14 @@
       // 
       // ActionCheckOnlineDestroyed
       // 
+      this.ActionCheckOnlineDestroyed.Enabled = false;
       this.ActionCheckOnlineDestroyed.Location = new System.Drawing.Point(326, 6);
       this.ActionCheckOnlineDestroyed.Name = "ActionCheckOnlineDestroyed";
       this.ActionCheckOnlineDestroyed.Size = new System.Drawing.Size(116, 23);
       this.ActionCheckOnlineDestroyed.TabIndex = 16;
       this.ActionCheckOnlineDestroyed.Text = "Check destroyed";
       this.ActionCheckOnlineDestroyed.UseVisualStyleBackColor = true;
+      this.ActionCheckOnlineDestroyed.Click += new System.EventHandler(this.ActionCheckOnlineDestroyed_Click);
       // 
       // EditSingleClickUserFilter
       // 
@@ -446,6 +448,7 @@
       // 
       // ActionGetLikes
       // 
+      this.ActionGetLikes.Enabled = false;
       this.ActionGetLikes.Location = new System.Drawing.Point(245, 6);
       this.ActionGetLikes.Name = "ActionGetLikes";
       this.ActionGetLikes.Size = new System.Drawing.Size(75, 23);
@@ -486,46 +489,6 @@
       this.ActionFilterClear.Text = "X";
       this.ActionFilterClear.UseVisualStyleBackColor = true;
       this.ActionFilterClear.Click += new System.EventHandler(this.ActionFilterClear_Click);
-      // 
-      // ActionGetFellowing
-      // 
-      this.ActionGetFellowing.Location = new System.Drawing.Point(15, 15);
-      this.ActionGetFellowing.Name = "ActionGetFellowing";
-      this.ActionGetFellowing.Size = new System.Drawing.Size(75, 23);
-      this.ActionGetFellowing.TabIndex = 8;
-      this.ActionGetFellowing.Text = "Fellowing";
-      this.ActionGetFellowing.UseVisualStyleBackColor = true;
-      this.ActionGetFellowing.Click += new System.EventHandler(this.ActionGetFellowing_Click);
-      // 
-      // ActionGetBlocks
-      // 
-      this.ActionGetBlocks.Location = new System.Drawing.Point(15, 117);
-      this.ActionGetBlocks.Name = "ActionGetBlocks";
-      this.ActionGetBlocks.Size = new System.Drawing.Size(75, 23);
-      this.ActionGetBlocks.TabIndex = 8;
-      this.ActionGetBlocks.Text = "Blocks";
-      this.ActionGetBlocks.UseVisualStyleBackColor = true;
-      this.ActionGetBlocks.Click += new System.EventHandler(this.ActionGetBlocks_Click);
-      // 
-      // ActionGetMutes
-      // 
-      this.ActionGetMutes.Location = new System.Drawing.Point(15, 83);
-      this.ActionGetMutes.Name = "ActionGetMutes";
-      this.ActionGetMutes.Size = new System.Drawing.Size(75, 23);
-      this.ActionGetMutes.TabIndex = 8;
-      this.ActionGetMutes.Text = "Mutes";
-      this.ActionGetMutes.UseVisualStyleBackColor = true;
-      this.ActionGetMutes.Click += new System.EventHandler(this.ActionGetMutes_Click);
-      // 
-      // ActionGetFollowers
-      // 
-      this.ActionGetFollowers.Location = new System.Drawing.Point(15, 49);
-      this.ActionGetFollowers.Name = "ActionGetFollowers";
-      this.ActionGetFollowers.Size = new System.Drawing.Size(75, 23);
-      this.ActionGetFollowers.TabIndex = 8;
-      this.ActionGetFollowers.Text = "Followers";
-      this.ActionGetFollowers.UseVisualStyleBackColor = true;
-      this.ActionGetFollowers.Click += new System.EventHandler(this.ActionGetFollowers_Click);
       // 
       // EditDeleteOnlyLocal
       // 
@@ -615,6 +578,73 @@
       this.TabPageMessages.Size = new System.Drawing.Size(856, 538);
       this.TabPageMessages.TabIndex = 0;
       this.TabPageMessages.Text = "Messages";
+      // 
+      // TabPageUsers
+      // 
+      this.TabPageUsers.Controls.Add(this.EditUsers);
+      this.TabPageUsers.Controls.Add(this.ActionGetFellowing);
+      this.TabPageUsers.Controls.Add(this.ActionGetMutes);
+      this.TabPageUsers.Controls.Add(this.ActionGetBlocks);
+      this.TabPageUsers.Controls.Add(this.ActionGetFollowers);
+      this.TabPageUsers.Location = new System.Drawing.Point(4, 25);
+      this.TabPageUsers.Name = "TabPageUsers";
+      this.TabPageUsers.Padding = new System.Windows.Forms.Padding(3);
+      this.TabPageUsers.Size = new System.Drawing.Size(856, 538);
+      this.TabPageUsers.TabIndex = 4;
+      this.TabPageUsers.Text = "Users";
+      this.TabPageUsers.UseVisualStyleBackColor = true;
+      // 
+      // EditUsers
+      // 
+      this.EditUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.EditUsers.Location = new System.Drawing.Point(105, 15);
+      this.EditUsers.Name = "EditUsers";
+      this.EditUsers.SelectionAlignment = Ordisoftware.Core.TextAlign.Left;
+      this.EditUsers.Size = new System.Drawing.Size(735, 507);
+      this.EditUsers.TabIndex = 9;
+      this.EditUsers.Text = "";
+      // 
+      // ActionGetFellowing
+      // 
+      this.ActionGetFellowing.Location = new System.Drawing.Point(15, 15);
+      this.ActionGetFellowing.Name = "ActionGetFellowing";
+      this.ActionGetFellowing.Size = new System.Drawing.Size(75, 23);
+      this.ActionGetFellowing.TabIndex = 8;
+      this.ActionGetFellowing.Text = "Fellowing";
+      this.ActionGetFellowing.UseVisualStyleBackColor = true;
+      this.ActionGetFellowing.Click += new System.EventHandler(this.ActionGetFellowing_Click);
+      // 
+      // ActionGetMutes
+      // 
+      this.ActionGetMutes.Location = new System.Drawing.Point(15, 83);
+      this.ActionGetMutes.Name = "ActionGetMutes";
+      this.ActionGetMutes.Size = new System.Drawing.Size(75, 23);
+      this.ActionGetMutes.TabIndex = 8;
+      this.ActionGetMutes.Text = "Mutes";
+      this.ActionGetMutes.UseVisualStyleBackColor = true;
+      this.ActionGetMutes.Click += new System.EventHandler(this.ActionGetMutes_Click);
+      // 
+      // ActionGetBlocks
+      // 
+      this.ActionGetBlocks.Location = new System.Drawing.Point(15, 117);
+      this.ActionGetBlocks.Name = "ActionGetBlocks";
+      this.ActionGetBlocks.Size = new System.Drawing.Size(75, 23);
+      this.ActionGetBlocks.TabIndex = 8;
+      this.ActionGetBlocks.Text = "Blocks";
+      this.ActionGetBlocks.UseVisualStyleBackColor = true;
+      this.ActionGetBlocks.Click += new System.EventHandler(this.ActionGetBlocks_Click);
+      // 
+      // ActionGetFollowers
+      // 
+      this.ActionGetFollowers.Location = new System.Drawing.Point(15, 49);
+      this.ActionGetFollowers.Name = "ActionGetFollowers";
+      this.ActionGetFollowers.Size = new System.Drawing.Size(75, 23);
+      this.ActionGetFollowers.TabIndex = 8;
+      this.ActionGetFollowers.Text = "Followers";
+      this.ActionGetFollowers.UseVisualStyleBackColor = true;
+      this.ActionGetFollowers.Click += new System.EventHandler(this.ActionGetFollowers_Click);
       // 
       // TabPageSettings
       // 
@@ -793,33 +823,6 @@
       // 
       this.TrashTableAdapter.ClearBeforeFill = true;
       // 
-      // TabPageUsers
-      // 
-      this.TabPageUsers.Controls.Add(this.EditUsers);
-      this.TabPageUsers.Controls.Add(this.ActionGetFellowing);
-      this.TabPageUsers.Controls.Add(this.ActionGetMutes);
-      this.TabPageUsers.Controls.Add(this.ActionGetBlocks);
-      this.TabPageUsers.Controls.Add(this.ActionGetFollowers);
-      this.TabPageUsers.Location = new System.Drawing.Point(4, 25);
-      this.TabPageUsers.Name = "TabPageUsers";
-      this.TabPageUsers.Padding = new System.Windows.Forms.Padding(3);
-      this.TabPageUsers.Size = new System.Drawing.Size(856, 538);
-      this.TabPageUsers.TabIndex = 4;
-      this.TabPageUsers.Text = "Users";
-      this.TabPageUsers.UseVisualStyleBackColor = true;
-      // 
-      // EditUsers
-      // 
-      this.EditUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.EditUsers.Location = new System.Drawing.Point(105, 15);
-      this.EditUsers.Name = "EditUsers";
-      this.EditUsers.SelectionAlignment = Ordisoftware.Core.TextAlign.Left;
-      this.EditUsers.Size = new System.Drawing.Size(735, 507);
-      this.EditUsers.TabIndex = 9;
-      this.EditUsers.Text = "";
-      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -850,6 +853,7 @@
       this.TabPageDestroyed.ResumeLayout(false);
       this.TabPageMessages.ResumeLayout(false);
       this.TabPageMessages.PerformLayout();
+      this.TabPageUsers.ResumeLayout(false);
       this.TabPageSettings.ResumeLayout(false);
       this.TabPageSettings.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.SettingsBindingSource)).EndInit();
@@ -861,7 +865,6 @@
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceReplies)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceRTs)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.TrashBindingSource)).EndInit();
-      this.TabPageUsers.ResumeLayout(false);
       this.ResumeLayout(false);
       this.PerformLayout();
 
