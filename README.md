@@ -88,6 +88,10 @@ The software verifies the validity of the certificate of the update server in ad
 
 - Initial release.
 
+#### 2021.08.29 - Version 0.2
+
+- Mockup.
+
 #### 2021.04.23 - Version 0.1
 
 - Wireframe.
