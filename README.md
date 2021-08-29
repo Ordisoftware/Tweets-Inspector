@@ -37,10 +37,9 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 
 ## Requirements
 
-- Windows 10 x32/x64 or higher
 - Screen 1024x768 or higher
+- Windows 10 x32/x64 or higher
 - Framework .NET 4.7.2
-- SQLite ODBC Driver
 - CefSharp is included for an automatic authentication
 
 ## Download
