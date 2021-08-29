@@ -230,11 +230,9 @@ namespace Ordisoftware.TweetsInspector
     private void ShowUsers(string title, List<User> users)
     {
       var items = users.Select((user, index) => $"{index + 1}. {user.ScreenName} : {user.Name} - {user.Description.Replace(Environment.NewLine, " | ").Replace("\n", " | ")}");
-      string text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
-                    Environment.NewLine +
-                    string.Join(Environment.NewLine, items);
-      EditUsers.Text = text;
-      //new ShowTextForm(title, text, width: 1000, height: 1000, wrap: false).ShowDialog();
+      EditUsers.Text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
+                       Environment.NewLine +
+                       string.Join(Environment.NewLine, items);
     }
 
     private void ProcessWithLoadingForm(object sender, Action<List<User>, Action<int>> action)
@@ -258,7 +256,7 @@ namespace Ordisoftware.TweetsInspector
       ShowUsers(title, users);
       LoadingForm.Instance.LabelCount.Visible = tempLabelCount;
       LoadingForm.Instance.ProgressBar.Style = tempProgressBar;
-      LoadingForm.Instance.Close();
+      LoadingForm.Instance.Hide();
     }
 
     private void ActionGetFollowers_Click(object sender, EventArgs e)
