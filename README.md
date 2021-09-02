@@ -38,9 +38,10 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 ## Requirements
 
 - Screen 1024x768 or higher
-- Windows 10 x32/x64 or higher
+- Windows 7 SP1 x32/x64 or higher
 - Framework .NET 4.7.2
-- CefSharp is included for an automatic authentication
+- SQLite 3.35.5
+- CefSharp for automatic authentication
 
 ## Download
 
@@ -86,6 +87,7 @@ The software verifies the validity of the certificate of the update server in ad
 #### In progress - Version 1.0
 
 - Initial release.
+- Nuget SQLitePCLRaw.bundle_green must remain v2.0.4
 
 #### 2021.08.29 - Version 0.2
 
