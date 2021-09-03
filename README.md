@@ -87,7 +87,7 @@ The software verifies the validity of the certificate of the update server in ad
 #### In progress - Version 1.0
 
 - Initial release.
-- Nuget SQLitePCLRaw.bundle_green must remain v2.0.4
+- Nuget SQLitePCLRaw.bundle_green must remain `v2.0.4`.
 
 #### 2021.08.29 - Version 0.2
 
