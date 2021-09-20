@@ -229,10 +229,13 @@ namespace Ordisoftware.TweetsInspector
 
     private void ShowUsers(string title, List<User> users)
     {
-      var items = users.Select((user, index) => $"{index + 1}. {user.ScreenName} : {user.Name} - {user.Description.Replace(Environment.NewLine, " | ").Replace("\n", " | ")}");
+      string sizeIndex = new string('0', users.Count.ToString().Length);
+      var items = users.Select((user, index) => $"{(index + 1).ToString(sizeIndex)}. {user.ScreenName} : {user.Name} - {user.Description.Replace(Environment.NewLine, " | ").Replace("\n", " | ")}");
       EditUsers.Text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
                        Environment.NewLine +
                        string.Join(Environment.NewLine, items);
+      EditUsers.SelectionStart = 0;
+      EditUsers.SelectionLength = 0;
     }
 
     private void ProcessWithLoadingForm(object sender, Action<List<User>, Action<int>> action)
