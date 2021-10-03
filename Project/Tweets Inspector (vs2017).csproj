@@ -71,6 +71,9 @@
     <Reference Include="InputSimulatorStandard, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\InputSimulatorStandard.1.0.0\lib\netstandard2.0\InputSimulatorStandard.dll</HintPath>
     </Reference>
+    <Reference Include="Markdig, Version=0.26.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Markdig.0.26.0\lib\net452\Markdig.dll</HintPath>
+    </Reference>
     <Reference Include="MoreLinq, Version=3.3.2.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>packages\morelinq.3.3.2\lib\net451\MoreLinq.dll</HintPath>
     </Reference>
@@ -218,9 +221,6 @@
     <Compile Include="Source\Common\Core\Providers\OnlineProviders.cs" />
     <Compile Include="Source\Common\Core\Providers\OnlineProvidersHelper.cs" />
     <Compile Include="Source\Common\Core\Providers\ProviderSettings.cs" />
-    <Compile Include="Source\Common\Core\WinForms.Controls\CheckBoxToolStripItem.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Source\Common\Core\WinForms.Controls\ComboBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -230,10 +230,20 @@
     <Compile Include="Source\Common\Core\WinForms.Controls\ComboBoxNavigator.Designer.cs">
       <DependentUpon>ComboBoxNavigator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms.Controls\ControlLocation.cs" />
-    <Compile Include="Source\Common\Core\WinForms.Controls\FormsHelper.cs" />
+    <Compile Include="Source\Common\Core\WinForms.Controls\CommonMenusControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\Common\Core\WinForms.Controls\CommonMenusControl.Designer.cs">
+      <DependentUpon>CommonMenusControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\Common\Core\WinForms.Controls\RichTextBoxEx.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Source\Common\Core\WinForms.Controls\SelectYearsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\Common\Core\WinForms.Controls\SelectYearsControl.designer.cs">
+      <DependentUpon>SelectYearsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\Common\Core\WinForms.Controls\TextBoxEx.Actions.cs">
       <SubType>Component</SubType>
@@ -247,68 +257,73 @@
     <Compile Include="Source\Common\Core\WinForms.Controls\TextBoxEx.Initialize.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms.Controls\ToolStripMenuItemHelper.cs" />
-    <Compile Include="Source\Common\Core\WinForms\DataFileEditorForm.cs">
+    <Compile Include="Source\Common\Core\WinForms.Controls\ToolStripCheckBoxItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Source\Common\Core\WinForms.Forms\DataFileEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\DataFileEditorForm.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\DataFileEditorForm.Designer.cs">
       <DependentUpon>DataFileEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\EditMemoForm.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\EditMemoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\EditMemoForm.designer.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\EditMemoForm.designer.cs">
       <DependentUpon>EditMemoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\ExceptionForm.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\ExceptionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\ExceptionForm.designer.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\ExceptionForm.designer.cs">
       <DependentUpon>ExceptionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\HTMLBrowserForm.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\HTMLBrowserForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\HTMLBrowserForm.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\HTMLBrowserForm.Designer.cs">
       <DependentUpon>HTMLBrowserForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\InputBox.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\InputBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\InputBox.designer.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\InputBox.designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\InputValueResult.cs" />
-    <Compile Include="Source\Common\Core\WinForms\LoadingForm.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\LoadingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\LoadingForm.designer.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\LoadingForm.designer.cs">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\MessageBoxEx.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\MessageBoxEx.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\MessageBoxEx.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\MessageBoxEx.Designer.cs">
       <DependentUpon>MessageBoxEx.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\ShowTextForm.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\ShowTextForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\ShowTextForm.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\ShowTextForm.Designer.cs">
       <DependentUpon>ShowTextForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\TraceForm.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\TraceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\TraceForm.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\TraceForm.Designer.cs">
       <DependentUpon>TraceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\WebUpdateForm.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\WebUpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Common\Core\WinForms\WebUpdateForm.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms.Forms\WebUpdateForm.Designer.cs">
       <DependentUpon>WebUpdateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\Common\Core\WinForms\ControlLocation.cs" />
+    <Compile Include="Source\Common\Core\WinForms\FormsHelper.cs" />
+    <Compile Include="Source\Common\Core\WinForms\InputValueResult.cs" />
+    <Compile Include="Source\Common\Core\WinForms\ToolStripMenuItemHelper.cs" />
     <Compile Include="Source\Forms\MainForm.Connect.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -360,71 +375,79 @@
     <EmbeddedResource Include="Source\Common\Core\WinForms.Controls\ComboBoxNavigator.resx">
       <DependentUpon>ComboBoxNavigator.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Controls\CommonMenusControl.fr.resx">
+      <DependentUpon>CommonMenusControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Controls\CommonMenusControl.resx">
+      <DependentUpon>CommonMenusControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Controls\SelectYearsControl.resx">
+      <DependentUpon>SelectYearsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\Common\Core\WinForms.Controls\TextBoxEx.fr.resx">
       <DependentUpon>TextBoxEx.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Common\Core\WinForms.Controls\TextBoxEx.resx">
       <DependentUpon>TextBoxEx.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\DataFileEditorForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\DataFileEditorForm.fr.resx">
       <DependentUpon>DataFileEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\DataFileEditorForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\DataFileEditorForm.resx">
       <DependentUpon>DataFileEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\EditMemoForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\EditMemoForm.fr.resx">
       <DependentUpon>EditMemoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\EditMemoForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\EditMemoForm.resx">
       <DependentUpon>EditMemoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\ExceptionForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\ExceptionForm.fr.resx">
       <DependentUpon>ExceptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\ExceptionForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\ExceptionForm.resx">
       <DependentUpon>ExceptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\HTMLBrowserForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\HTMLBrowserForm.fr.resx">
       <DependentUpon>HTMLBrowserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\HTMLBrowserForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\HTMLBrowserForm.resx">
       <DependentUpon>HTMLBrowserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\InputBox.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\InputBox.fr.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\InputBox.resources" />
-    <EmbeddedResource Include="Source\Common\Core\WinForms\InputBox.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\InputBox.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\LoadingForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\LoadingForm.fr.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\LoadingForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\MessageBoxEx.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\MessageBoxEx.fr.resx">
       <DependentUpon>MessageBoxEx.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\MessageBoxEx.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\MessageBoxEx.resx">
       <DependentUpon>MessageBoxEx.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\ShowTextForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\ShowTextForm.fr.resx">
       <DependentUpon>ShowTextForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\ShowTextForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\ShowTextForm.resx">
       <DependentUpon>ShowTextForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\TraceForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\TraceForm.fr.resx">
       <DependentUpon>TraceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\TraceForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\TraceForm.resx">
       <DependentUpon>TraceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\WebUpdateForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\WebUpdateForm.fr.resx">
       <DependentUpon>WebUpdateForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Common\Core\WinForms\WebUpdateForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Forms\WebUpdateForm.resx">
       <DependentUpon>WebUpdateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Controls\TweetsListControl.resx">

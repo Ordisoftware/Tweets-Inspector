@@ -117,19 +117,86 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="ContextMenuTweet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="DataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>172, 19</value>
-  </metadata>
-  <metadata name="BindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>277, 18</value>
-  </metadata>
-  <metadata name="TweetsTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>416, 17</value>
-  </metadata>
-  <metadata name="TableAdapterManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>587, 17</value>
-  </metadata>
+  <data name="ActionAbout.Text" xml:space="preserve">
+    <value>A propos</value>
+  </data>
+  <data name="ActionHelp.Text" xml:space="preserve">
+    <value>Aide</value>
+  </data>
+  <data name="ActionReleaseNotes.Text" xml:space="preserve">
+    <value>Notes de version</value>
+  </data>
+  <data name="ActionCheckUpdate.Text" xml:space="preserve">
+    <value>Vérifier mise à jour</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="ActionApplicationHome.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="ActionApplicationHome.Text" xml:space="preserve">
+    <value>Site web</value>
+  </data>
+  <data name="ActionGitHubRepo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 6</value>
+  </data>
+  <data name="ActionAlternativeTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="ActionForumQA.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 22</value>
+  </data>
+  <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>226, 6</value>
+  </data>
+  <data name="ActionCreateGitHubIssueBug.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 22</value>
+  </data>
+  <data name="ActionCreateGitHubIssueBug.Text" xml:space="preserve">
+    <value>Soumettre un problème</value>
+  </data>
+  <data name="ActionCreateGitHubIssueFeature.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 22</value>
+  </data>
+  <data name="ActionCreateGitHubIssueFeature.Text" xml:space="preserve">
+    <value>Soumettre une fonctionnalité</value>
+  </data>
+  <data name="MenuAuthor.Text" xml:space="preserve">
+    <value>Auteur</value>
+  </data>
+  <data name="ActionAuthorHome.Text" xml:space="preserve">
+    <value>Site web</value>
+  </data>
+  <data name="MenuSoftware.Text" xml:space="preserve">
+    <value>Autres logiciels</value>
+  </data>
+  <data name="ActionDownloadHebrewCalendar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>372, 22</value>
+  </data>
+  <data name="ActionHebrewCalendar.Text" xml:space="preserve">
+    <value>Hebrew Calendar : suivre les évènements de la Torah</value>
+  </data>
+  <data name="ActionDownloadHebrewLetters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>372, 22</value>
+  </data>
+  <data name="ActionHebrewLetters.Text" xml:space="preserve">
+    <value>Hebrew Letters : analyseur de mots hébreux lettre-par-lettre</value>
+  </data>
+  <data name="ActionDownloadHebrewWords.Size" type="System.Drawing.Size, System.Drawing">
+    <value>372, 22</value>
+  </data>
+  <data name="ActionHebrewWords.Text" xml:space="preserve">
+    <value>Hebrew Words : traducteur littéral mot-à-mot de la Bible</value>
+  </data>
+  <data name="ActionViewLog.Text" xml:space="preserve">
+    <value>Voir le log en cours</value>
+  </data>
+  <data name="ActionViewStats.Text" xml:space="preserve">
+    <value>Statistiques d'utilisation</value>
+  </data>
+  <data name="ActionViewVersionNews.Text" xml:space="preserve">
+    <value>Nouveautés</value>
+  </data>
 </root>
