@@ -140,165 +140,173 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Dependencies\Core\Classes\Chronometer.cs" />
-    <Compile Include="Dependencies\Core\Classes\EnumHelper.cs" />
-    <Compile Include="Dependencies\Core\Classes\ExportAction.cs" />
-    <Compile Include="Dependencies\Core\Classes\ExportHelper.cs" />
-    <Compile Include="Dependencies\Core\Classes\ExportTarget.cs" />
-    <Compile Include="Dependencies\Core\Classes\NativeMethods.cs" />
-    <Compile Include="Dependencies\Core\Classes\ObjectHelper.cs" />
-    <Compile Include="Dependencies\Core\Classes\ShellIcons.cs" />
-    <Compile Include="Dependencies\Core\Classes\SoundItem.cs" />
-    <Compile Include="Dependencies\Core\Classes\SoundSource.cs" />
-    <Compile Include="Dependencies\Core\Classes\StackMethods.cs" />
-    <Compile Include="Dependencies\Core\Classes\StringHelper.cs" />
-    <Compile Include="Dependencies\Core\Classes\StringHelper.Format.cs" />
-    <Compile Include="Dependencies\Core\Classes\SystemCommandLine.cs" />
-    <Compile Include="Dependencies\Core\Classes\SystemHotKey.cs" />
-    <Compile Include="Dependencies\Core\Classes\SystemStatistics.cs" />
-    <Compile Include="Dependencies\Core\Classes\MediaMixer.cs" />
-    <Compile Include="Dependencies\Core\Classes\WebCheckUpdate.cs" />
-    <Compile Include="Dependencies\Core\Collections\AutoResizedList.cs" />
-    <Compile Include="Dependencies\Core\Collections\NullSafeDictionary.cs" />
-    <Compile Include="Dependencies\Core\Collections\NullSafeList.cs" />
-    <Compile Include="Dependencies\Core\Collections\NullSafeOfEnumDictionary.cs" />
-    <Compile Include="Dependencies\Core\Collections\NullSafeOfStringDictionary.cs" />
-    <Compile Include="Dependencies\Core\Collections\NullSafeSortedDictionary.cs" />
-    <Compile Include="Dependencies\Core\Collections\NullSafeStringList.cs" />
-    <Compile Include="Dependencies\Core\Collections\SortedAutoDictionary.cs" />
-    <Compile Include="Dependencies\Core\Data\DataFile.cs" />
-    <Compile Include="Dependencies\Core\Data\DataFileFolder.cs" />
-    <Compile Include="Dependencies\Core\Data\DataTableHelper.cs" />
-    <Compile Include="Dependencies\Core\Data\SQLiteDatabase.cs" />
-    <Compile Include="Dependencies\Core\Data\SQLiteDate.cs" />
-    <Compile Include="Dependencies\Core\Data\SQLiteNetHelper.cs" />
-    <Compile Include="Dependencies\Core\Data\SQLiteOdbcHelper.cs" />
-    <Compile Include="Dependencies\Core\Exceptions\AbortException.cs" />
-    <Compile Include="Dependencies\Core\Exceptions\ExceptionInfo.cs" />
-    <Compile Include="Dependencies\Core\Exceptions\NotImplementedExceptionEx.cs" />
-    <Compile Include="Dependencies\Core\Exceptions\SQLiteException.cs" />
-    <Compile Include="Dependencies\Core\Globalization\Languages.cs" />
-    <Compile Include="Dependencies\Core\Globalization\Localizer.cs" />
-    <Compile Include="Dependencies\Core\Globalization\SysTranslations.Application.cs" />
-    <Compile Include="Dependencies\Core\Globalization\SysTranslations.cs" />
-    <Compile Include="Dependencies\Core\Globalization\SysTranslations.Database.cs" />
-    <Compile Include="Dependencies\Core\Globalization\SysTranslations.Errors.cs" />
-    <Compile Include="Dependencies\Core\Globalization\SysTranslations.IO.cs" />
-    <Compile Include="Dependencies\Core\Globalization\SysTranslations.Processing.cs" />
-    <Compile Include="Dependencies\Core\Globalization\SysTranslations.Settings.cs" />
-    <Compile Include="Dependencies\Core\Globalization\SysTranslations.WebUpdate.cs" />
-    <Compile Include="Dependencies\Core\GlobalSuppressions.cs" />
-    <Compile Include="Dependencies\Core\Globals\Globals.Assembly.cs" />
-    <Compile Include="Dependencies\Core\Globals\Globals.cs" />
-    <Compile Include="Dependencies\Core\Globals\Globals.Files.cs" />
-    <Compile Include="Dependencies\Core\Globals\Globals.Folders.cs" />
-    <Compile Include="Dependencies\Core\Globals\Globals.State.cs" />
-    <Compile Include="Dependencies\Core\Globals\Globals.Trace.cs" />
-    <Compile Include="Dependencies\Core\Managers.Debug\DebugManager.cs" />
-    <Compile Include="Dependencies\Core\Managers.Debug\DebugManager.Delegates.cs" />
-    <Compile Include="Dependencies\Core\Managers.Debug\DebugManager.Enums.cs" />
-    <Compile Include="Dependencies\Core\Managers.Debug\DebugManager.Trace.cs" />
-    <Compile Include="Dependencies\Core\Managers.Display\DisplayManager.cs" />
-    <Compile Include="Dependencies\Core\Managers.Display\DisplayManager.Query.cs" />
-    <Compile Include="Dependencies\Core\Managers.Display\DisplayManager.QueryValue.cs" />
-    <Compile Include="Dependencies\Core\Managers.Display\DisplayManager.Show.cs" />
-    <Compile Include="Dependencies\Core\Managers.System\PowerActions.cs" />
-    <Compile Include="Dependencies\Core\Managers.System\SystemManager.cs" />
-    <Compile Include="Dependencies\Core\Managers.System\SystemManager.IPC.cs" />
-    <Compile Include="Dependencies\Core\Managers.System\SystemManager.Platform.cs" />
-    <Compile Include="Dependencies\Core\Managers.System\SystemManager.Power.cs" />
-    <Compile Include="Dependencies\Core\Managers.System\SystemManager.Shell.cs" />
-    <Compile Include="Dependencies\Core\Managers.System\SystemManager.SSL.cs" />
-    <Compile Include="Dependencies\Core\Managers.System\SystemManager.Try.cs" />
-    <Compile Include="Dependencies\Core\WinForms.Controls\CheckBoxToolStripItem.cs">
+    <Compile Include="Source\Common\Core\Classes\AutoMenu.cs" />
+    <Compile Include="Source\Common\Core\Classes\AutoMenu.Test.cs" />
+    <Compile Include="Source\Common\Core\Classes\Chronometer.cs" />
+    <Compile Include="Source\Common\Core\Classes\EnumHelper.cs" />
+    <Compile Include="Source\Common\Core\Classes\ExportAction.cs" />
+    <Compile Include="Source\Common\Core\Classes\ExportHelper.cs" />
+    <Compile Include="Source\Common\Core\Classes\ExportTarget.cs" />
+    <Compile Include="Source\Common\Core\Classes\MediaMixer.cs" />
+    <Compile Include="Source\Common\Core\Classes\NativeMethods.cs" />
+    <Compile Include="Source\Common\Core\Classes\ObjectHelper.cs" />
+    <Compile Include="Source\Common\Core\Classes\ShellIcons.cs" />
+    <Compile Include="Source\Common\Core\Classes\SoundItem.cs" />
+    <Compile Include="Source\Common\Core\Classes\SoundSource.cs" />
+    <Compile Include="Source\Common\Core\Classes\StackMethods.cs" />
+    <Compile Include="Source\Common\Core\Classes\StringHelper.cs" />
+    <Compile Include="Source\Common\Core\Classes\StringHelper.Format.cs" />
+    <Compile Include="Source\Common\Core\Classes\SystemCommandLine.cs" />
+    <Compile Include="Source\Common\Core\Classes\SystemHotKey.cs" />
+    <Compile Include="Source\Common\Core\Classes\SystemStatistics.cs" />
+    <Compile Include="Source\Common\Core\Classes\WebCheckUpdate.cs" />
+    <Compile Include="Source\Common\Core\Collections\AutoResizedList.cs" />
+    <Compile Include="Source\Common\Core\Collections\CollectionsHelper.cs" />
+    <Compile Include="Source\Common\Core\Collections\NullSafeDictionary.cs" />
+    <Compile Include="Source\Common\Core\Collections\NullSafeList.cs" />
+    <Compile Include="Source\Common\Core\Collections\NullSafeOfEnumDictionary.cs" />
+    <Compile Include="Source\Common\Core\Collections\NullSafeOfStringDictionary.cs" />
+    <Compile Include="Source\Common\Core\Collections\NullSafeSortedDictionary.cs" />
+    <Compile Include="Source\Common\Core\Collections\NullSafeStringList.cs" />
+    <Compile Include="Source\Common\Core\Collections\SortedAutoDictionary.cs" />
+    <Compile Include="Source\Common\Core\Data\DataFile.cs" />
+    <Compile Include="Source\Common\Core\Data\DataFileFolder.cs" />
+    <Compile Include="Source\Common\Core\Data\DataTableHelper.cs" />
+    <Compile Include="Source\Common\Core\Data\SQLiteDatabase.cs" />
+    <Compile Include="Source\Common\Core\Data\SQLiteDate.cs" />
+    <Compile Include="Source\Common\Core\Data\SQLiteNetHelper.cs" />
+    <Compile Include="Source\Common\Core\Data\SQLiteOdbcHelper.cs" />
+    <Compile Include="Source\Common\Core\Exceptions\AbortException.cs" />
+    <Compile Include="Source\Common\Core\Exceptions\ExceptionInfo.cs" />
+    <Compile Include="Source\Common\Core\Exceptions\NotImplementedExceptionEx.cs" />
+    <Compile Include="Source\Common\Core\Exceptions\SQLiteException.cs" />
+    <Compile Include="Source\Common\Core\Globalization\Languages.cs" />
+    <Compile Include="Source\Common\Core\Globalization\Localizer.cs" />
+    <Compile Include="Source\Common\Core\Globalization\SysTranslations.Application.cs" />
+    <Compile Include="Source\Common\Core\Globalization\SysTranslations.cs" />
+    <Compile Include="Source\Common\Core\Globalization\SysTranslations.Database.cs" />
+    <Compile Include="Source\Common\Core\Globalization\SysTranslations.Errors.cs" />
+    <Compile Include="Source\Common\Core\Globalization\SysTranslations.IO.cs" />
+    <Compile Include="Source\Common\Core\Globalization\SysTranslations.Processing.cs" />
+    <Compile Include="Source\Common\Core\Globalization\SysTranslations.Settings.cs" />
+    <Compile Include="Source\Common\Core\Globalization\SysTranslations.WebUpdate.cs" />
+    <Compile Include="Source\Common\Core\GlobalSuppressions.cs" />
+    <Compile Include="Source\Common\Core\Globals\Globals.Assembly.cs" />
+    <Compile Include="Source\Common\Core\Globals\Globals.cs" />
+    <Compile Include="Source\Common\Core\Globals\Globals.Files.cs" />
+    <Compile Include="Source\Common\Core\Globals\Globals.Folders.cs" />
+    <Compile Include="Source\Common\Core\Globals\Globals.Providers.cs" />
+    <Compile Include="Source\Common\Core\Globals\Globals.State.cs" />
+    <Compile Include="Source\Common\Core\Globals\Globals.Trace.cs" />
+    <Compile Include="Source\Common\Core\Managers.Debug\DebugManager.cs" />
+    <Compile Include="Source\Common\Core\Managers.Debug\DebugManager.Delegates.cs" />
+    <Compile Include="Source\Common\Core\Managers.Debug\DebugManager.Enums.cs" />
+    <Compile Include="Source\Common\Core\Managers.Debug\DebugManager.Trace.cs" />
+    <Compile Include="Source\Common\Core\Managers.Display\DisplayManager.cs" />
+    <Compile Include="Source\Common\Core\Managers.Display\DisplayManager.Query.cs" />
+    <Compile Include="Source\Common\Core\Managers.Display\DisplayManager.QueryValue.cs" />
+    <Compile Include="Source\Common\Core\Managers.Display\DisplayManager.Show.cs" />
+    <Compile Include="Source\Common\Core\Managers.System\PowerActions.cs" />
+    <Compile Include="Source\Common\Core\Managers.System\SystemManager.cs" />
+    <Compile Include="Source\Common\Core\Managers.System\SystemManager.IPC.cs" />
+    <Compile Include="Source\Common\Core\Managers.System\SystemManager.Platform.cs" />
+    <Compile Include="Source\Common\Core\Managers.System\SystemManager.Power.cs" />
+    <Compile Include="Source\Common\Core\Managers.System\SystemManager.Shell.cs" />
+    <Compile Include="Source\Common\Core\Managers.System\SystemManager.SSL.cs" />
+    <Compile Include="Source\Common\Core\Managers.System\SystemManager.Try.cs" />
+    <Compile Include="Source\Common\Core\Providers\OnlineProviderItem.cs" />
+    <Compile Include="Source\Common\Core\Providers\OnlineProviders.cs" />
+    <Compile Include="Source\Common\Core\Providers\OnlineProvidersHelper.cs" />
+    <Compile Include="Source\Common\Core\Providers\ProviderSettings.cs" />
+    <Compile Include="Source\Common\Core\WinForms.Controls\CheckBoxToolStripItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms.Controls\ComboBoxEx.cs">
+    <Compile Include="Source\Common\Core\WinForms.Controls\ComboBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms.Controls\ComboBoxNavigator.cs">
+    <Compile Include="Source\Common\Core\WinForms.Controls\ComboBoxNavigator.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms.Controls\ComboBoxNavigator.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms.Controls\ComboBoxNavigator.Designer.cs">
       <DependentUpon>ComboBoxNavigator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms.Controls\ControlLocation.cs" />
-    <Compile Include="Dependencies\Core\WinForms.Controls\FormsHelper.cs" />
-    <Compile Include="Dependencies\Core\WinForms.Controls\RichTextBoxEx.cs">
+    <Compile Include="Source\Common\Core\WinForms.Controls\ControlLocation.cs" />
+    <Compile Include="Source\Common\Core\WinForms.Controls\FormsHelper.cs" />
+    <Compile Include="Source\Common\Core\WinForms.Controls\RichTextBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms.Controls\TextBoxEx.Actions.cs">
+    <Compile Include="Source\Common\Core\WinForms.Controls\TextBoxEx.Actions.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms.Controls\TextBoxEx.cs">
+    <Compile Include="Source\Common\Core\WinForms.Controls\TextBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms.Controls\TextBoxEx.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms.Controls\TextBoxEx.Designer.cs">
       <DependentUpon>TextBoxEx.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms.Controls\TextBoxEx.Initialize.cs">
+    <Compile Include="Source\Common\Core\WinForms.Controls\TextBoxEx.Initialize.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms.Controls\ToolStripMenuItemHelper.cs" />
-    <Compile Include="Dependencies\Core\WinForms\DataFileEditorForm.cs">
+    <Compile Include="Source\Common\Core\WinForms.Controls\ToolStripMenuItemHelper.cs" />
+    <Compile Include="Source\Common\Core\WinForms\DataFileEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\DataFileEditorForm.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms\DataFileEditorForm.Designer.cs">
       <DependentUpon>DataFileEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\EditMemoForm.cs">
+    <Compile Include="Source\Common\Core\WinForms\EditMemoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\EditMemoForm.designer.cs">
+    <Compile Include="Source\Common\Core\WinForms\EditMemoForm.designer.cs">
       <DependentUpon>EditMemoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\ExceptionForm.cs">
+    <Compile Include="Source\Common\Core\WinForms\ExceptionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\ExceptionForm.designer.cs">
+    <Compile Include="Source\Common\Core\WinForms\ExceptionForm.designer.cs">
       <DependentUpon>ExceptionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\HTMLBrowserForm.cs">
+    <Compile Include="Source\Common\Core\WinForms\HTMLBrowserForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\HTMLBrowserForm.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms\HTMLBrowserForm.Designer.cs">
       <DependentUpon>HTMLBrowserForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\InputBox.cs">
+    <Compile Include="Source\Common\Core\WinForms\InputBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\InputBox.designer.cs">
+    <Compile Include="Source\Common\Core\WinForms\InputBox.designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\InputValueResult.cs" />
-    <Compile Include="Dependencies\Core\WinForms\LoadingForm.cs">
+    <Compile Include="Source\Common\Core\WinForms\InputValueResult.cs" />
+    <Compile Include="Source\Common\Core\WinForms\LoadingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\LoadingForm.designer.cs">
+    <Compile Include="Source\Common\Core\WinForms\LoadingForm.designer.cs">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\MessageBoxEx.cs">
+    <Compile Include="Source\Common\Core\WinForms\MessageBoxEx.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\MessageBoxEx.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms\MessageBoxEx.Designer.cs">
       <DependentUpon>MessageBoxEx.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\ShowTextForm.cs">
+    <Compile Include="Source\Common\Core\WinForms\ShowTextForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\ShowTextForm.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms\ShowTextForm.Designer.cs">
       <DependentUpon>ShowTextForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\TraceForm.cs">
+    <Compile Include="Source\Common\Core\WinForms\TraceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\TraceForm.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms\TraceForm.Designer.cs">
       <DependentUpon>TraceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\WebUpdateForm.cs">
+    <Compile Include="Source\Common\Core\WinForms\WebUpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dependencies\Core\WinForms\WebUpdateForm.Designer.cs">
+    <Compile Include="Source\Common\Core\WinForms\WebUpdateForm.Designer.cs">
       <DependentUpon>WebUpdateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\Forms\MainForm.Connect.cs">
@@ -349,74 +357,74 @@
     </Compile>
     <Compile Include="Source\Program\StartupConnectAction.cs" />
     <Compile Include="Source\Program\JsonTweet.cs" />
-    <EmbeddedResource Include="Dependencies\Core\WinForms.Controls\ComboBoxNavigator.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Controls\ComboBoxNavigator.resx">
       <DependentUpon>ComboBoxNavigator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms.Controls\TextBoxEx.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Controls\TextBoxEx.fr.resx">
       <DependentUpon>TextBoxEx.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms.Controls\TextBoxEx.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms.Controls\TextBoxEx.resx">
       <DependentUpon>TextBoxEx.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\DataFileEditorForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\DataFileEditorForm.fr.resx">
       <DependentUpon>DataFileEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\DataFileEditorForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\DataFileEditorForm.resx">
       <DependentUpon>DataFileEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\EditMemoForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\EditMemoForm.fr.resx">
       <DependentUpon>EditMemoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\EditMemoForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\EditMemoForm.resx">
       <DependentUpon>EditMemoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\ExceptionForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\ExceptionForm.fr.resx">
       <DependentUpon>ExceptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\ExceptionForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\ExceptionForm.resx">
       <DependentUpon>ExceptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\HTMLBrowserForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\HTMLBrowserForm.fr.resx">
       <DependentUpon>HTMLBrowserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\HTMLBrowserForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\HTMLBrowserForm.resx">
       <DependentUpon>HTMLBrowserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\InputBox.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\InputBox.fr.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\InputBox.resources" />
-    <EmbeddedResource Include="Dependencies\Core\WinForms\InputBox.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\InputBox.resources" />
+    <EmbeddedResource Include="Source\Common\Core\WinForms\InputBox.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\LoadingForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\LoadingForm.fr.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\LoadingForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\MessageBoxEx.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\MessageBoxEx.fr.resx">
       <DependentUpon>MessageBoxEx.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\MessageBoxEx.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\MessageBoxEx.resx">
       <DependentUpon>MessageBoxEx.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\ShowTextForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\ShowTextForm.fr.resx">
       <DependentUpon>ShowTextForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\ShowTextForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\ShowTextForm.resx">
       <DependentUpon>ShowTextForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\TraceForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\TraceForm.fr.resx">
       <DependentUpon>TraceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\TraceForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\TraceForm.resx">
       <DependentUpon>TraceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\WebUpdateForm.fr.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\WebUpdateForm.fr.resx">
       <DependentUpon>WebUpdateForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dependencies\Core\WinForms\WebUpdateForm.resx">
+    <EmbeddedResource Include="Source\Common\Core\WinForms\WebUpdateForm.resx">
       <DependentUpon>WebUpdateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Controls\TweetsListControl.resx">
