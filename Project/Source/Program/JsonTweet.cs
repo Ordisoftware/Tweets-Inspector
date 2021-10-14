@@ -617,6 +617,8 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
           return Lang.Tl;
         case "und":
           return Lang.Und;
+        default:
+          return Lang.En;
       }
       throw new Exception("Cannot unmarshal type Lang");
     }
