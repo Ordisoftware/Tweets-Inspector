@@ -40,20 +40,22 @@ namespace Ordisoftware.TweetsInspector
       Cursor = Cursors.WaitCursor;
       try
       {
-        //if ( DataSet.Tweets.Count > 0 )
-        //if ( !DisplayManager.QueryYesNo("Replace all tweets in the database?") ) return;
         if ( OpenFileDialogJS.ShowDialog() != DialogResult.OK ) return;
+        if ( DataSet.Tweets.Count > 0 )
+          if ( !DisplayManager.QueryYesNo("Replace all tweets in the database, else append?") )
+          {
+            var command = new OdbcCommand("DELETE FROM Tweets", LockFileConnection);
+            command.ExecuteNonQuery();
+            TweetsTableAdapter.Fill(DataSet.Tweets);
+            TweetsBindingSourceMain.ResetBindings(false);
+            TweetsBindingSourceReplies.ResetBindings(false);
+            TweetsBindingSourceRTs.ResetBindings(false);
+          }
         LoadingForm.Instance.Initialize("Loading JS...", 1);
         string filepath = OpenFileDialogJS.FileName;
         var tweets = JsonHelper.LoadTweets(filepath);
         LoadingForm.Instance.DoProgress();
         LoadingForm.Instance.Initialize(SysTranslations.ProgressCreatingData.GetLang(), tweets.Count);
-        //var command = new OdbcCommand("DELETE FROM Tweets", LockFileConnection);
-        //command.ExecuteNonQuery();
-        //TweetsTableAdapter.Fill(DataSet.Tweets);
-        //TweetsBindingSourceMain.ResetBindings(false);
-        //TweetsBindingSourceReplies.ResetBindings(false);
-        //TweetsBindingSourceRTs.ResetBindings(false);
         Refresh();
         try
         {
