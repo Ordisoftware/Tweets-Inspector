@@ -31,9 +31,9 @@ namespace Ordisoftware.TweetsInspector
 
     private const string TwitterDateTemplate = "ddd MMM dd HH:mm:ss +ffff yyyy";
 
-    private readonly CultureInfo CultureEN = new CultureInfo("en-US");
+    private readonly CultureInfo CultureEN = new("en-US");
 
-    private readonly WebClientEx WebClient = new WebClientEx(3000);
+    private readonly WebClientEx WebClient = new(3000);
 
     private void DoLoadTweetsFromJS()
     {
@@ -142,10 +142,11 @@ namespace Ordisoftware.TweetsInspector
       }
       adapter.InsertCommand.Connection.Close();
       adapter.RowUpdated -= update;
-      void update(object sender, OdbcRowUpdatedEventArgs rowEvent)
+      //
+      static void update(object sender, OdbcRowUpdatedEventArgs rowEvent)
       {
         if ( !Globals.IsGenerating ) LoadingForm.Instance.DoProgress();
-      };
+      }
     }
 
   }

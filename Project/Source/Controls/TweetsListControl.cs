@@ -214,7 +214,7 @@ namespace Ordisoftware.TweetsInspector
 
     // TODO move to trash on delete
 
-    private void checkOnlineToolStripMenuItem_Click(object sender, EventArgs e)
+    private void CheckOnlineToolStripMenuItem_Click(object sender, EventArgs e)
     {
       bool delay = false;
       int count = 0;

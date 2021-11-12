@@ -36,7 +36,7 @@ namespace Ordisoftware.TweetsInspector
     static internal readonly MainForm Instance;
     static internal readonly Properties.Settings Settings = Program.Settings;
 
-    static private readonly DataTable UsersDataTable = new DataTable();
+    static private readonly DataTable UsersDataTable = new();
 
     static internal OAuth.OAuthSession Session { get; private set; }
     static internal Tokens Tokens { get; private set; }
@@ -152,7 +152,7 @@ namespace Ordisoftware.TweetsInspector
         LabelCountTweetsMainValue.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
         LabelCountTweetsRepliesValue.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
         LabelCountTweetsRTsValue.Text = TweetsControl.ListTweetsRTs.DataGridView.RowCount.ToString();
-        LabelCountAllRecipientsValue.Text = users.Count().ToString();
+        LabelCountAllRecipientsValue.Text = users.Count.ToString();
       }
       finally
       {
@@ -236,7 +236,7 @@ namespace Ordisoftware.TweetsInspector
 
     private void ShowUsers(string title, List<User> users)
     {
-      string sizeIndex = new string('0', users.Count.ToString().Length);
+      string sizeIndex = new('0', users.Count.ToString().Length);
       var items = users.Select((user, index) => $"{(index + 1).ToString(sizeIndex)}. {user.ScreenName} : {user.Name} - {user.Description.Replace(Environment.NewLine, " | ").Replace("\n", " | ")}");
       EditUsers.Text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
                        Environment.NewLine +
