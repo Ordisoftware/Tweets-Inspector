@@ -39,8 +39,8 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 
 - Screen 1024x768 or higher
 - Windows 7 SP1 x32/x64 or higher
-- Framework .NET 4.7.2
-- SQLite 3.33
+- Framework .NET 4.8
+- SQLite 3.35.5
 - CefSharp for automatic authentication
 
 ## Download

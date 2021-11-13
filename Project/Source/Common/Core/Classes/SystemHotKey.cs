@@ -16,8 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
-using InputSimulatorStandard;
-using InputSimulatorStandard.Native;
+using GregsStack.InputSimulatorStandard.Native;
 using EnumsNET;
 using Base.Hotkeys;
 
@@ -38,7 +37,7 @@ namespace Ordisoftware.Core
     }
     static private HotkeyManager _Manager;
 
-    static public readonly List<SystemHotKey> AllActivated = new List<SystemHotKey>();
+    static public readonly List<SystemHotKey> AllActivated = new();
 
     private Hotkey publicHotKey;
     private int publicHotKeyID;

@@ -36,7 +36,7 @@ namespace Ordisoftware.TweetsInspector
     static internal readonly MainForm Instance;
     static internal readonly Properties.Settings Settings = Program.Settings;
 
-    static private readonly DataTable UsersDataTable = new DataTable();
+    static private readonly DataTable UsersDataTable = new();
 
     static internal OAuth.OAuthSession Session { get; private set; }
     static internal Tokens Tokens { get; private set; }
@@ -61,8 +61,9 @@ namespace Ordisoftware.TweetsInspector
       SplitContainerMain.Panel1MinSize = TweetsControl.ListTweetsMain.MinimumSize.Width;
       Text = $"{Globals.AssemblyTitle} - Not connected";
       SystemManager.TryCatch(() => { Icon = new Icon(Globals.ApplicationIconFilePath); });
-      UsersDataTable.Columns.Add("User", typeof(string));
+      var pkey = UsersDataTable.Columns.Add("User", typeof(string));
       UsersDataTable.Columns.Add("Count", typeof(int));
+      UsersDataTable.PrimaryKey = new DataColumn[] { pkey };
       TweetsControl.Modified += TweetsControl_OnModified;
       SettingsBindingSource.DataSource = Settings;
       SelectStartupConnectAction.DataSource = Enum.GetValues(typeof(StartupConnectAction));
@@ -133,19 +134,25 @@ namespace Ordisoftware.TweetsInspector
       Globals.IsGenerating = true;
       try
       {
+        //DataGridViewUsers.DataSource = null;
+        UsersDataTable.Rows.Clear();
         var users = DataSet.Tweets
                            .SelectMany(tweet => tweet.RecipientsAsList)
                            .GroupBy(recipient => recipient, (recipient, group) => new { recipient, count = group.Count() })
                            .Where(item => !item.recipient.IsNullOrEmpty())
                            .ToDictionary(item => item.recipient, item => item.count);
         foreach ( var item in users )
-          UsersDataTable.Rows.Add(item.Key, item.Value);
+          if ( UsersDataTable.Rows.Contains(item.Key) )
+            UsersDataTable.Rows.Find(item.Key)[1] = item.Value;
+          else
+            UsersDataTable.Rows.Add(item.Key, item.Value);
         UsersBindingSource.DataSource = UsersDataTable;
+        //DataGridViewUsers.DataSource = UsersBindingSource;
         DataGridViewUsers.Sort(ColumnUserCount, System.ComponentModel.ListSortDirection.Descending);
         LabelCountTweetsMainValue.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
         LabelCountTweetsRepliesValue.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
         LabelCountTweetsRTsValue.Text = TweetsControl.ListTweetsRTs.DataGridView.RowCount.ToString();
-        LabelCountAllRecipientsValue.Text = users.Count().ToString();
+        LabelCountAllRecipientsValue.Text = users.Count.ToString();
       }
       finally
       {
@@ -229,7 +236,7 @@ namespace Ordisoftware.TweetsInspector
 
     private void ShowUsers(string title, List<User> users)
     {
-      string sizeIndex = new string('0', users.Count.ToString().Length);
+      string sizeIndex = new('0', users.Count.ToString().Length);
       var items = users.Select((user, index) => $"{(index + 1).ToString(sizeIndex)}. {user.ScreenName} : {user.Name} - {user.Description.Replace(Environment.NewLine, " | ").Replace("\n", " | ")}");
       EditUsers.Text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
                        Environment.NewLine +

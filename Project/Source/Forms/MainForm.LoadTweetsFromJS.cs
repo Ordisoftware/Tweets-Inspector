@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Ordisoftware.Core;
 using System.Windows.Forms;
+using System.Net;
 
 namespace Ordisoftware.TweetsInspector
 {
@@ -30,62 +31,84 @@ namespace Ordisoftware.TweetsInspector
 
     private const string TwitterDateTemplate = "ddd MMM dd HH:mm:ss +ffff yyyy";
 
-    private readonly CultureInfo CultureEN = new CultureInfo("en-US");
+    private readonly CultureInfo CultureEN = new("en-US");
+
+    private readonly WebClientEx WebClient = new(3000);
 
     private void DoLoadTweetsFromJS()
     {
       Cursor = Cursors.WaitCursor;
       try
       {
-        if ( DataSet.Tweets.Count > 0 )
-          if ( !DisplayManager.QueryYesNo("Replace all tweets in the database?") ) return;
         if ( OpenFileDialogJS.ShowDialog() != DialogResult.OK ) return;
+        if ( DataSet.Tweets.Count > 0 )
+          if ( !DisplayManager.QueryYesNo("Replace all tweets in the database, else append?") )
+          {
+            var command = new OdbcCommand("DELETE FROM Tweets", LockFileConnection);
+            command.ExecuteNonQuery();
+            TweetsTableAdapter.Fill(DataSet.Tweets);
+            TweetsBindingSourceMain.ResetBindings(false);
+            TweetsBindingSourceReplies.ResetBindings(false);
+            TweetsBindingSourceRTs.ResetBindings(false);
+          }
         LoadingForm.Instance.Initialize("Loading JS...", 1);
         string filepath = OpenFileDialogJS.FileName;
         var tweets = JsonHelper.LoadTweets(filepath);
         LoadingForm.Instance.DoProgress();
         LoadingForm.Instance.Initialize(SysTranslations.ProgressCreatingData.GetLang(), tweets.Count);
-        var command = new OdbcCommand("DELETE FROM Tweets", LockFileConnection);
-        command.ExecuteNonQuery();
-        TweetsTableAdapter.Fill(DataSet.Tweets);
-        TweetsBindingSourceMain.ResetBindings(false);
-        TweetsBindingSourceReplies.ResetBindings(false);
-        TweetsBindingSourceRTs.ResetBindings(false);
         Refresh();
         try
         {
           foreach ( var tweet in tweets )
           {
             LoadingForm.Instance.DoProgress();
-            var row = DataSet.Tweets.NewTweetsRow();
-            row.Id = tweet.Id;
-            var date = DateTime.ParseExact(tweet.CreatedAt, TwitterDateTemplate, CultureEN);
-            row.Date = SQLiteDate.ToString(date, true);
-            row.Message = tweet.FullText;
-            var recipients = new List<string>();
-            string replyto = tweet.InReplyToScreenName;
-            if ( !replyto.IsNullOrEmpty() ) recipients.Add(replyto);
-            foreach ( var mention in tweet.Entities.UserMentions )
+            if ( IsConnected(false) )
             {
-              string recipient = mention.ScreenName;
-              if ( !recipients.Contains(recipient) )
-                recipients.Add(recipient);
+              string url = $"https://twitter.com/{Tokens.ScreenName}/status/{tweet.Id}";
+              WebRequest webRequest = WebRequest.Create(url);
+              WebResponse webResponse;
+              try
+              {
+                webResponse = webRequest.GetResponse();
+              }
+              catch
+              {
+                continue;
+              }
             }
-            row.Recipients = string.Join(",", recipients);
-            if ( row.Message.StartsWith("RT @") )
-              row.Type = (int)TweetType.RT;
-            else
-            if ( row.Message.StartsWith("@") )
-              row.Type = (int)TweetType.Reply;
-            else
-              row.Type = (int)TweetType.Main;
-            DataSet.Tweets.AddTweetsRow(row);
+            if ( !DataSet.Tweets.Rows.Contains(tweet.Id) )
+            {
+              var row = DataSet.Tweets.NewTweetsRow();
+              row.Id = tweet.Id;
+              var date = DateTime.ParseExact(tweet.CreatedAt, TwitterDateTemplate, CultureEN);
+              row.Date = SQLiteDate.ToString(date, true);
+              row.Message = tweet.FullText;
+              var recipients = new List<string>();
+              string replyto = tweet.InReplyToScreenName;
+              if ( !replyto.IsNullOrEmpty() ) recipients.Add(replyto);
+              foreach ( var mention in tweet.Entities.UserMentions )
+              {
+                string recipient = mention.ScreenName;
+                if ( !recipients.Contains(recipient) )
+                  recipients.Add(recipient);
+              }
+              row.Recipients = string.Join(",", recipients);
+              if ( row.Message.StartsWith("RT @") )
+                row.Type = (int)TweetType.RT;
+              else
+              if ( row.Message.StartsWith("@") )
+                row.Type = (int)TweetType.Reply;
+              else
+                row.Type = (int)TweetType.Main;
+              DataSet.Tweets.AddTweetsRow(row);
+            }
           }
           TableAdapterManager.UpdateAll(DataSet);
           SaveUsingTransaction(DataSet.Tweets, TweetsTableAdapter.Adapter);
         }
-        catch
+        catch ( Exception ex )
         {
+          DebugManager.Trace(LogTraceEvent.Data, ex.ToStringFullText());
           throw;
         }
       }
@@ -119,10 +142,11 @@ namespace Ordisoftware.TweetsInspector
       }
       adapter.InsertCommand.Connection.Close();
       adapter.RowUpdated -= update;
-      void update(object sender, OdbcRowUpdatedEventArgs rowEvent)
+      //
+      static void update(object sender, OdbcRowUpdatedEventArgs rowEvent)
       {
         if ( !Globals.IsGenerating ) LoadingForm.Instance.DoProgress();
-      };
+      }
     }
 
   }

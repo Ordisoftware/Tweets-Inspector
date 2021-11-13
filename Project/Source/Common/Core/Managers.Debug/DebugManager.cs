@@ -295,7 +295,7 @@ namespace Ordisoftware.Core
     /// <param name="show">The show mode.</param>
     static public void Manage(this Exception ex, object sender, ShowExceptionMode show)
     {
-      if ( !( ex is AbortException ) )
+      if ( ex is not AbortException  )
       {
         StackSkip++;
         ManageInternal(sender, ex, show);
@@ -449,6 +449,16 @@ namespace Ordisoftware.Core
     /// <param name="ex">The exception to act on.</param>
     /// <param name="sender">The sender object</param>
     static public string ToStringWithInners(this Exception ex, object sender = null)
+    {
+      return ex.Parse(sender, einfo => einfo.FullText);
+    }
+
+    /// <summary>
+    /// Get a readable formatted text of an exeption.
+    /// </summary>
+    /// <param name="ex">The exception to act on.</param>
+    /// <param name="sender">The sender object</param>
+    static public string ToStringFullText(this Exception ex, object sender = null)
     {
       return ex.Parse(sender, einfo => einfo.FullText);
     }

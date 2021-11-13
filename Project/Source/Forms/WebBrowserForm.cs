@@ -27,8 +27,7 @@ namespace Ordisoftware.TweetsInspector
 
     static WebBrowserForm()
     {
-      CefSettings settings = new CefSettings();
-      settings.CachePath = Path.Combine(Globals.UserDataFolderPath, "ChromiumCache");
+      var settings = new CefSettings{ CachePath = Path.Combine(Globals.UserDataFolderPath, "ChromiumCache") };
       Cef.Initialize(settings);
     }
 

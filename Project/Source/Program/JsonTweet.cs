@@ -344,17 +344,17 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
 
   internal static class Converter
   {
-    public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+    public static readonly JsonSerializerSettings Settings = new()
     {
       MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
       DateParseHandling = DateParseHandling.None,
       Converters = {
-                ResizeConverter.Singleton,
-                TypeEnumConverter.Singleton,
-                ContentTypeConverter.Singleton,
-                LangConverter.Singleton,
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            },
+                     ResizeConverter.Singleton,
+                     TypeEnumConverter.Singleton,
+                     ContentTypeConverter.Singleton,
+                     LangConverter.Singleton,
+                     new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+                    }
     };
   }
 
@@ -386,10 +386,9 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
         converter.WriteJson(writer, arrayItem, serializer);
       }
       writer.WriteEndArray();
-      return;
     }
 
-    public static readonly DecodeArrayConverter Singleton = new DecodeArrayConverter();
+    public static readonly DecodeArrayConverter Singleton = new();
   }
 
   internal class ParseIntegerConverter : JsonConverter
@@ -400,8 +399,7 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
     {
       if ( reader.TokenType == JsonToken.Null ) return null;
       var value = serializer.Deserialize<string>(reader);
-      long l;
-      if ( Int64.TryParse(value, out l) )
+      if ( Int64.TryParse(value, out long l) )
       {
         return l;
       }
@@ -417,10 +415,9 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
       }
       var value = (long)untypedValue;
       serializer.Serialize(writer, value.ToString());
-      return;
     }
 
-    public static readonly ParseIntegerConverter Singleton = new ParseIntegerConverter();
+    public static readonly ParseIntegerConverter Singleton = new();
   }
 
   internal class ResizeConverter : JsonConverter
@@ -461,7 +458,7 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
       throw new Exception("Cannot marshal type Resize");
     }
 
-    public static readonly ResizeConverter Singleton = new ResizeConverter();
+    public static readonly ResizeConverter Singleton = new();
   }
 
   internal class TypeEnumConverter : JsonConverter
@@ -507,7 +504,7 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
       throw new Exception("Cannot marshal type TypeEnum");
     }
 
-    public static readonly TypeEnumConverter Singleton = new TypeEnumConverter();
+    public static readonly TypeEnumConverter Singleton = new();
   }
 
   internal class ContentTypeConverter : JsonConverter
@@ -548,7 +545,7 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
       throw new Exception("Cannot marshal type ContentType");
     }
 
-    public static readonly ContentTypeConverter Singleton = new ContentTypeConverter();
+    public static readonly ContentTypeConverter Singleton = new();
   }
 
   internal class LangConverter : JsonConverter
@@ -617,6 +614,8 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
           return Lang.Tl;
         case "und":
           return Lang.Und;
+        default:
+          return Lang.En;
       }
       throw new Exception("Cannot unmarshal type Lang");
     }
@@ -719,7 +718,7 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
       throw new Exception("Cannot marshal type Lang");
     }
 
-    public static readonly LangConverter Singleton = new LangConverter();
+    public static readonly LangConverter Singleton = new();
   }
 
 }

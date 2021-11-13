@@ -19,7 +19,7 @@ using System.Configuration;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using InputSimulatorStandard;
+using GregsStack.InputSimulatorStandard;
 
 namespace Ordisoftware.Core
 {
@@ -32,7 +32,7 @@ namespace Ordisoftware.Core
 
     public const string RegistryKeyRun = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
 
-    static public readonly InputSimulator InputSimulator = new InputSimulator();
+    static public readonly InputSimulator InputSimulator = new();
 
     /// <summary>
     /// Delete all app settings folders in User\AppData\Local.
@@ -126,11 +126,9 @@ namespace Ordisoftware.Core
       if ( instance.GetType().IsSerializable )
         try
         {
-          using ( var stream = new MemoryStream() )
-          {
-            new BinaryFormatter().Serialize(stream, instance);
-            result = stream.Length;
-          }
+          using var stream = new MemoryStream();
+          new BinaryFormatter().Serialize(stream, instance);
+          result = stream.Length;
         }
         catch ( Exception ex1 )
         {

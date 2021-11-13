@@ -86,7 +86,7 @@
       this.checkOnlineToolStripMenuItem.Name = "checkOnlineToolStripMenuItem";
       this.checkOnlineToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.checkOnlineToolStripMenuItem.Text = "Check online";
-      this.checkOnlineToolStripMenuItem.Click += new System.EventHandler(this.checkOnlineToolStripMenuItem_Click);
+      this.checkOnlineToolStripMenuItem.Click += new System.EventHandler(this.CheckOnlineToolStripMenuItem_Click);
       // 
       // PanelBottom
       // 
