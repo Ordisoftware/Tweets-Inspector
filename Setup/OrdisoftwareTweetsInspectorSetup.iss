@@ -20,7 +20,6 @@ AppId={{482BB78E-469E-4FE1-935A-D6B8E8D5017C}
 [Tasks]
 #include "Scripts\Tasks.iss"
 
-
 [Dirs]
 
 [InstallDelete]
@@ -32,9 +31,7 @@ AppId={{482BB78E-469E-4FE1-935A-D6B8E8D5017C}
 [Icons]
 #include "Scripts\Icons.iss"
 
-
 [Registry]
-
 
 [Run]
 #include "Scripts\Run.iss"
