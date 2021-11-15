@@ -3,17 +3,16 @@
 /// Copyright 2021 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-/// If a copy of the MPL was not distributed with this file, You can obtain one at 
+/// If a copy of the MPL was not distributed with this file, You can obtain one at
 /// https://mozilla.org/MPL/2.0/.
-/// If it is not possible or desirable to put the notice in a particular file, 
-/// then You may include the notice in a location(such as a LICENSE file in a 
+/// If it is not possible or desirable to put the notice in a particular file,
+/// then You may include the notice in a location(such as a LICENSE file in a
 /// relevant directory) where a recipient would be likely to look for such a notice.
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2021-08 </edited>
 using System;
-using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -60,7 +59,7 @@ namespace Ordisoftware.TweetsInspector
       TabControl.TabPages.Remove(TabPageMessages);
       SplitContainerMain.Panel1MinSize = TweetsControl.ListTweetsMain.MinimumSize.Width;
       Text = $"{Globals.AssemblyTitle} - Not connected";
-      SystemManager.TryCatch(() => { Icon = new Icon(Globals.ApplicationIconFilePath); });
+      SystemManager.TryCatch(() => Icon = new Icon(Globals.ApplicationIconFilePath));
       var pkey = UsersDataTable.Columns.Add("User", typeof(string));
       UsersDataTable.Columns.Add("Count", typeof(int));
       UsersDataTable.PrimaryKey = new DataColumn[] { pkey };
@@ -274,7 +273,7 @@ namespace Ordisoftware.TweetsInspector
       ProcessWithLoadingForm(sender, (users, callback) =>
       {
         long? cursor = null;
-        int quanta = APIStep;
+        const int quanta = APIStep;
         int count = quanta;
         while ( count == quanta )
         {
@@ -293,7 +292,7 @@ namespace Ordisoftware.TweetsInspector
       ProcessWithLoadingForm(sender, (users, callback) =>
       {
         long? cursor = null;
-        int quanta = APIStep;
+        const int quanta = APIStep;
         int count = quanta;
         while ( count == quanta )
         {
@@ -312,7 +311,7 @@ namespace Ordisoftware.TweetsInspector
       ProcessWithLoadingForm(sender, (users, callback) =>
       {
         long? cursor = null;
-        int quanta = 20;
+        const int quanta = 20;
         int count = quanta;
         while ( count == quanta )
         {
@@ -331,7 +330,7 @@ namespace Ordisoftware.TweetsInspector
       ProcessWithLoadingForm(sender, (users, callback) =>
       {
         long? cursor = null;
-        int quanta = 20;
+        const int quanta = 20;
         int count = quanta;
         while ( count == 20 )
         {
@@ -356,10 +355,6 @@ namespace Ordisoftware.TweetsInspector
       }*/
     }
 
-    private void ActionCheckOnlineDestroyed_Click(object sender, EventArgs e)
-    {
-
-    }
   }
 
 }
