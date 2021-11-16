@@ -472,7 +472,7 @@
     <EmbeddedResource Include="Source\Controls\TweetsListsControl.resx">
       <DependentUpon>TweetsListsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include=".editorconfig" />
+    <None Include="Source\Common\Core\.editorconfig" />
     <None Include="Data\DataSet.xsc">
       <DependentUpon>DataSet.xsd</DependentUpon>
     </None>
