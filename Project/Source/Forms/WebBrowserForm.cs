@@ -12,33 +12,29 @@
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2021-04 </edited>
-using System;
+namespace Ordisoftware.TweetsInspector;
+
 using System.IO;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
 using Ordisoftware.Core;
 
-namespace Ordisoftware.TweetsInspector
+public partial class WebBrowserForm : Form
 {
 
-  public partial class WebBrowserForm : Form
+  static WebBrowserForm()
   {
+    var settings = new CefSettings { CachePath = Path.Combine(Globals.UserDataFolderPath, "ChromiumCache") };
+    Cef.Initialize(settings);
+  }
 
-    static WebBrowserForm()
-    {
-      var settings = new CefSettings{ CachePath = Path.Combine(Globals.UserDataFolderPath, "ChromiumCache") };
-      Cef.Initialize(settings);
-    }
-
-    public WebBrowserForm()
-    {
-      InitializeComponent();
-      Icon = Globals.MainForm?.Icon;
-      var script = "document.getElementById('allow').click();";
-      WebBrowser.ExecuteScriptAsyncWhenPageLoaded(script);
-    }
-
+  public WebBrowserForm()
+  {
+    InitializeComponent();
+    Icon = Globals.MainForm?.Icon;
+    var script = "document.getElementById('allow').click();";
+    WebBrowser.ExecuteScriptAsyncWhenPageLoaded(script);
   }
 
 }
