@@ -12,6 +12,8 @@
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2021-08 </edited>
+namespace Ordisoftware.TweetsInspector;
+
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -22,339 +24,334 @@ using System.Drawing;
 using System.Data;
 using System.Threading;
 
-namespace Ordisoftware.TweetsInspector
+// TODO encrypt login
+
+public partial class MainForm : Form
 {
 
-  // TODO encrypt login
+  private const int APIStep = 50;
 
-  public partial class MainForm : Form
+  static internal readonly MainForm Instance;
+  static internal readonly Properties.Settings Settings = Program.Settings;
+
+  static private readonly DataTable UsersDataTable = new();
+
+  static internal OAuth.OAuthSession Session { get; private set; }
+  static internal Tokens Tokens { get; private set; }
+
+  static MainForm()
   {
-
-    private const int APIStep = 50;
-
-    static internal readonly MainForm Instance;
-    static internal readonly Properties.Settings Settings = Program.Settings;
-
-    static private readonly DataTable UsersDataTable = new();
-
-    static internal OAuth.OAuthSession Session { get; private set; }
-    static internal Tokens Tokens { get; private set; }
-
-    static MainForm()
-    {
-      Instance = new MainForm();
-    }
+    Instance = new MainForm();
+  }
 
 
-    internal static bool IsConnected(bool showMessage)
-    {
-      if ( Tokens != null ) return true;
-      if ( showMessage ) DisplayManager.ShowWarning("Not connected.");
-      return false;
-    }
+  internal static bool IsConnected(bool showMessage)
+  {
+    if ( Tokens != null ) return true;
+    if ( showMessage ) DisplayManager.ShowWarning("Not connected.");
+    return false;
+  }
 
-    public MainForm()
-    {
-      InitializeComponent();
-      TabControl.TabPages.Remove(TabPageMessages);
-      SplitContainerMain.Panel1MinSize = TweetsControl.ListTweetsMain.MinimumSize.Width;
-      Text = $"{Globals.AssemblyTitle} - Not connected";
-      SystemManager.TryCatch(() => Icon = new Icon(Globals.ApplicationIconFilePath));
-      var pkey = UsersDataTable.Columns.Add("User", typeof(string));
-      UsersDataTable.Columns.Add("Count", typeof(int));
-      UsersDataTable.PrimaryKey = new DataColumn[] { pkey };
-      TweetsControl.Modified += TweetsControl_OnModified;
-      SettingsBindingSource.DataSource = Settings;
-      SelectStartupConnectAction.DataSource = Enum.GetValues(typeof(StartupConnectAction));
-    }
+  public MainForm()
+  {
+    InitializeComponent();
+    TabControl.TabPages.Remove(TabPageMessages);
+    SplitContainerMain.Panel1MinSize = TweetsControl.ListTweetsMain.MinimumSize.Width;
+    Text = $"{Globals.AssemblyTitle} - Not connected";
+    SystemManager.TryCatch(() => Icon = new Icon(Globals.ApplicationIconFilePath));
+    var pkey = UsersDataTable.Columns.Add("User", typeof(string));
+    UsersDataTable.Columns.Add("Count", typeof(int));
+    UsersDataTable.PrimaryKey = new DataColumn[] { pkey };
+    TweetsControl.Modified += TweetsControl_OnModified;
+    SettingsBindingSource.DataSource = Settings;
+    SelectStartupConnectAction.DataSource = Enum.GetValues(typeof(StartupConnectAction));
+  }
 
-    private void MainForm_Load(object sender, EventArgs e)
-    {
-      CreateSchemaIfNotExists();
-      TweetsTableAdapter.Fill(DataSet.Tweets);
-      TrashTableAdapter.Fill(DataSet.Trash);
-      ListTweetsTrash.DataSource = TrashBindingSource;
-      UpdateListViews();
-    }
+  private void MainForm_Load(object sender, EventArgs e)
+  {
+    CreateSchemaIfNotExists();
+    TweetsTableAdapter.Fill(DataSet.Tweets);
+    TrashTableAdapter.Fill(DataSet.Trash);
+    ListTweetsTrash.DataSource = TrashBindingSource;
+    UpdateListViews();
+  }
 
-    private void MainForm_Shown(object sender, EventArgs e)
-    {
-      if ( Settings.StartupConnectAction == StartupConnectAction.Auto )
+  private void MainForm_Shown(object sender, EventArgs e)
+  {
+    if ( Settings.StartupConnectAction == StartupConnectAction.Auto )
+      ActionConnect.PerformClick();
+    else
+    if ( Settings.StartupConnectAction == StartupConnectAction.Ask )
+      if ( DisplayManager.QueryYesNo("Connect to Twitter?") )
         ActionConnect.PerformClick();
-      else
-      if ( Settings.StartupConnectAction == StartupConnectAction.Ask )
-        if ( DisplayManager.QueryYesNo("Connect to Twitter?") )
-          ActionConnect.PerformClick();
-    }
+  }
 
-    private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
-    {
-      Settings.Save();
-      if ( DataSet.HasChanges() ) TableAdapterManager.UpdateAll(DataSet);
-    }
+  private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+  {
+    Settings.Save();
+    if ( DataSet.HasChanges() ) TableAdapterManager.UpdateAll(DataSet);
+  }
 
-    private void ActionOpenMessages_Click(object sender, EventArgs e)
-    {
-      DoOpenMessages();
-    }
+  private void ActionOpenMessages_Click(object sender, EventArgs e)
+  {
+    DoOpenMessages();
+  }
 
-    private void ActionSaveToCSV_Click(object sender, EventArgs e)
-    {
-      /*if ( string.IsNullOrEmpty(LastTweetsFilePath) ) return;
-      string path = Path.GetDirectoryName(LastTweetsFilePath);
-      string name = Path.GetFileNameWithoutExtension(LastTweetsFilePath);
-      File.WriteAllLines(Path.Combine(path, name + " - Tweets.txt"), SelectTweets.Items.Cast<string>());
-      File.WriteAllLines(Path.Combine(path, name + " - Replies.txt"), SelectTweetsReply.Items.Cast<string>());
-      File.WriteAllLines(Path.Combine(path, name + " - RT.txt"), SelectTweetsRT.Items.Cast<string>());*/
-    }
+  private void ActionSaveToCSV_Click(object sender, EventArgs e)
+  {
+    /*if ( string.IsNullOrEmpty(LastTweetsFilePath) ) return;
+    string path = Path.GetDirectoryName(LastTweetsFilePath);
+    string name = Path.GetFileNameWithoutExtension(LastTweetsFilePath);
+    File.WriteAllLines(Path.Combine(path, name + " - Tweets.txt"), SelectTweets.Items.Cast<string>());
+    File.WriteAllLines(Path.Combine(path, name + " - Replies.txt"), SelectTweetsReply.Items.Cast<string>());
+    File.WriteAllLines(Path.Combine(path, name + " - RT.txt"), SelectTweetsRT.Items.Cast<string>());*/
+  }
 
-    private void ActionConnect_Click(object sender, EventArgs e)
-    {
-      DoConnect();
-    }
+  private void ActionConnect_Click(object sender, EventArgs e)
+  {
+    DoConnect();
+  }
 
-    private void ActionLoadFromJS_Click(object sender, EventArgs e)
-    {
-      DoLoadTweetsFromJS();
-      UpdateListViews();
-    }
+  private void ActionLoadFromJS_Click(object sender, EventArgs e)
+  {
+    DoLoadTweetsFromJS();
+    UpdateListViews();
+  }
 
-    private void UpdateListViews()
-    {
-      TweetsControl.ListTweetsMain.DataSource = TweetsBindingSourceMain;
-      TweetsControl.ListTweetsReplies.DataSource = TweetsBindingSourceReplies;
-      TweetsControl.ListTweetsRTs.DataSource = TweetsBindingSourceRTs;
-      TweetsControl.RefreshFilters();
-      TweetsControl_OnModified(null, null);
-    }
+  private void UpdateListViews()
+  {
+    TweetsControl.ListTweetsMain.DataSource = TweetsBindingSourceMain;
+    TweetsControl.ListTweetsReplies.DataSource = TweetsBindingSourceReplies;
+    TweetsControl.ListTweetsRTs.DataSource = TweetsBindingSourceRTs;
+    TweetsControl.RefreshFilters();
+    TweetsControl_OnModified(null, null);
+  }
 
-    private void TweetsControl_OnModified(object sender, EventArgs e)
+  private void TweetsControl_OnModified(object sender, EventArgs e)
+  {
+    Globals.IsGenerating = true;
+    try
     {
-      Globals.IsGenerating = true;
-      try
-      {
-        //DataGridViewUsers.DataSource = null;
-        UsersDataTable.Rows.Clear();
-        var users = DataSet.Tweets
-                           .SelectMany(tweet => tweet.RecipientsAsList)
-                           .GroupBy(recipient => recipient, (recipient, group) => new { recipient, count = group.Count() })
-                           .Where(item => !item.recipient.IsNullOrEmpty())
-                           .ToDictionary(item => item.recipient, item => item.count);
-        foreach ( var item in users )
-          if ( UsersDataTable.Rows.Contains(item.Key) )
-            UsersDataTable.Rows.Find(item.Key)[1] = item.Value;
-          else
-            UsersDataTable.Rows.Add(item.Key, item.Value);
-        UsersBindingSource.DataSource = UsersDataTable;
-        //DataGridViewUsers.DataSource = UsersBindingSource;
-        DataGridViewUsers.Sort(ColumnUserCount, System.ComponentModel.ListSortDirection.Descending);
-        LabelCountTweetsMainValue.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
-        LabelCountTweetsRepliesValue.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
-        LabelCountTweetsRTsValue.Text = TweetsControl.ListTweetsRTs.DataGridView.RowCount.ToString();
-        LabelCountAllRecipientsValue.Text = users.Count.ToString();
-      }
-      finally
-      {
-        Globals.IsGenerating = false;
-      }
+      //DataGridViewUsers.DataSource = null;
+      UsersDataTable.Rows.Clear();
+      var users = DataSet.Tweets
+                         .SelectMany(tweet => tweet.RecipientsAsList)
+                         .GroupBy(recipient => recipient, (recipient, group) => new { recipient, count = group.Count() })
+                         .Where(item => !item.recipient.IsNullOrEmpty())
+                         .ToDictionary(item => item.recipient, item => item.count);
+      foreach ( var item in users )
+        if ( UsersDataTable.Rows.Contains(item.Key) )
+          UsersDataTable.Rows.Find(item.Key)[1] = item.Value;
+        else
+          UsersDataTable.Rows.Add(item.Key, item.Value);
+      UsersBindingSource.DataSource = UsersDataTable;
+      //DataGridViewUsers.DataSource = UsersBindingSource;
+      DataGridViewUsers.Sort(ColumnUserCount, System.ComponentModel.ListSortDirection.Descending);
+      LabelCountTweetsMainValue.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
+      LabelCountTweetsRepliesValue.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
+      LabelCountTweetsRTsValue.Text = TweetsControl.ListTweetsRTs.DataGridView.RowCount.ToString();
+      LabelCountAllRecipientsValue.Text = users.Count.ToString();
     }
-
-    private void EditFilterUsers_TextChanged(object sender, EventArgs e)
+    finally
     {
-      var ds = DataGridViewUsers.DataSource as BindingSource;
-      if ( EditFilterUsers.Text != "" )
-        ds.Filter = $"User LIKE '*{EditFilterUsers.Text}*'";
-      else
-        ds.Filter = "";
-      DataGridViewUsers.ClearSelection();
+      Globals.IsGenerating = false;
     }
+  }
 
-    private void DataGridViewUsers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+  private void EditFilterUsers_TextChanged(object sender, EventArgs e)
+  {
+    var ds = DataGridViewUsers.DataSource as BindingSource;
+    if ( EditFilterUsers.Text != "" )
+      ds.Filter = $"User LIKE '*{EditFilterUsers.Text}*'";
+    else
+      ds.Filter = "";
+    DataGridViewUsers.ClearSelection();
+  }
+
+  private void DataGridViewUsers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+  {
+    if ( e.RowIndex == -1 ) return;
+    EditSearch.Text = (string)DataGridViewUsers[0, e.RowIndex].Value;
+  }
+
+  private void DataGridViewUsers_CellClick(object sender, DataGridViewCellEventArgs e)
+  {
+    if ( !EditSingleClickUserFilter.Checked ) return;
+    DataGridViewUsers_CellDoubleClick(sender, e);
+  }
+
+  private void DataGridViewUsers_SelectionChanged(object sender, EventArgs e)
+  {
+    if ( Globals.IsGenerating ) return;
+    if ( !EditSingleClickUserFilter.Checked ) return;
+    if ( DataGridViewUsers.SelectedRows.Count == 0 ) return;
+    EditSearch.Text = (string)DataGridViewUsers.SelectedRows[0].Cells[0].Value;
+  }
+
+  private void EditSearchInRecipients_CheckedChanged(object sender, EventArgs e)
+  {
+    if ( !EditSearchInRecipients.Checked && !EditSearchInMessage.Checked )
     {
-      if ( e.RowIndex == -1 ) return;
-      EditSearch.Text = (string)DataGridViewUsers[0, e.RowIndex].Value;
+      EditSearchInRecipients.Checked = true;
+      EditSearchInMessage.Checked = true;
     }
+    TweetsControl.RefreshFilters();
+  }
 
-    private void DataGridViewUsers_CellClick(object sender, DataGridViewCellEventArgs e)
-    {
-      if ( !EditSingleClickUserFilter.Checked ) return;
-      DataGridViewUsers_CellDoubleClick(sender, e);
-    }
-
-    private void DataGridViewUsers_SelectionChanged(object sender, EventArgs e)
-    {
-      if ( Globals.IsGenerating ) return;
-      if ( !EditSingleClickUserFilter.Checked ) return;
-      if ( DataGridViewUsers.SelectedRows.Count == 0 ) return;
-      EditSearch.Text = (string)DataGridViewUsers.SelectedRows[0].Cells[0].Value;
-    }
-
-    private void EditSearchInRecipients_CheckedChanged(object sender, EventArgs e)
-    {
-      if ( !EditSearchInRecipients.Checked && !EditSearchInMessage.Checked )
-      {
-        EditSearchInRecipients.Checked = true;
-        EditSearchInMessage.Checked = true;
-      }
-      TweetsControl.RefreshFilters();
-    }
-
-    private void ActionDelete_Click(object sender, EventArgs e)
-    {
-      if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
-        if ( !IsConnected(true) ) return;
-      bool modified = false;
-      void onModified(object _s, EventArgs _e) => modified = true;
-      TweetsControl.Modified -= TweetsControl_OnModified;
-      TweetsControl.Modified += onModified;
-      TweetsControl.DeleteSelected();
-      TweetsControl.Modified -= onModified;
-      TweetsControl.Modified += TweetsControl_OnModified;
-      if ( modified ) TweetsControl_OnModified(null, null);
-    }
-
-    private void ActionSelectAll_Click(object sender, EventArgs e)
-    {
-      TweetsControl.SelectAll();
-    }
-
-    private void ActionSelectNone_Click(object sender, EventArgs e)
-    {
-      TweetsControl.SelectNone();
-    }
-
-    private void ActionFilterClear_Click(object sender, EventArgs e)
-    {
-      EditSearch.Text = "";
-    }
-
-    private void EditSearch_TextChanged(object sender, EventArgs e)
-    {
-      TweetsControl.SetSearchTerm(EditSearch.Text);
-    }
-
-    private void ShowUsers(string title, List<User> users)
-    {
-      string sizeIndex = new('0', users.Count.ToString().Length);
-      var items = users.Select((user, index) => $"{(index + 1).ToString(sizeIndex)}. {user.ScreenName} : {user.Name} - {user.Description.Replace(Environment.NewLine, " | ").Replace("\n", " | ")}");
-      EditUsers.Text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
-                       Environment.NewLine +
-                       string.Join(Environment.NewLine, items);
-      EditUsers.SelectionStart = 0;
-      EditUsers.SelectionLength = 0;
-    }
-
-    private void ProcessWithLoadingForm(object sender, Action<List<User>, Action<int>> action)
-    {
+  private void ActionDelete_Click(object sender, EventArgs e)
+  {
+    if ( !Properties.Settings.Default.DeleteOnlyLocalMode )
       if ( !IsConnected(true) ) return;
-      var tempProgressBar = LoadingForm.Instance.ProgressBar.Style;
-      var tempLabelCount = LoadingForm.Instance.LabelCount.Visible;
-      string title = ( sender as Control )?.Text ?? "Users";
-      LoadingForm.Instance.Initialize($"Reading {title}...", 10, 0, false, canCancel: true);
-      LoadingForm.Instance.ProgressBar.Style = ProgressBarStyle.Marquee;
-      LoadingForm.Instance.LabelCount.Visible = true;
-      var users = new List<User>();
-      int total = 0;
-      SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () => action(users, quanta =>
-      {
-        if ( LoadingForm.Instance.CancelRequired ) throw new AbortException();
-        LoadingForm.Instance.LabelCount.Text = total.ToString();
-        LoadingForm.Instance.Refresh();
-        total += quanta;
-      }));
-      ShowUsers(title, users);
-      LoadingForm.Instance.LabelCount.Visible = tempLabelCount;
-      LoadingForm.Instance.ProgressBar.Style = tempProgressBar;
-      LoadingForm.Instance.Hide();
-    }
+    bool modified = false;
+    void onModified(object _s, EventArgs _e) => modified = true;
+    TweetsControl.Modified -= TweetsControl_OnModified;
+    TweetsControl.Modified += onModified;
+    TweetsControl.DeleteSelected();
+    TweetsControl.Modified -= onModified;
+    TweetsControl.Modified += TweetsControl_OnModified;
+    if ( modified ) TweetsControl_OnModified(null, null);
+  }
 
-    private void ActionGetFollowers_Click(object sender, EventArgs e)
+  private void ActionSelectAll_Click(object sender, EventArgs e)
+  {
+    TweetsControl.SelectAll();
+  }
+
+  private void ActionSelectNone_Click(object sender, EventArgs e)
+  {
+    TweetsControl.SelectNone();
+  }
+
+  private void ActionFilterClear_Click(object sender, EventArgs e)
+  {
+    EditSearch.Text = "";
+  }
+
+  private void EditSearch_TextChanged(object sender, EventArgs e)
+  {
+    TweetsControl.SetSearchTerm(EditSearch.Text);
+  }
+
+  private void ShowUsers(string title, List<User> users)
+  {
+    string sizeIndex = new('0', users.Count.ToString().Length);
+    var items = users.Select((user, index) => $"{( index + 1 ).ToString(sizeIndex)}. {user.ScreenName} : {user.Name} - {user.Description.Replace(Environment.NewLine, " | ").Replace("\n", " | ")}");
+    EditUsers.Text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
+                     Environment.NewLine +
+                     string.Join(Environment.NewLine, items);
+    EditUsers.SelectionStart = 0;
+    EditUsers.SelectionLength = 0;
+  }
+
+  private void ProcessWithLoadingForm(object sender, Action<List<User>, Action<int>> action)
+  {
+    if ( !IsConnected(true) ) return;
+    var tempProgressBar = LoadingForm.Instance.ProgressBar.Style;
+    var tempLabelCount = LoadingForm.Instance.LabelCount.Visible;
+    string title = ( sender as Control )?.Text ?? "Users";
+    LoadingForm.Instance.Initialize($"Reading {title}...", 10, 0, false, canCancel: true);
+    LoadingForm.Instance.ProgressBar.Style = ProgressBarStyle.Marquee;
+    LoadingForm.Instance.LabelCount.Visible = true;
+    var users = new List<User>();
+    int total = 0;
+    SystemManager.TryCatchManage(ShowExceptionMode.OnlyMessage, () => action(users, quanta =>
     {
-      ProcessWithLoadingForm(sender, (users, callback) =>
-      {
-        long? cursor = null;
-        const int quanta = APIStep;
-        int count = quanta;
-        while ( count == quanta )
-        {
-          callback(quanta);
-          var list = Tokens.Followers.List(Tokens.UserId, count: APIStep, cursor: cursor);
-          cursor = list.NextCursor;
-          count = list.Count;
-          users.AddRange(list.ToList());
-          Thread.Sleep(ListTweets.LimitDelay * 2);
-        }
-      });
-    }
+      if ( LoadingForm.Instance.CancelRequired ) throw new AbortException();
+      LoadingForm.Instance.LabelCount.Text = total.ToString();
+      LoadingForm.Instance.Refresh();
+      total += quanta;
+    }));
+    ShowUsers(title, users);
+    LoadingForm.Instance.LabelCount.Visible = tempLabelCount;
+    LoadingForm.Instance.ProgressBar.Style = tempProgressBar;
+    LoadingForm.Instance.Hide();
+  }
 
-    private void ActionGetFellowing_Click(object sender, EventArgs e)
+  private void ActionGetFollowers_Click(object sender, EventArgs e)
+  {
+    ProcessWithLoadingForm(sender, (users, callback) =>
     {
-      ProcessWithLoadingForm(sender, (users, callback) =>
+      long? cursor = null;
+      const int quanta = APIStep;
+      int count = quanta;
+      while ( count == quanta )
       {
-        long? cursor = null;
-        const int quanta = APIStep;
-        int count = quanta;
-        while ( count == quanta )
-        {
-          callback(quanta);
-          var list = Tokens.Friends.List(Tokens.UserId, count: APIStep, cursor: cursor);
-          cursor = list.NextCursor;
-          count = list.Count;
-          users.AddRange(list.ToList());
-          Thread.Sleep(ListTweets.LimitDelay * 2);
-        }
-      });
-    }
+        callback(quanta);
+        var list = Tokens.Followers.List(Tokens.UserId, count: APIStep, cursor: cursor);
+        cursor = list.NextCursor;
+        count = list.Count;
+        users.AddRange(list.ToList());
+        Thread.Sleep(ListTweets.LimitDelay * 2);
+      }
+    });
+  }
 
-    private void ActionGetMutes_Click(object sender, EventArgs e)
+  private void ActionGetFellowing_Click(object sender, EventArgs e)
+  {
+    ProcessWithLoadingForm(sender, (users, callback) =>
     {
-      ProcessWithLoadingForm(sender, (users, callback) =>
+      long? cursor = null;
+      const int quanta = APIStep;
+      int count = quanta;
+      while ( count == quanta )
       {
-        long? cursor = null;
-        const int quanta = 20;
-        int count = quanta;
-        while ( count == quanta )
-        {
-          callback(quanta);
-          var list = Tokens.Mutes.Users.List(cursor: cursor);
-          cursor = list.NextCursor;
-          count = list.Count;
-          users.AddRange(list.ToList());
-          Thread.Sleep(ListTweets.LimitDelay * 5);
-        }
-      });
-    }
+        callback(quanta);
+        var list = Tokens.Friends.List(Tokens.UserId, count: APIStep, cursor: cursor);
+        cursor = list.NextCursor;
+        count = list.Count;
+        users.AddRange(list.ToList());
+        Thread.Sleep(ListTweets.LimitDelay * 2);
+      }
+    });
+  }
 
-    private void ActionGetBlocks_Click(object sender, EventArgs e)
+  private void ActionGetMutes_Click(object sender, EventArgs e)
+  {
+    ProcessWithLoadingForm(sender, (users, callback) =>
     {
-      ProcessWithLoadingForm(sender, (users, callback) =>
+      long? cursor = null;
+      const int quanta = 20;
+      int count = quanta;
+      while ( count == quanta )
       {
-        long? cursor = null;
-        const int quanta = 20;
-        int count = quanta;
-        while ( count == 20 )
-        {
-          callback(quanta);
-          var list = Tokens.Blocks.List(cursor: cursor);
-          cursor = list.NextCursor;
-          count = list.Count;
-          users.AddRange(list.ToList());
-          Thread.Sleep(ListTweets.LimitDelay * 5);
-        }
-      });
-    }
+        callback(quanta);
+        var list = Tokens.Mutes.Users.List(cursor: cursor);
+        cursor = list.NextCursor;
+        count = list.Count;
+        users.AddRange(list.ToList());
+        Thread.Sleep(ListTweets.LimitDelay * 5);
+      }
+    });
+  }
 
-    private void ActionGetLikes_Click(object sender, EventArgs e)
+  private void ActionGetBlocks_Click(object sender, EventArgs e)
+  {
+    ProcessWithLoadingForm(sender, (users, callback) =>
     {
-      /*if ( !IsConnected(true) ) return;
-      var list = Tokens.Favorites.List(Tokens.UserId, count: 200);
-      foreach ( var item in list )
+      long? cursor = null;
+      const int quanta = 20;
+      int count = quanta;
+      while ( count == 20 )
       {
-        if ( item.User.ScreenName.ToLower().Contains("") )
-          ;
-      }*/
-    }
+        callback(quanta);
+        var list = Tokens.Blocks.List(cursor: cursor);
+        cursor = list.NextCursor;
+        count = list.Count;
+        users.AddRange(list.ToList());
+        Thread.Sleep(ListTweets.LimitDelay * 5);
+      }
+    });
+  }
 
+  private void ActionGetLikes_Click(object sender, EventArgs e)
+  {
+    /*if ( !IsConnected(true) ) return;
+    var list = Tokens.Favorites.List(Tokens.UserId, count: 200);
+    foreach ( var item in list )
+    {
+      if ( item.User.ScreenName.ToLower().Contains("") )
+        ;
+    }*/
   }
 
 }

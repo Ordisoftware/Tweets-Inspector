@@ -12,37 +12,33 @@
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2021-04 </edited>
-using System;
+namespace Ordisoftware.TweetsInspector;
+
 using System.Text;
 using Ordisoftware.Core;
 
-namespace Ordisoftware.TweetsInspector
+public partial class MainForm
 {
 
-  public partial class MainForm
+  private void DoOpenMessages()
   {
-
-    private void DoOpenMessages()
+    //if ( OpenFileDialog.ShowDialog() != DialogResult.OK ) return;
+    //var lines = File.ReadAllLines(OpenFileDialog.FileName);
+    var lines = EditMessagesSource.Lines;
+    var result = new StringBuilder();
+    string user = "";
+    for ( int index = 0; index < lines.Length; index++ )
     {
-      //if ( OpenFileDialog.ShowDialog() != DialogResult.OK ) return;
-      //var lines = File.ReadAllLines(OpenFileDialog.FileName);
-      var lines = EditMessagesSource.Lines;
-      var result = new StringBuilder();
-      string user = "";
-      for ( int index = 0; index < lines.Length; index++ )
+      string line = lines[index].Trim();
+      if ( line.IsNullOrEmpty() || line.Contains("il y a") ) continue;
+      if ( line == EditUser1.Text || line == EditUser2.Text )
       {
-        string line = lines[index].Trim();
-        if ( line.IsNullOrEmpty() || line.Contains("il y a") ) continue;
-        if ( line == EditUser1.Text || line == EditUser2.Text )
-        {
-          user = line;
-          continue;
-        }
-        result.Append(user).Append('|').AppendLine(line);
+        user = line;
+        continue;
       }
-      EditMessagesCleaned.Text = result.ToString();
+      result.Append(user).Append('|').AppendLine(line);
     }
-
+    EditMessagesCleaned.Text = result.ToString();
   }
 
 }

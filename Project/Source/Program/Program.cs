@@ -12,37 +12,27 @@
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2021-04 </edited>
+namespace Ordisoftware.TweetsInspector;
+
 using System;
-using System.ComponentModel;
-using System.Globalization;
-using System.IO;
-using System.IO.Pipes;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ordisoftware.Core;
 
-namespace Ordisoftware.TweetsInspector
+public enum TweetType { Main, Reply, RT };
+
+static class Program
 {
 
-  public enum TweetType { Main, Reply, RT };
+  static internal readonly Properties.Settings Settings = Properties.Settings.Default;
 
-  static class Program
+  [STAThread]
+  static void Main()
   {
-
-    static internal readonly Properties.Settings Settings = Properties.Settings.Default;
-
-    [STAThread]
-    static void Main()
-    {
-      Application.EnableVisualStyles();
-      Application.SetCompatibleTextRenderingDefault(false);
-      DebugManager.Enabled = true;
-      DebugManager.TraceEnabled = true;
-      Application.Run(MainForm.Instance);
-    }
-
+    Application.EnableVisualStyles();
+    Application.SetCompatibleTextRenderingDefault(false);
+    DebugManager.Enabled = true;
+    DebugManager.TraceEnabled = true;
+    Application.Run(MainForm.Instance);
   }
 
 }

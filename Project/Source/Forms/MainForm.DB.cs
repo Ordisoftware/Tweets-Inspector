@@ -12,31 +12,29 @@
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2021-04 </edited>
-using System;
+namespace Ordisoftware.TweetsInspector;
+
 using System.Data.Odbc;
 using Ordisoftware.Core;
 
-namespace Ordisoftware.TweetsInspector
+public partial class MainForm
 {
 
-  public partial class MainForm
+  static private OdbcConnection LockFileConnection;
+
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Readability", "RCS1192:Unnecessary usage of verbatim string literal.", Justification = "Readability")]
+  private void CreateSchemaIfNotExists()
   {
-
-    static private OdbcConnection LockFileConnection;
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Readability", "RCS1192:Unnecessary usage of verbatim string literal.", Justification = "Readability")]
-    private void CreateSchemaIfNotExists()
+    SystemManager.TryCatchManage(() =>
     {
-      SystemManager.TryCatchManage(() =>
-      {
-        SQLiteOdbcHelper.CreateOrUpdateDSN();
-        LockFileConnection = new OdbcConnection(Settings.ConnectionString);
-        LockFileConnection.Open();
-        LockFileConnection.CheckIntegrity();
-        LockFileConnection.Vacuum();
-        //
-        LockFileConnection.CheckTable(@"Tweets",
-                                      @"CREATE TABLE Tweets
+      SQLiteOdbcHelper.CreateOrUpdateDSN();
+      LockFileConnection = new OdbcConnection(Settings.ConnectionString);
+      LockFileConnection.Open();
+      LockFileConnection.CheckIntegrity();
+      LockFileConnection.Vacuum();
+      //
+      LockFileConnection.CheckTable(@"Tweets",
+                                  @"CREATE TABLE Tweets
                                         ( 
                                           Id TEXT DEFAULT '' NOT NULL,
                                           Date TEXT DEFAULT '' NOT NULL,
@@ -45,49 +43,47 @@ namespace Ordisoftware.TweetsInspector
                                           Message TEXT DEFAULT '' NOT NULL,
                                           PRIMARY KEY(Id)
                                         )");
-        LockFileConnection.CheckTable(@"Trash",
-                                      @"CREATE TABLE Trash
-                                        ( 
-                                          Id TEXT DEFAULT '' NOT NULL,
-                                          Date TEXT DEFAULT '' NOT NULL,
-                                          Type INTEGER DEFAULT 0 NOT NULL,
-                                          Recipients TEXT DEFAULT '' NOT NULL,
-                                          Message TEXT DEFAULT '' NOT NULL,
-                                          DateDeleted TEXT DEFAULT '' NOT NULL,
-                                          PRIMARY KEY(Id)
-                                        )");
-        //
-        LockFileConnection.CheckTable(@"Following",
-                                      @"CREATE TABLE Following
-                                        ( 
-                                          Id TEXT DEFAULT '' NOT NULL,
-                                          ScreenName TEXT DEFAULT '' NOT NULL,
-                                          DateInserted TEXT DEFAULT '' NOT NULL,
-                                          DateRemoved TEXT DEFAULT '' NOT NULL,
-                                          PRIMARY KEY(Id)
-                                        )");
-        //
-        LockFileConnection.CheckTable(@"Followers",
-                                      @"CREATE TABLE Followers
-                                        ( 
-                                          Id TEXT DEFAULT '' NOT NULL,
-                                          ScreenName TEXT DEFAULT '' NOT NULL,
-                                          DateInserted TEXT DEFAULT '' NOT NULL,
-                                          DateRemoved TEXT DEFAULT '' NOT NULL,
-                                          PRIMARY KEY(Id)
-                                        )");
-        //
-        LockFileConnection.CheckTable(@"AutoDelete",
-                                      @"CREATE TABLE AutoDelete
-                                        ( 
-                                          Id TEXT DEFAULT '' NOT NULL,
-                                          DateCreated TEXT DEFAULT '' NOT NULL,
-                                          DateToDelete TEXT DEFAULT '' NOT NULL,
-                                          PRIMARY KEY(Id)
-                                        )");
-      });
-    }
-
+      LockFileConnection.CheckTable(@"Trash",
+                                    @"CREATE TABLE Trash
+                                      ( 
+                                        Id TEXT DEFAULT '' NOT NULL,
+                                        Date TEXT DEFAULT '' NOT NULL,
+                                        Type INTEGER DEFAULT 0 NOT NULL,
+                                        Recipients TEXT DEFAULT '' NOT NULL,
+                                        Message TEXT DEFAULT '' NOT NULL,
+                                        DateDeleted TEXT DEFAULT '' NOT NULL,
+                                        PRIMARY KEY(Id)
+                                      )");
+      //
+      LockFileConnection.CheckTable(@"Following",
+                                    @"CREATE TABLE Following
+                                      ( 
+                                        Id TEXT DEFAULT '' NOT NULL,
+                                        ScreenName TEXT DEFAULT '' NOT NULL,
+                                        DateInserted TEXT DEFAULT '' NOT NULL,
+                                        DateRemoved TEXT DEFAULT '' NOT NULL,
+                                        PRIMARY KEY(Id)
+                                      )");
+      //
+      LockFileConnection.CheckTable(@"Followers",
+                                    @"CREATE TABLE Followers
+                                      ( 
+                                        Id TEXT DEFAULT '' NOT NULL,
+                                        ScreenName TEXT DEFAULT '' NOT NULL,
+                                        DateInserted TEXT DEFAULT '' NOT NULL,
+                                        DateRemoved TEXT DEFAULT '' NOT NULL,
+                                        PRIMARY KEY(Id)
+                                      )");
+      //
+      LockFileConnection.CheckTable(@"AutoDelete",
+                                    @"CREATE TABLE AutoDelete
+                                      ( 
+                                        Id TEXT DEFAULT '' NOT NULL,
+                                        DateCreated TEXT DEFAULT '' NOT NULL,
+                                        DateToDelete TEXT DEFAULT '' NOT NULL,
+                                        PRIMARY KEY(Id)
+                                      )");
+    });
   }
 
 }

@@ -12,57 +12,53 @@
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2021-04 </edited>
-using System;
+namespace Ordisoftware.TweetsInspector;
+
 using System.Threading.Tasks;
 using CoreTweet;
 using Ordisoftware.Core;
 
-namespace Ordisoftware.TweetsInspector
+public partial class MainForm
 {
 
-  public partial class MainForm
+  private const string OAuthVerifierTag = "oauth_verifier";
+
+  private async void DoConnect()
   {
-
-    private const string OAuthVerifierTag = "oauth_verifier";
-
-    private async void DoConnect()
+    if ( IsConnected(false) ) return;
+    if ( Settings.ConsumerKey.IsNullOrEmpty()
+      || Settings.ConsumerSecret.IsNullOrEmpty()
+      || Settings.ConsumerBackUrl.IsNullOrEmpty() ) return;
+    Enabled = false;
+    try
     {
-      if ( IsConnected(false) ) return;
-      if ( Settings.ConsumerKey.IsNullOrEmpty()
-        || Settings.ConsumerSecret.IsNullOrEmpty()
-        || Settings.ConsumerBackUrl.IsNullOrEmpty() ) return;
-      Enabled = false;
-      try
+      bool done = false;
+      bool cancelled = false;
+      Session = OAuth.Authorize(Settings.ConsumerKey, Settings.ConsumerSecret, Settings.ConsumerBackUrl);
+      var form = new WebBrowserForm();
+      form.FormClosed += (_s, _e) => cancelled = !done;
+      form.WebBrowser.AddressChanged += (_s, _e) => done |= _e.Address.Contains(Settings.ConsumerBackUrl);
+      form.WebBrowser.Load(Session.AuthorizeUri.AbsoluteUri);
+      form.Show();
+      while ( !done && !cancelled ) await Task.Delay(100).ConfigureAwait(false);
+      if ( form.Visible ) form.Close();
+      this.ForceBringToFront();
+      Enabled = true;
+      if ( cancelled ) return;
+      var items = form.WebBrowser.Address.SplitNoEmptyLines($"&{OAuthVerifierTag}=");
+      if ( items.Length == 2 && items[1].Trim() != "" )
       {
-        bool done = false;
-        bool cancelled = false;
-        Session = OAuth.Authorize(Settings.ConsumerKey, Settings.ConsumerSecret, Settings.ConsumerBackUrl);
-        var form = new WebBrowserForm();
-        form.FormClosed += (_s, _e) => cancelled = !done;
-        form.WebBrowser.AddressChanged += (_s, _e) => done |= _e.Address.Contains(Settings.ConsumerBackUrl);
-        form.WebBrowser.Load(Session.AuthorizeUri.AbsoluteUri);
-        form.Show();
-        while ( !done && !cancelled ) await Task.Delay(100).ConfigureAwait(false);
-        if ( form.Visible ) form.Close();
-        this.ForceBringToFront();
-        Enabled = true;
-        if ( cancelled ) return;
-        var items = form.WebBrowser.Address.SplitNoEmptyLines($"&{OAuthVerifierTag}=");
-        if ( items.Length == 2 && items[1].Trim() != "" )
-        {
-          Tokens = Session.GetTokens(items[1]);
-          Text = $"{Globals.AssemblyTitle} - Connected @{Tokens.ScreenName}";
-          ActionConnect.Enabled = false;
-        }
-        else
-          DisplayManager.ShowWarning($"Tag not found : {OAuthVerifierTag}");
+        Tokens = Session.GetTokens(items[1]);
+        Text = $"{Globals.AssemblyTitle} - Connected @{Tokens.ScreenName}";
+        ActionConnect.Enabled = false;
       }
-      finally
-      {
-        Enabled = true;
-      }
+      else
+        DisplayManager.ShowWarning($"Tag not found : {OAuthVerifierTag}");
     }
-
+    finally
+    {
+      Enabled = true;
+    }
   }
 
 }

@@ -12,35 +12,31 @@
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2021-04 </edited>
-using System;
+namespace Ordisoftware.TweetsInspector.Data;
+
 using System.Linq;
 using System.Collections.Generic;
 using Ordisoftware.Core;
 
-namespace Ordisoftware.TweetsInspector.Data
+partial class DataSet
 {
 
-  partial class DataSet
+  partial class TweetsRow
   {
 
-    partial class TweetsRow
-    {
+    public string ScreenName
+      => MainForm.Tokens?.ScreenName.IsNullOrEmpty() != false
+         ? "ordisoftware"
+         : MainForm.Tokens.ScreenName;
 
-      public string ScreenName
-        => MainForm.Tokens?.ScreenName.IsNullOrEmpty() != false
-           ? "ordisoftware"
-           : MainForm.Tokens.ScreenName;
+    public TweetType TypeAsEnum => (TweetType)Type;
 
-      public TweetType TypeAsEnum => (TweetType)Type;
+    public List<string> RecipientsAsList => Recipients.Split(',').ToList();
 
-      public List<string> RecipientsAsList => Recipients.Split(',').ToList();
+    public string Url => $"https://twitter.com/{ScreenName}/status/{Id}";
 
-      public string Url => $"https://twitter.com/{ScreenName}/status/{Id}";
-
-      public override string ToString()
-        => $"{Id}; {Date}; {string.Join(", ", Recipients)}; {Message}; {Url}";
-
-    }
+    public override string ToString()
+      => $"{Id}; {Date}; {string.Join(", ", Recipients)}; {Message}; {Url}";
 
   }
 
