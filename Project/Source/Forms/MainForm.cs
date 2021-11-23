@@ -14,15 +14,7 @@
 /// <edited> 2021-08 </edited>
 namespace Ordisoftware.TweetsInspector;
 
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using CoreTweet;
-using Ordisoftware.Core;
-using System.Drawing;
-using System.Data;
-using System.Threading;
 
 // TODO encrypt login
 

@@ -14,10 +14,6 @@
 /// <edited> 2021-04 </edited>
 namespace Ordisoftware.TweetsInspector.Data;
 
-using System.Linq;
-using System.Collections.Generic;
-using Ordisoftware.Core;
-
 partial class DataSet
 {
 

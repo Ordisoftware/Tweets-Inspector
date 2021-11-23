@@ -15,7 +15,6 @@
 namespace Ordisoftware.TweetsInspector;
 
 using System.Data.Odbc;
-using Ordisoftware.Core;
 
 public partial class MainForm
 {

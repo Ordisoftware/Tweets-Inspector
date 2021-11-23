@@ -14,9 +14,6 @@
 /// <edited> 2021-04 </edited>
 namespace Ordisoftware.TweetsInspector;
 
-using System.Text;
-using Ordisoftware.Core;
-
 public partial class MainForm
 {
 

@@ -14,11 +14,8 @@
 /// <edited> 2021-04 </edited>
 namespace Ordisoftware.TweetsInspector;
 
-using System.IO;
-using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
-using Ordisoftware.Core;
 
 public partial class WebBrowserForm : Form
 {

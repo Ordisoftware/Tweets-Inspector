@@ -14,9 +14,6 @@
 /// <edited> 2021-04 </edited>
 namespace Ordisoftware.TweetsInspector;
 
-using System;
-using System.Windows.Forms;
-
 public partial class TweetsControl : UserControl
 {
 
