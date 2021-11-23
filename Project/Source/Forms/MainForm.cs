@@ -31,19 +31,33 @@ public partial class MainForm : Form
 
   private const int APIStep = 50;
 
-  static internal readonly MainForm Instance;
-  static internal readonly Properties.Settings Settings = Program.Settings;
-
   static private readonly DataTable UsersDataTable = new();
 
   static internal OAuth.OAuthSession Session { get; private set; }
   static internal Tokens Tokens { get; private set; }
 
+  /// <summary>
+  /// Indicates the default Settings instance.
+  /// </summary>
+  static internal readonly Properties.Settings Settings
+    = Properties.Settings.Default;
+
+  #region Singleton
+
+  /// <summary>
+  /// Indicates the singleton instance.
+  /// </summary>
+  static internal MainForm Instance { get; private set; }
+
+  /// <summary>
+  /// Static constructor.
+  /// </summary>
   static MainForm()
   {
     Instance = new MainForm();
   }
 
+  #endregion
 
   internal static bool IsConnected(bool showMessage)
   {
