@@ -1,5 +1,18 @@
 # Tweets Inspector
 
+[![GitHub](https://img.shields.io/github/license/ordisoftware/tweets-inspector)](#)&nbsp;
+[![GitHub all releases](https://img.shields.io/github/downloads/ordisoftware/tweets-inspector/total)](#)&nbsp;
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/ordisoftware/tweets-inspector)](#)&nbsp;
+[![GitHub repo size](https://img.shields.io/github/repo-size/ordisoftware/tweets-inspector)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ordisoftware/tweets-inspector)](#)&nbsp;
+[![Lines of code](https://img.shields.io/tokei/lines/github/ordisoftware/tweets-inspector)](#)&nbsp;
+
+[![Windows](https://img.shields.io/badge/Windows-0078D6)](#)&nbsp;
+[![.Net](https://img.shields.io/badge/.NET-5C2D91)](#)&nbsp;
+[![Visual Studio](https://img.shields.io/badge/Visual%20Studio-5C2D91.svg)](#)&nbsp;
+[![C#](https://img.shields.io/badge/c%23-%23239120.svg)](#)&nbsp;
+[![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg)](#)&nbsp;
+
 > Licensed under the terms of the [Mozilla Public License 2.0](LICENSE)<br/>
 > This project follows the [Manufacturing Software Guidelines](https://github.com/Ordisoftware/Guidelines).<br/>
 > [Website](https://www.ordisoftware.com/projects/tweets-inspector)<br/>
