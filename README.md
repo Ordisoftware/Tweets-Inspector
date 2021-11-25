@@ -5,7 +5,7 @@
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ordisoftware/tweets-inspector)](#)&nbsp;
 [![Lines of code](https://img.shields.io/tokei/lines/github/ordisoftware/tweets-inspector)](#)&nbsp;<br/>
 [![Windows](https://img.shields.io/badge/Windows%207%2B-0078D6?label=os)](#)&nbsp;
-[![.Net](https://img.shields.io/badge/.NET%204.8-5C2D91?label=env)](#)&nbsp;
+[![.Net](https://img.shields.io/badge/.NET%204.8-5C2D91?label=platform)](#)&nbsp;
 [![Visual Studio](https://img.shields.io/badge/Visual%20Studio%202022-5C2D91.svg?label=ide)](#)&nbsp;
 [![C#](https://img.shields.io/badge/C%23%2010-%23239120.svg?label=lang)](#)&nbsp;
 [![SQLite](https://img.shields.io/badge/SQlite%203.35-%2307405e.svg?label=db)](#)&nbsp;<br/>
