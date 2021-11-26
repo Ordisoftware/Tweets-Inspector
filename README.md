@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/github/license/ordisoftware/tweets-inspector)](#)&nbsp;
+[![License](https://img.shields.io/github/license/ordisoftware/tweets-inspector)](LICENSE)&nbsp;
 [![GitHub all releases downloads](https://img.shields.io/github/downloads/ordisoftware/tweets-inspector/total)](#)&nbsp;
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/ordisoftware/tweets-inspector)](#)&nbsp;
 [![GitHub repo size](https://img.shields.io/github/repo-size/ordisoftware/tweets-inspector)](#)&nbsp;
