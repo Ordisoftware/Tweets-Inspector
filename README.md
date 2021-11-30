@@ -21,14 +21,14 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 
 ## Table of content
 
-1. [Functionalities](#Functionalities)
-2. [Requirements](#Requirements)
-3. [Download](#Download)
-4. [Screenshots](#Screenshots)
-5. [Frequently asked questions](#Frequently-asked-questions)
-6. [Keyboard shortcuts](#Keyboard-shortcuts)
-7. [Future improvements](#Future-improvements)
-8. [Changelog](#Changelog)
+1. [Functionalities](#functionalities)
+2. [Requirements](#requirements)
+3. [Download](#download)
+4. [Screenshots](#screenshots)
+5. [Frequently asked questions](#frequently-asked-questions)
+6. [Keyboard shortcuts](#keyboard-shortcuts)
+7. [Future improvements](#future-improvements)
+8. [Changelog](#changelog)
 
 ## Functionalities
 
@@ -57,7 +57,7 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 
 **What's new in the latest version**
 
-- Wireframe.
+- Mockup.
 
 [Last release](https://github.com/Ordisoftware/Tweets-Inspector/releases/latest)
 
@@ -87,11 +87,6 @@ The software verifies the validity of the certificate of the update server in ad
 ## Future improvements
 
 ## Changelog
-
-#### In progress - Version 1.0
-
-- Initial release.
-- Nuget SQLitePCLRaw.bundle_green must remain `v2.0.4`.
 
 #### 2021.08.29 - Version 0.2
 
