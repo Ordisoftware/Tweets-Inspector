@@ -80,6 +80,7 @@ public partial class MainForm : Form
     TrashTableAdapter.Fill(DataSet.Trash);
     ListTweetsTrash.DataSource = TrashBindingSource;
     UpdateListViews();
+    Globals.IsReady = true;
   }
 
   private void MainForm_Shown(object sender, EventArgs e)

@@ -44,31 +44,29 @@ static partial class Program
       Globals.AlternativeToURL = "";
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
-      /*
-      Language lang = Settings.LanguageSelected;
-      SystemManager.CheckCommandLineArguments<ApplicationCommandLine>(args, ref lang);
+      //Language lang = Settings.LanguageSelected;
+      //SystemManager.CheckCommandLineArguments<ApplicationCommandLine>(args, ref lang);
       // No IPCAnswers
       // No IPCRequests
-      bool upgrade = Settings.UpgradeRequired;
-      Globals.IsSettingsUpgraded = upgrade;
-      Settings.CheckUpgradeRequired(ref upgrade);
-      Settings.UpgradeRequired = upgrade;
-      Globals.IsSettingsUpgraded = Globals.IsSettingsUpgraded && !Settings.FirstLaunch;
-      CheckSettingsReset();
-      if ( lang != Language.None ) Settings.LanguageSelected = lang;
+      //bool upgrade = Settings.UpgradeRequired;
+      //Globals.IsSettingsUpgraded = upgrade;
+      //Settings.CheckUpgradeRequired(ref upgrade);
+      //Settings.UpgradeRequired = upgrade;
+      //Globals.IsSettingsUpgraded = Globals.IsSettingsUpgraded && !Settings.FirstLaunch;
+      //CheckSettingsReset();
+      //if ( lang != Language.None ) Settings.LanguageSelected = lang;
       SystemManager.TryCatch(Settings.Save);
       Globals.Settings = Settings;
       Globals.MainForm = MainForm.Instance;
-      DebugManager.TraceEnabled = Settings.TraceEnabled;
-      DebugManager.Enabled = Settings.DebuggerEnabled;
+      DebugManager.TraceEnabled = true;// Settings.TraceEnabled;
+      DebugManager.Enabled = true;// Settings.DebuggerEnabled;
       Globals.ChronoStartingApp.Stop();
-      ProcessCommandLineOptions();
+      //ProcessCommandLineOptions();
       Globals.ChronoStartingApp.Start();
-      LoadingForm.Instance.Hidden = Settings.LoadingFormHidden;
+      //LoadingForm.Instance.Hidden = Settings.LoadingFormHidden;
       AboutBox.LicenseAsRTF = Properties.Resources.MPL_2_0;
-      AboutBox.DescriptionText = AppTranslations.ApplicationDescription;
-      AboutBox.Instance.ActionViewStats.Enabled = Settings.UsageStatisticsEnabled;
-      */
+      //AboutBox.DescriptionText = AppTranslations.ApplicationDescription;
+      //AboutBox.Instance.ActionViewStats.Enabled = Settings.UsageStatisticsEnabled;
       DebugManager.Enabled = true;
       DebugManager.TraceEnabled = true;
     }

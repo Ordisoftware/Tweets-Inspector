@@ -15,6 +15,7 @@
 namespace Ordisoftware.TweetsInspector;
 
 using CoreTweet;
+using Ordisoftware.Core;
 
 public partial class MainForm
 {
@@ -39,19 +40,23 @@ public partial class MainForm
       form.WebBrowser.Load(Session.AuthorizeUri.AbsoluteUri);
       form.Show();
       while ( !done && !cancelled ) await Task.Delay(100).ConfigureAwait(false);
-      if ( form.Visible ) form.Close();
-      this.ForceBringToFront();
-      Enabled = true;
-      if ( cancelled ) return;
-      var items = form.WebBrowser.Address.SplitNoEmptyLines($"&{OAuthVerifierTag}=");
-      if ( items.Length == 2 && items[1].Trim() != "" )
+      form.SyncUI(() =>
       {
-        Tokens = Session.GetTokens(items[1]);
-        Text = $"{Globals.AssemblyTitle} - Connected @{Tokens.ScreenName}";
-        ActionConnect.Enabled = false;
-      }
-      else
-        DisplayManager.ShowWarning($"Tag not found : {OAuthVerifierTag}");
+        if ( form.Visible )
+          form.Close();
+        this.ForceBringToFront();
+        Enabled = true;
+        if ( cancelled ) return;
+        var items = form.WebBrowser.Address.SplitNoEmptyLines($"&{OAuthVerifierTag}=");
+        if ( items.Length == 2 && items[1].Trim() != "" )
+        {
+          Tokens = Session.GetTokens(items[1]);
+          Text = $"{Globals.AssemblyTitle} - Connected @{Tokens.ScreenName}";
+          ActionConnect.Enabled = false;
+        }
+        else
+          DisplayManager.ShowWarning($"Tag not found : {OAuthVerifierTag}");
+      });
     }
     finally
     {
