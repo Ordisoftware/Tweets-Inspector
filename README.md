@@ -71,12 +71,6 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 
 The software verifies the validity of the certificate of the update server in addition to the SHA-512 checksum of the installation file before downloading and running it. This certificate is normally updated within the two months of its annual expiration and a new version is released. You can manually check the latest version available online in case of problem.
 
-#### What are command-line options?
-
-- Change interface language:
-
-  `Ordisoftware.TweetsInspector.exe --lang [en|fr]`
-
 ## Keyboard shortcuts
 
 | Keys | Actions |
