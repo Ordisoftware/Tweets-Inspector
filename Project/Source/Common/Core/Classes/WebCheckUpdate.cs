@@ -11,7 +11,7 @@
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
 /// <created> 2016-04 </created>
-/// <edited> 2021-11 </edited>
+/// <edited> 2021-12 </edited>
 namespace Ordisoftware.Core;
 
 /// <summary>
@@ -45,7 +45,7 @@ static class WebCheckUpdate
   /// <param name="interval">Days interval to check.</param>
   /// <param name="auto">True if no user interaction else false</param>
   /// <returns>True if application must exist else false.</returns>
-  static public bool Run(bool checkAtStartup, ref DateTime lastdone, int interval, bool auto)
+  static public bool Run(bool checkAtStartup, ref DateTime lastdone, int interval, bool auto, bool useGitHub = false)
   {
     if ( interval == -1 ) interval = DefaultCheckDaysInterval;
     CleanTemp();
@@ -70,10 +70,10 @@ static class WebCheckUpdate
       LoadingForm.Instance.Owner = Globals.MainForm;
       LoadingForm.Instance.DoProgress();
       using var client = new WebClientEx();
-      var fileInfo = GetVersionAndChecksum(client);
+      var fileInfo = GetVersionAndChecksum(client, useGitHub);
       lastdone = DateTime.Now;
       if ( fileInfo.Item1.CompareTo(Assembly.GetExecutingAssembly().GetName().Version) > 0 )
-        return GetUserChoice(client, fileInfo);
+        return GetUserChoice(client, fileInfo, useGitHub);
       else
       if ( !auto )
         DisplayManager.ShowInformation(SysTranslations.NoNewVersionAvailable.GetLang());
@@ -97,7 +97,19 @@ static class WebCheckUpdate
       CleanTemp();
       string msg = ex.Message;
       if ( ex.Status == WebExceptionStatus.Timeout )
-        msg += Globals.NL2 + SysTranslations.CheckInternetConnection.GetLang();
+      {
+        doFinally();
+        if ( auto )
+          if ( useGitHub )
+            return false;
+          else
+            return Run(checkAtStartup, ref lastdone, interval, auto, true);
+        else
+        if ( useGitHub )
+          msg += Globals.NL2 + SysTranslations.CheckInternetConnection.GetLang();
+        else
+          return Run(checkAtStartup, ref lastdone, interval, auto, true);
+      }
       DisplayManager.ShowWarning(SysTranslations.CheckUpdate.GetLang(Globals.AssemblyTitle), msg);
     }
     catch ( Exception ex )
@@ -106,6 +118,12 @@ static class WebCheckUpdate
       DisplayManager.ShowWarning(SysTranslations.CheckUpdate.GetLang(Globals.AssemblyTitle), ex.Message);
     }
     finally
+    {
+      doFinally();
+    }
+    return false;
+    //
+    void doFinally()
     {
       Mutex = false;
       LoadingForm.Instance.Hidden = formHidden;
@@ -117,19 +135,19 @@ static class WebCheckUpdate
         form.Enabled = formEnabled;
       }
     }
-    return false;
   }
 
   /// <summary>
   /// Gets the version available online with the file checksum.
   /// </summary>
-  static private (Version, string) GetVersionAndChecksum(WebClient client)
+  static private (Version, string) GetVersionAndChecksum(WebClient client, bool useGitHub)
   {
-    SystemManager.CheckServerCertificate(Globals.CheckUpdateURL);
+    SystemManager.CheckServerCertificate(useGitHub ? Globals.CheckUpdateGitHubURL : Globals.CheckUpdateURL, useGitHub, true);
     List<string> lines;
     try
     {
-      lines = client.DownloadString(Globals.CheckUpdateURL).SplitNoEmptyLines().Take(2).ToList();
+      string path = useGitHub ? Globals.CheckUpdateGitHubURL : Globals.CheckUpdateURL;
+      lines = client.DownloadString(path).SplitNoEmptyLines(useGitHub).Take(2).ToList();
     }
     catch ( Exception ex )
     {
@@ -177,21 +195,22 @@ static class WebCheckUpdate
   /// <summary>
   /// Asks to the user what to do.
   /// </summary>
-  static private bool GetUserChoice(WebClient client, (Version version, string checksum) fileInfo)
+  static private bool GetUserChoice(WebClient client, (Version version, string checksum) fileInfo, bool useGitHub)
   {
     LoadingForm.Instance.Hide();
-    string fileURL = string.Format(Globals.SetupFileURL, fileInfo.version.ToString());
+    string path = useGitHub ? Globals.SetupFileGitHubURL : Globals.SetupFileURL;
+    string fileURL = string.Format(path, fileInfo.version.ToString());
     var result = WebUpdateForm.Run(fileInfo.version);
     switch ( result )
     {
       case WebUpdateSelection.None:
         break;
       case WebUpdateSelection.Download:
-        SystemManager.CheckServerCertificate(fileURL);
+        SystemManager.CheckServerCertificate(fileURL, useGitHub, false);
         SystemManager.OpenWebLink(fileURL);
         break;
       case WebUpdateSelection.Install:
-        return ProcessAutoInstall(client, fileInfo, fileURL);
+        return ProcessAutoInstall(client, fileInfo, fileURL, useGitHub);
       default:
         throw new AdvancedNotImplementedException(result);
     }
@@ -203,7 +222,8 @@ static class WebCheckUpdate
   /// </summary>
   static private bool ProcessAutoInstall(WebClient client,
                                          (Version version, string checksum) fileInfo,
-                                         string fileURL)
+                                         string fileURL,
+                                         bool useGitHub)
   {
     Exception ex = null;
     bool finished = false;
@@ -212,7 +232,7 @@ static class WebCheckUpdate
     {
       LoadingForm.Instance.Hidden = false;
       LoadingForm.Instance.Initialize(SysTranslations.DownloadingNewVersion.GetLang(), 100, 0, false);
-      SystemManager.CheckServerCertificate(fileURL);
+      SystemManager.CheckServerCertificate(fileURL, useGitHub, false);
       string filePathTemp = Path.GetTempPath() + string.Format(Globals.SetupFileName, fileInfo.version.ToString());
       client.DownloadProgressChanged += progress;
       client.DownloadFileCompleted += completed;
