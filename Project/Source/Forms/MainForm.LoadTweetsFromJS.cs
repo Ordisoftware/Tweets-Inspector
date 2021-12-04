@@ -46,7 +46,7 @@ public partial class MainForm
       string filepath = OpenFileDialogJS.FileName;
       var tweets = JsonHelper.LoadTweets(filepath);
       LoadingForm.Instance.DoProgress();
-      LoadingForm.Instance.Initialize(SysTranslations.ProgressCreatingData.GetLang(), tweets.Count);
+      LoadingForm.Instance.Initialize(SysTranslations.CreatingData.GetLang(), tweets.Count);
       Refresh();
       try
       {
@@ -112,7 +112,7 @@ public partial class MainForm
 
   private void SaveUsingTransaction(DataTable table, OdbcDataAdapter adapter)
   {
-    string str = SysTranslations.ProgressSavingData.GetLang() + " " + table.TableName;
+    string str = SysTranslations.SavingData.GetLang() + " " + table.TableName;
     LoadingForm.Instance.Initialize(str, table.Rows.Count, 0, true, 100);
     adapter.RowUpdated += update;
     adapter.InsertCommand.Connection.Open();
