@@ -4,7 +4,7 @@
 [![GitHub repo size](https://img.shields.io/github/repo-size/ordisoftware/tweets-inspector)](#)&nbsp;
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ordisoftware/tweets-inspector)](https://github.com/Ordisoftware/Tweets-Inspector/tree/master/Project)&nbsp;
 [![Lines of code](https://img.shields.io/tokei/lines/github/ordisoftware/tweets-inspector)](https://github.com/Ordisoftware/Tweets-Inspector/tree/master/Project)&nbsp;<br/>
-[![OS: Windows](https://img.shields.io/badge/Windows%207%2B-279CE8?label=os)](https://www.microsoft.com/windows/)&nbsp;
+[![OS: Windows](https://img.shields.io/badge/Windows%2010-279CE8?label=os)](https://www.microsoft.com/windows/)&nbsp;
 [![UI: WinForms](https://img.shields.io/badge/WinForms-279CE8?label=ui)](https://github.com/dotnet/winforms)&nbsp;
 [![Framework: .Net](https://img.shields.io/badge/.NET%204.8-6E5FA6?label=framework)](https://dotnet.microsoft.com)&nbsp;
 [![IDE: Visual Studio](https://img.shields.io/badge/Visual%20Studio%202022-6E5FA6.svg?label=ide)](https://visualstudio.microsoft.com)&nbsp;
