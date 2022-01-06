@@ -88,9 +88,10 @@ The software verifies the validity of the certificate of the update server in ad
 
 ## Changelog
 
-#### 2022.01.06 - Version 0.3
+#### In progress - Version 0.3
 
 - Prototype #1.
+- Change SQLite ODBC Driver to SQLite-Net ORM.
 
 #### 2021.08.29 - Version 0.2
 
