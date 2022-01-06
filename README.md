@@ -4,7 +4,7 @@
 [![GitHub repo size](https://img.shields.io/github/repo-size/ordisoftware/tweets-inspector)](#)&nbsp;
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ordisoftware/tweets-inspector)](https://github.com/Ordisoftware/Tweets-Inspector/tree/master/Project)&nbsp;
 [![Lines of code](https://img.shields.io/tokei/lines/github/ordisoftware/tweets-inspector)](https://github.com/Ordisoftware/Tweets-Inspector/tree/master/Project)&nbsp;<br/>
-[![OS: Windows](https://img.shields.io/badge/Windows%207%2B-279CE8?label=os)](https://www.microsoft.com/windows/)&nbsp;
+[![OS: Windows](https://img.shields.io/badge/Windows%2010-279CE8?label=os)](https://www.microsoft.com/windows/)&nbsp;
 [![UI: WinForms](https://img.shields.io/badge/WinForms-279CE8?label=ui)](https://github.com/dotnet/winforms)&nbsp;
 [![Framework: .Net](https://img.shields.io/badge/.NET%204.8-6E5FA6?label=framework)](https://dotnet.microsoft.com)&nbsp;
 [![IDE: Visual Studio](https://img.shields.io/badge/Visual%20Studio%202022-6E5FA6.svg?label=ide)](https://visualstudio.microsoft.com)&nbsp;
@@ -48,7 +48,7 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 ## Requirements
 
 - Screen 1024x768 or higher
-- Windows 7 SP1 x32/x64 or higher
+- Windows 10 x32/x64 or higher
 - Framework .NET 4.8
 - SQLite 3.35.5
 - CefSharp for automatic authentication
@@ -88,9 +88,10 @@ The software verifies the validity of the certificate of the update server in ad
 
 ## Changelog
 
-#### 2022.01.06 - Version 0.3
+#### In progress - Version 0.3
 
 - Prototype #1.
+- Change SQLite ODBC Driver to SQLite-Net ORM.
 
 #### 2021.08.29 - Version 0.2
 
