@@ -57,7 +57,7 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 
 **What's new in the latest version**
 
-- Mockup.
+- Prototype #1.
 
 [Last release](https://github.com/Ordisoftware/Tweets-Inspector/releases/latest)
 
@@ -82,11 +82,15 @@ The software verifies the validity of the certificate of the update server in ad
 | F10 | Log file window |
 | F11 | Usage statistics window |
 | F12 | About |
-| Alt + F4 (or Escape) | Exit application |
+| Alt + F4 | Exit application |
 
 ## Future improvements
 
 ## Changelog
+
+#### 2022.01.06 - Version 0.3
+
+- Prototype #1.
 
 #### 2021.08.29 - Version 0.2
 
