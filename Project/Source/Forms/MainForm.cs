@@ -361,4 +361,8 @@ public partial class MainForm : Form
     }*/
   }
 
+  private void ActionCheckOnlineDestroyed_Click(object sender, EventArgs e)
+  {
+
+  }
 }

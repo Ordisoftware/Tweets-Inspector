@@ -33,7 +33,7 @@
       System.Windows.Forms.Label LabelConsumerKey;
       System.Windows.Forms.Label LabelConsumerSecret;
       System.Windows.Forms.Label LabelStartupConnectAction;
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
       this.ActionOpenMessages = new System.Windows.Forms.Button();
       this.OpenFileDialogJS = new System.Windows.Forms.OpenFileDialog();
       this.EditUser1 = new System.Windows.Forms.TextBox();
@@ -58,7 +58,6 @@
       this.ActionDelete = new System.Windows.Forms.Button();
       this.EditSearchInMessage = new System.Windows.Forms.CheckBox();
       this.EditSearchInRecipients = new System.Windows.Forms.CheckBox();
-      this.ActionGetLikes = new System.Windows.Forms.Button();
       this.ActionSelectAll = new System.Windows.Forms.Button();
       this.ActionSelectNone = new System.Windows.Forms.Button();
       this.ActionFilterClear = new System.Windows.Forms.Button();
@@ -100,6 +99,8 @@
       this.TweetsBindingSourceRTs = new System.Windows.Forms.BindingSource(this.components);
       this.TrashBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.TrashTableAdapter = new Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TrashTableAdapter();
+      this.TabPageLikes = new System.Windows.Forms.TabPage();
+      this.ListTweetsLikes = new Ordisoftware.TweetsInspector.ListTweets();
       LabelConsumerBackUrl = new System.Windows.Forms.Label();
       LabelConsumerKey = new System.Windows.Forms.Label();
       LabelConsumerSecret = new System.Windows.Forms.Label();
@@ -127,6 +128,7 @@
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceReplies)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceRTs)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.TrashBindingSource)).BeginInit();
+      this.TabPageLikes.SuspendLayout();
       this.SuspendLayout();
       // 
       // LabelConsumerBackUrl
@@ -214,6 +216,7 @@
       // 
       this.TabControl.Appearance = System.Windows.Forms.TabAppearance.Buttons;
       this.TabControl.Controls.Add(this.TabPageTweets);
+      this.TabControl.Controls.Add(this.TabPageLikes);
       this.TabControl.Controls.Add(this.TabPageDestroyed);
       this.TabControl.Controls.Add(this.TabPageMessages);
       this.TabControl.Controls.Add(this.TabPageUsers);
@@ -280,14 +283,14 @@
       this.DataGridViewUsers.AllowUserToDeleteRows = false;
       this.DataGridViewUsers.AllowUserToResizeRows = false;
       this.DataGridViewUsers.AutoGenerateColumns = false;
-      dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-      dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-      dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-      dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Control;
-      dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-      dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-      this.DataGridViewUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+      dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+      dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+      dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+      dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
+      dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+      dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+      this.DataGridViewUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
       this.DataGridViewUsers.ColumnHeadersHeight = 25;
       this.DataGridViewUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
       this.DataGridViewUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -363,7 +366,6 @@
       this.PanelTweetsTop.Controls.Add(this.ActionDelete);
       this.PanelTweetsTop.Controls.Add(this.EditSearchInMessage);
       this.PanelTweetsTop.Controls.Add(this.EditSearchInRecipients);
-      this.PanelTweetsTop.Controls.Add(this.ActionGetLikes);
       this.PanelTweetsTop.Controls.Add(this.ActionSelectAll);
       this.PanelTweetsTop.Controls.Add(this.ActionSelectNone);
       this.PanelTweetsTop.Controls.Add(this.ActionFilterClear);
@@ -381,12 +383,13 @@
       // ActionCheckOnlineDestroyed
       // 
       this.ActionCheckOnlineDestroyed.Enabled = false;
-      this.ActionCheckOnlineDestroyed.Location = new System.Drawing.Point(326, 6);
+      this.ActionCheckOnlineDestroyed.Location = new System.Drawing.Point(246, 6);
       this.ActionCheckOnlineDestroyed.Name = "ActionCheckOnlineDestroyed";
       this.ActionCheckOnlineDestroyed.Size = new System.Drawing.Size(116, 23);
       this.ActionCheckOnlineDestroyed.TabIndex = 16;
       this.ActionCheckOnlineDestroyed.Text = "Check destroyed";
       this.ActionCheckOnlineDestroyed.UseVisualStyleBackColor = true;
+      this.ActionCheckOnlineDestroyed.Click += new System.EventHandler(this.ActionCheckOnlineDestroyed_Click);
       // 
       // EditSingleClickUserFilter
       // 
@@ -395,7 +398,7 @@
       this.EditSingleClickUserFilter.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
       this.EditSingleClickUserFilter.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.SingleClickUserFilter;
       this.EditSingleClickUserFilter.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "SingleClickUserFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-      this.EditSingleClickUserFilter.Location = new System.Drawing.Point(714, 16);
+      this.EditSingleClickUserFilter.Location = new System.Drawing.Point(731, 16);
       this.EditSingleClickUserFilter.Name = "EditSingleClickUserFilter";
       this.EditSingleClickUserFilter.Size = new System.Drawing.Size(139, 17);
       this.EditSingleClickUserFilter.TabIndex = 15;
@@ -421,7 +424,7 @@
       this.EditSearchInMessage.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.SearchInMessage;
       this.EditSearchInMessage.CheckState = System.Windows.Forms.CheckState.Checked;
       this.EditSearchInMessage.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "SearchInMessage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-      this.EditSearchInMessage.Location = new System.Drawing.Point(737, 48);
+      this.EditSearchInMessage.Location = new System.Drawing.Point(754, 48);
       this.EditSearchInMessage.Name = "EditSearchInMessage";
       this.EditSearchInMessage.Size = new System.Drawing.Size(116, 17);
       this.EditSearchInMessage.TabIndex = 13;
@@ -437,24 +440,13 @@
       this.EditSearchInRecipients.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.SearchInRecipients;
       this.EditSearchInRecipients.CheckState = System.Windows.Forms.CheckState.Checked;
       this.EditSearchInRecipients.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "SearchInRecipients", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-      this.EditSearchInRecipients.Location = new System.Drawing.Point(745, 32);
+      this.EditSearchInRecipients.Location = new System.Drawing.Point(762, 32);
       this.EditSearchInRecipients.Name = "EditSearchInRecipients";
       this.EditSearchInRecipients.Size = new System.Drawing.Size(108, 17);
       this.EditSearchInRecipients.TabIndex = 13;
       this.EditSearchInRecipients.Text = "Search recipients";
       this.EditSearchInRecipients.UseVisualStyleBackColor = true;
       this.EditSearchInRecipients.CheckedChanged += new System.EventHandler(this.EditSearchInRecipients_CheckedChanged);
-      // 
-      // ActionGetLikes
-      // 
-      this.ActionGetLikes.Enabled = false;
-      this.ActionGetLikes.Location = new System.Drawing.Point(245, 6);
-      this.ActionGetLikes.Name = "ActionGetLikes";
-      this.ActionGetLikes.Size = new System.Drawing.Size(75, 23);
-      this.ActionGetLikes.TabIndex = 12;
-      this.ActionGetLikes.Text = "Likes";
-      this.ActionGetLikes.UseVisualStyleBackColor = true;
-      this.ActionGetLikes.Click += new System.EventHandler(this.ActionGetLikes_Click);
       // 
       // ActionSelectAll
       // 
@@ -496,7 +488,7 @@
       this.EditDeleteOnlyLocal.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
       this.EditDeleteOnlyLocal.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.DeleteOnlyLocalMode;
       this.EditDeleteOnlyLocal.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "DeleteOnlyLocalMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-      this.EditDeleteOnlyLocal.Location = new System.Drawing.Point(720, 0);
+      this.EditDeleteOnlyLocal.Location = new System.Drawing.Point(737, 0);
       this.EditDeleteOnlyLocal.Name = "EditDeleteOnlyLocal";
       this.EditDeleteOnlyLocal.Size = new System.Drawing.Size(133, 17);
       this.EditDeleteOnlyLocal.TabIndex = 4;
@@ -533,6 +525,7 @@
       // 
       // ActionSaveToCSV
       // 
+      this.ActionSaveToCSV.Enabled = false;
       this.ActionSaveToCSV.Location = new System.Drawing.Point(165, 6);
       this.ActionSaveToCSV.Name = "ActionSaveToCSV";
       this.ActionSaveToCSV.Size = new System.Drawing.Size(75, 23);
@@ -617,6 +610,7 @@
       // 
       // ActionGetMutes
       // 
+      this.ActionGetMutes.Enabled = false;
       this.ActionGetMutes.Location = new System.Drawing.Point(15, 83);
       this.ActionGetMutes.Name = "ActionGetMutes";
       this.ActionGetMutes.Size = new System.Drawing.Size(75, 23);
@@ -627,6 +621,7 @@
       // 
       // ActionGetBlocks
       // 
+      this.ActionGetBlocks.Enabled = false;
       this.ActionGetBlocks.Location = new System.Drawing.Point(15, 117);
       this.ActionGetBlocks.Name = "ActionGetBlocks";
       this.ActionGetBlocks.Size = new System.Drawing.Size(75, 23);
@@ -822,6 +817,28 @@
       // 
       this.TrashTableAdapter.ClearBeforeFill = true;
       // 
+      // TabPageLikes
+      // 
+      this.TabPageLikes.Controls.Add(this.ListTweetsLikes);
+      this.TabPageLikes.Location = new System.Drawing.Point(4, 25);
+      this.TabPageLikes.Name = "TabPageLikes";
+      this.TabPageLikes.Padding = new System.Windows.Forms.Padding(3);
+      this.TabPageLikes.Size = new System.Drawing.Size(856, 538);
+      this.TabPageLikes.TabIndex = 5;
+      this.TabPageLikes.Text = "Likes";
+      this.TabPageLikes.UseVisualStyleBackColor = true;
+      // 
+      // ListTweetsLikes
+      // 
+      this.ListTweetsLikes.DefaultFilter = null;
+      this.ListTweetsLikes.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.ListTweetsLikes.Location = new System.Drawing.Point(3, 3);
+      this.ListTweetsLikes.MinimumSize = new System.Drawing.Size(600, 120);
+      this.ListTweetsLikes.Name = "ListTweetsLikes";
+      this.ListTweetsLikes.Size = new System.Drawing.Size(850, 532);
+      this.ListTweetsLikes.TabIndex = 1;
+      this.ListTweetsLikes.Title = "LIKES";
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -864,6 +881,7 @@
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceReplies)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.TweetsBindingSourceRTs)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.TrashBindingSource)).EndInit();
+      this.TabPageLikes.ResumeLayout(false);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -909,7 +927,6 @@
     private System.Windows.Forms.Button ActionFilterClear;
     public System.Windows.Forms.Button ActionSelectAll;
     public System.Windows.Forms.Button ActionSelectNone;
-    private System.Windows.Forms.Button ActionGetLikes;
     internal System.Windows.Forms.CheckBox EditSearchInRecipients;
     internal System.Windows.Forms.CheckBox EditSearchInMessage;
     public System.Windows.Forms.Button ActionDelete;
@@ -937,5 +954,7 @@
     private System.Windows.Forms.Button ActionGetBlocks;
     private System.Windows.Forms.TabPage TabPageUsers;
     private Core.RichTextBoxEx EditUsers;
+    private TabPage TabPageLikes;
+    private ListTweets ListTweetsLikes;
   }
 }
