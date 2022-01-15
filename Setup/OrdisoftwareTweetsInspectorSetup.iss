@@ -6,6 +6,8 @@
 #define MyAppURL "https://www.ordisoftware.com/projects/tweets-inspector"
 
 [Setup]
+MinVersion=0,10.0
+LicenseFile=..\Project\Licenses\MPL 2.0.rtf
 AppCopyright=Copyright 2022 Olivier Rogier
 AppId={{482BB78E-469E-4FE1-935A-D6B8E8D5017C}
 ;AppMutex=1ed45f34-0cd1-42b3-a65b-28b15693ab27
@@ -13,12 +15,6 @@ AppId={{482BB78E-469E-4FE1-935A-D6B8E8D5017C}
 
 [Languages]
 #include "Scripts\Languages.iss"
-
-[CustomMessages]
-#include "Scripts\Messages.iss"
-
-[Tasks]
-#include "Scripts\Tasks.iss"
 
 [Dirs]
 
@@ -28,13 +24,19 @@ AppId={{482BB78E-469E-4FE1-935A-D6B8E8D5017C}
 [Files]
 #include "Scripts\Files.iss"
 
-[Icons]
-#include "Scripts\Icons.iss"
+[Run]
+#include "Scripts\Run.iss"
 
 [Registry]
 
-[Run]
-#include "Scripts\Run.iss"
+[Tasks]
+#include "Scripts\Tasks.iss"
+
+[Icons]
+#include "Scripts\Icons.iss"
+
+[CustomMessages]
+#include "Scripts\Messages.iss"
 
 [Code]
 #include "Scripts\CheckDotNetFramework.iss"
