@@ -14,6 +14,7 @@
 /// <edited> 2021-11 </edited>
 namespace Ordisoftware.TweetsInspector;
 
+using SQLite;
 using System.IO.Pipes;
 using System.Runtime.Serialization.Formatters.Binary;
 
