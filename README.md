@@ -91,7 +91,7 @@ The software verifies the validity of the certificate of the update server in ad
 #### In progress - Version 0.3
 
 - Prototype #1.
-- Change SQLite ODBC Driver to SQLite-Net ORM.
+- Switch from SQLite ODBC Driver to SQLite-Net with SQLitePCLraw nugets.
 
 #### 2021.08.29 - Version 0.2
 
