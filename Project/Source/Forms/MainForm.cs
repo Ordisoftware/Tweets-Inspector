@@ -15,6 +15,7 @@
 namespace Ordisoftware.TweetsInspector;
 
 using CoreTweet;
+using Equin.ApplicationFramework;
 
 // TODO encrypt login
 
@@ -75,10 +76,11 @@ public partial class MainForm : Form
 
   private void MainForm_Load(object sender, EventArgs e)
   {
-    CreateSchemaIfNotExists();
-    TweetsTableAdapter.Fill(DataSet.Tweets);
-    TrashTableAdapter.Fill(DataSet.Trash);
-    ListTweetsTrash.DataSource = TrashBindingSource;
+    ApplicationDatabase.Instance.Open();
+    TweetsBindingSourceMain.DataSource = ApplicationDatabase.Instance.TweetsMainAsBindingList;
+    TweetsBindingSourceReplies.DataSource = ApplicationDatabase.Instance.TweetsRepliesAsBindingList;
+    TweetsBindingSourceRTs.DataSource = ApplicationDatabase.Instance.TweetsRTsAsBindingList;
+    //ListTweetsTrash.DataSource = ApplicationDatabase.Instance.TrashAsBindingList;
     UpdateListViews();
     Globals.IsReady = true;
   }
@@ -96,7 +98,6 @@ public partial class MainForm : Form
   private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
   {
     Settings.Save();
-    if ( DataSet.HasChanges() ) TableAdapterManager.UpdateAll(DataSet);
   }
 
   private void ActionOpenMessages_Click(object sender, EventArgs e)
@@ -139,21 +140,21 @@ public partial class MainForm : Form
     Globals.IsGenerating = true;
     try
     {
-      //DataGridViewUsers.DataSource = null;
+      DataGridViewUsers.DataSource = null;
       UsersDataTable.Rows.Clear();
-      var users = DataSet.Tweets
-                         .SelectMany(tweet => tweet.RecipientsAsList)
-                         .GroupBy(recipient => recipient, (recipient, group) => new { recipient, count = group.Count() })
-                         .Where(item => !item.recipient.IsNullOrEmpty())
-                         .ToDictionary(item => item.recipient, item => item.count);
+      var list = ApplicationDatabase.Instance.Tweets;
+      var users = list.SelectMany(tweet => tweet.RecipientsAsList)
+                      .GroupBy(recipient => recipient, (recipient, group) => new { recipient, count = group.Count() })
+                      .Where(item => !item.recipient.IsNullOrEmpty())
+                      .ToDictionary(item => item.recipient, item => item.count);
       foreach ( var item in users )
         if ( UsersDataTable.Rows.Contains(item.Key) )
           UsersDataTable.Rows.Find(item.Key)[1] = item.Value;
         else
           UsersDataTable.Rows.Add(item.Key, item.Value);
       UsersBindingSource.DataSource = UsersDataTable;
-      //DataGridViewUsers.DataSource = UsersBindingSource;
-      DataGridViewUsers.Sort(ColumnUserCount, System.ComponentModel.ListSortDirection.Descending);
+      DataGridViewUsers.DataSource = UsersBindingSource;
+      DataGridViewUsers.Sort(ColumnUserCount, ListSortDirection.Descending);
       LabelCountTweetsMainValue.Text = TweetsControl.ListTweetsMain.DataGridView.RowCount.ToString();
       LabelCountTweetsRepliesValue.Text = TweetsControl.ListTweetsReplies.DataGridView.RowCount.ToString();
       LabelCountTweetsRTsValue.Text = TweetsControl.ListTweetsRTs.DataGridView.RowCount.ToString();

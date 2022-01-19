@@ -42,10 +42,7 @@
       this.ActionSelectAll = new System.Windows.Forms.Button();
       this.ActionSelectNone = new System.Windows.Forms.Button();
       this.LabelTitle = new System.Windows.Forms.Label();
-      this.DataSet = new Ordisoftware.TweetsInspector.Data.DataSet();
       this.BindingSource = new System.Windows.Forms.BindingSource(this.components);
-      this.TweetsTableAdapter = new Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TweetsTableAdapter();
-      this.TableAdapterManager = new Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TableAdapterManager();
       this.DataGridView = new System.Windows.Forms.DataGridView();
       this.ColumnDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.ColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,9 +50,8 @@
       this.ColumnMessage = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.ContextMenuTweet.SuspendLayout();
       this.PanelBottom.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.DataSet)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.BindingSource)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).BeginInit();
+      ( (System.ComponentModel.ISupportInitialize)( this.BindingSource ) ).BeginInit();
+      ( (System.ComponentModel.ISupportInitialize)( this.DataGridView ) ).BeginInit();
       this.SuspendLayout();
       // 
       // ContextMenuTweet
@@ -105,8 +101,8 @@
       // 
       // ActionOpen
       // 
-      this.ActionOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.ActionOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionOpen.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+      this.ActionOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       this.ActionOpen.Location = new System.Drawing.Point(515, 3);
       this.ActionOpen.Name = "ActionOpen";
       this.ActionOpen.Size = new System.Drawing.Size(45, 23);
@@ -117,8 +113,8 @@
       // 
       // ActionDelete
       // 
-      this.ActionDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.ActionDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionDelete.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+      this.ActionDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       this.ActionDelete.Location = new System.Drawing.Point(566, 3);
       this.ActionDelete.Name = "ActionDelete";
       this.ActionDelete.Size = new System.Drawing.Size(35, 23);
@@ -129,7 +125,7 @@
       // 
       // EditFilter
       // 
-      this.EditFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.EditFilter.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
       this.EditFilter.Location = new System.Drawing.Point(222, 4);
       this.EditFilter.Name = "EditFilter";
       this.EditFilter.Size = new System.Drawing.Size(200, 20);
@@ -138,8 +134,8 @@
       // 
       // ActionFilterClear
       // 
-      this.ActionFilterClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.ActionFilterClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionFilterClear.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+      this.ActionFilterClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       this.ActionFilterClear.Location = new System.Drawing.Point(428, 3);
       this.ActionFilterClear.Name = "ActionFilterClear";
       this.ActionFilterClear.Size = new System.Drawing.Size(23, 23);
@@ -150,8 +146,8 @@
       // 
       // ActionSelectAll
       // 
-      this.ActionSelectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.ActionSelectAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionSelectAll.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+      this.ActionSelectAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       this.ActionSelectAll.Location = new System.Drawing.Point(457, 3);
       this.ActionSelectAll.Name = "ActionSelectAll";
       this.ActionSelectAll.Size = new System.Drawing.Size(23, 23);
@@ -162,8 +158,8 @@
       // 
       // ActionSelectNone
       // 
-      this.ActionSelectNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.ActionSelectNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.ActionSelectNone.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+      this.ActionSelectNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       this.ActionSelectNone.Location = new System.Drawing.Point(486, 3);
       this.ActionSelectNone.Name = "ActionSelectNone";
       this.ActionSelectNone.Size = new System.Drawing.Size(23, 23);
@@ -175,7 +171,7 @@
       // LabelTitle
       // 
       this.LabelTitle.Dock = System.Windows.Forms.DockStyle.Left;
-      this.LabelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.LabelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       this.LabelTitle.Location = new System.Drawing.Point(0, 0);
       this.LabelTitle.Name = "LabelTitle";
       this.LabelTitle.Size = new System.Drawing.Size(150, 30);
@@ -183,29 +179,9 @@
       this.LabelTitle.Text = "TITLE";
       this.LabelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
-      // DataSet
-      // 
-      this.DataSet.DataSetName = "DataSet";
-      this.DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-      // 
       // BindingSource
       // 
       this.BindingSource.DataMember = "Tweets";
-      this.BindingSource.DataSource = this.DataSet;
-      // 
-      // TweetsTableAdapter
-      // 
-      this.TweetsTableAdapter.ClearBeforeFill = true;
-      // 
-      // TableAdapterManager
-      // 
-      this.TableAdapterManager.AutoDeleteTableAdapter = null;
-      this.TableAdapterManager.BackupDataSetBeforeUpdate = false;
-      this.TableAdapterManager.FollowersTableAdapter = null;
-      this.TableAdapterManager.FollowingTableAdapter = null;
-      this.TableAdapterManager.TrashTableAdapter = null;
-      this.TableAdapterManager.TweetsTableAdapter = this.TweetsTableAdapter;
-      this.TableAdapterManager.UpdateOrder = Ordisoftware.TweetsInspector.Data.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
       // 
       // DataGridView
       // 
@@ -215,7 +191,7 @@
       this.DataGridView.AutoGenerateColumns = false;
       dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
       dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-      dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ));
       dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
       dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
       dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -286,9 +262,8 @@
       this.ContextMenuTweet.ResumeLayout(false);
       this.PanelBottom.ResumeLayout(false);
       this.PanelBottom.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.DataSet)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.BindingSource)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
+      ( (System.ComponentModel.ISupportInitialize)( this.BindingSource ) ).EndInit();
+      ( (System.ComponentModel.ISupportInitialize)( this.DataGridView ) ).EndInit();
       this.ResumeLayout(false);
 
     }
@@ -299,10 +274,7 @@
     private System.Windows.Forms.ToolStripMenuItem MenuDelete;
     private System.Windows.Forms.Panel PanelBottom;
     public System.Windows.Forms.Label LabelTitle;
-    private Data.DataSet DataSet;
     private System.Windows.Forms.BindingSource BindingSource;
-    private Data.DataSetTableAdapters.TweetsTableAdapter TweetsTableAdapter;
-    private Data.DataSetTableAdapters.TableAdapterManager TableAdapterManager;
     public System.Windows.Forms.DataGridView DataGridView;
     public System.Windows.Forms.TextBox EditFilter;
     public System.Windows.Forms.Button ActionSelectAll;
