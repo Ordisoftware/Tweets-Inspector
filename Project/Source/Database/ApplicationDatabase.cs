@@ -51,7 +51,7 @@ class ApplicationDatabase : SQLiteDatabase
 
   protected override void DoClose()
   {
-    if ( Tweets == null ) return;
+    if ( Tweets is null ) return;
     if ( ClearListsOnCloseOrRelease ) Tweets?.Clear();
     Tweets = null;
   }

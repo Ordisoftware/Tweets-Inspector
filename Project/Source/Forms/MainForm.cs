@@ -54,7 +54,7 @@ public partial class MainForm : Form
 
   internal static bool IsConnected(bool showMessage)
   {
-    if ( Tokens != null ) return true;
+    if ( Tokens is not null ) return true;
     if ( showMessage ) DisplayManager.ShowWarning("Not connected.");
     return false;
   }

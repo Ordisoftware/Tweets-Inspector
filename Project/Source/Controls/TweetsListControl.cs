@@ -41,7 +41,7 @@ public partial class ListTweets : UserControl
     set
     {
       DataGridView.DataSource = value;
-      if ( value != null )
+      if ( value is not null )
         DataGridView.Sort(ColumnDate, ListSortDirection.Ascending);
     }
   }
