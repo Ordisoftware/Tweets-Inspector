@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -84,7 +84,7 @@ public partial class TextBoxEx : TextBox
     set
     {
       InsertingText?.Invoke(this, TextUpdating.Text, ref value);
-      if ( value == null ) value = string.Empty;
+      if ( value is null ) value = string.Empty;
       if ( value == Text ) return;
       if ( value.Length > MaxLength ) return;
       base.Text = value;
@@ -113,7 +113,7 @@ public partial class TextBoxEx : TextBox
     set
     {
       InsertingText?.Invoke(this, TextUpdating.Selected, ref value);
-      if ( value == null ) value = string.Empty;
+      if ( value is null ) value = string.Empty;
       if ( value == base.SelectedText ) return;
       if ( Text.Length + value.Length - SelectionLength > MaxLength ) return;
       base.SelectedText = value;
@@ -138,7 +138,7 @@ public partial class TextBoxEx : TextBox
   public TextBoxEx()
   {
     InitializeComponent();
-    if ( ContextMenuEdit == null )
+    if ( ContextMenuEdit is null )
       InitializeContextMenu();
     ContextMenuStrip = ContextMenuEdit;
     TextChanged += TextChangedEvent;
@@ -156,7 +156,7 @@ public partial class TextBoxEx : TextBox
   {
     //return;
     //
-    //if ( base.Text == null ) return;
+    //if ( base.Text is null ) return;
     //Previous.Set(base.Text, SelectionStart/*, SelectionLength*/);
     //UndoStack.Push(Previous);
     //if ( RedoStack.Count > 0 )

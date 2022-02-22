@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -70,7 +70,7 @@ static class OnlineProvidersHelper
                                EventHandler action,
                                Action reconstruct)
   {
-    if ( providers == null || providers.Items.Count == 0 ) return;
+    if ( providers is null || providers.Items.Count == 0 ) return;
     menuItems.Clear();
     string nameItems = StackMethods.NameOfFromStack(3).Replace("Globals.", string.Empty);
     foreach ( var item in providers.Items )
@@ -103,7 +103,7 @@ static class OnlineProvidersHelper
                                              OnlineProviders providers,
                                              EventHandler action)
   {
-    if ( providers == null ) return;
+    if ( providers is null ) return;
     SetItems(menuItem.DropDownItems, providers, action, () => InitializeFromProviders(menuItem, providers, action));
     menuItem.MouseUp += Menu_MouseUp;
   }
@@ -114,7 +114,7 @@ static class OnlineProvidersHelper
   static public void InitializeFromWebLinks(this ToolStripDropDownButton menuRoot, Action reconstruct)
   {
     var providers = Globals.WebLinksProviders;
-    if ( providers == null ) return;
+    if ( providers is null ) return;
     menuRoot.DropDownItems.Clear();
     foreach ( var items in providers )
       if ( items.Items.Count > 0 )
@@ -177,7 +177,7 @@ static class OnlineProvidersHelper
       string msg = SysTranslations.AskToOpenAllLinks.GetLang(menuItem.Text, count);
       if ( DisplayManager.QueryYesNo(msg) )
         foreach ( ToolStripItem item in menuItem.DropDownItems )
-          if ( item.Tag != null )
+          if ( item.Tag is not null )
           {
             item.PerformClick();
             Thread.Sleep(1500);

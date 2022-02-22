@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -54,10 +54,10 @@ static partial class SystemManager
       try
       {
         using RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Power");
-        if ( key != null )
+        if ( key is not null )
         {
           var value = key.GetValue("HibernateEnabled", 0);
-          return value != null && (bool)value;
+          return value is not null && (bool)value;
         }
       }
       catch
@@ -88,7 +88,7 @@ static partial class SystemManager
 
   static public bool IsForegroundFullScreen(Screen screen = null)
   {
-    if ( screen == null ) screen = Screen.PrimaryScreen;
+    if ( screen is null ) screen = Screen.PrimaryScreen;
     NativeMethods.RECT rect = new();
     NativeMethods.GetWindowRect(new HandleRef(null, NativeMethods.GetForegroundWindow()), ref rect);
     var rectangle = new Rectangle(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);

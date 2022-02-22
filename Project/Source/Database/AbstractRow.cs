@@ -10,13 +10,37 @@
 /// relevant directory) where a recipient would be likely to look for such a notice.
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
-/// <created> 2021-04 </created>
-/// <edited> 2021-04 </edited>
+/// <created> 2021-12 </created>
+/// <edited> 2022-01 </edited>
 namespace Ordisoftware.TweetsInspector;
 
-public enum StartupConnectAction
+using SQLite;
+
+[Serializable]
+public abstract class AbstractRow : INotifyPropertyChanged
 {
-  None,
-  Ask,
-  Auto
+
+  [field: NonSerialized]
+  public event PropertyChangedEventHandler PropertyChanged;
+
+  protected void NotifyPropertyChanged(string p)
+  {
+    if ( !ApplicationDatabase.Instance.Loaded || !ApplicationDatabase.Instance.BindingsEnabled ) return;
+    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p));
+    ApplicationDatabase.Instance.AddToModified(this);
+  }
+
+  [PrimaryKey]
+  public string Id
+  {
+    get => _Id;
+    set
+    {
+      if ( _Id == value ) return;
+      _Id = value;
+      NotifyPropertyChanged(nameof(Id));
+    }
+  }
+  private string _Id;
+
 }

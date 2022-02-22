@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -99,7 +99,7 @@ partial class CommonMenusControl : UserControl
     var notice = (TranslationPair)menuitem.Tag;
     string title = SysTranslations.NoticeNewFeaturesTitle.GetLang(notice.Key);
     var form = MessageBoxEx.Instances.Find(f => f.Text == title);
-    if ( form == null )
+    if ( form is null )
     {
       string str = notice.Value.GetLang() + Globals.NL2 + SysTranslations.NavigationTip.GetLang();
       form = new MessageBoxEx(title, str, width: MessageBoxEx.DefaultWidthMedium, justify: false)
@@ -131,7 +131,7 @@ partial class CommonMenusControl : UserControl
         button.Text = text;
         button.Click += (_s, _e) =>
         {
-          if ( action == null )
+          if ( action is null )
           {
             form.SendToBack();
             openNotes();
@@ -140,7 +140,7 @@ partial class CommonMenusControl : UserControl
           {
             var items = ActionViewVersionNews.DropDownItems.ToEnumerable();
             var found = items.FirstOrDefault(item => item.Text == SysTranslations.AboutBoxVersion.GetLang(notice.Key));
-            if ( found == null ) return;
+            if ( found is null ) return;
             form.Close();
             action(ActionViewVersionNews.DropDownItems.IndexOf(found));
           }

@@ -1,6 +1,6 @@
 /// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -39,7 +39,7 @@ static class Chronometer
   {
     Cursor temp = null;
     var times = new long[count];
-    if ( control != null )
+    if ( control is not null )
     {
       temp = control.Cursor;
       control.Cursor = Cursors.WaitCursor;
@@ -52,7 +52,7 @@ static class Chronometer
     }
     finally
     {
-      if ( control != null )
+      if ( control is not null )
       {
         control.ResumeLayout();
         control.Cursor = temp;

@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -27,7 +27,7 @@ partial class ComboBoxNavigator : UserControl
     set
     {
       if ( _ComboBox == value ) return;
-      if ( value != null )
+      if ( value is not null )
       {
         _ComboBox = value;
         _ComboBox.VisibleChanged += ComboBox_VisibleChanged;
@@ -56,19 +56,19 @@ partial class ComboBoxNavigator : UserControl
   public int SelectedIndex
   {
     get { return _ComboBox?.SelectedIndex ?? -1; }
-    set { if ( _ComboBox != null ) _ComboBox.SelectedIndex = value; }
+    set { if ( _ComboBox is not null ) _ComboBox.SelectedIndex = value; }
   }
 
   public object SelectedItem
   {
     get { return _ComboBox?.SelectedItem; }
-    set { if ( _ComboBox != null ) _ComboBox.SelectedItem = value; }
+    set { if ( _ComboBox is not null ) _ComboBox.SelectedItem = value; }
   }
 
   public event EventHandler SelectedIndexChanged
   {
-    add { if ( _ComboBox != null ) _ComboBox.SelectedIndexChanged += value; }
-    remove { if ( _ComboBox != null ) _ComboBox.SelectedIndexChanged -= value; }
+    add { if ( _ComboBox is not null ) _ComboBox.SelectedIndexChanged += value; }
+    remove { if ( _ComboBox is not null ) _ComboBox.SelectedIndexChanged -= value; }
   }
 
   public event EventHandler Navigated;
@@ -80,7 +80,7 @@ partial class ComboBoxNavigator : UserControl
 
   public void Fill(IEnumerable<int> list, int selected = -1)
   {
-    if ( _ComboBox == null ) return;
+    if ( _ComboBox is null ) return;
     Mutex = true;
     foreach ( int value in list )
     {

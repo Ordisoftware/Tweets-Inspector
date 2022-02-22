@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Tweets Inspector.
-/// Copyright 2021 Olivier Rogier.
+/// Copyright 2021-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -32,16 +32,16 @@ public partial class MainForm
     try
     {
       if ( OpenFileDialogJS.ShowDialog() != DialogResult.OK ) return;
-      if ( DataSet.Tweets.Count > 0 )
-        if ( !DisplayManager.QueryYesNo("Replace all tweets in the database, else append?") )
-        {
-          var command = new OdbcCommand("DELETE FROM Tweets", LockFileConnection);
-          command.ExecuteNonQuery();
-          TweetsTableAdapter.Fill(DataSet.Tweets);
-          TweetsBindingSourceMain.ResetBindings(false);
-          TweetsBindingSourceReplies.ResetBindings(false);
-          TweetsBindingSourceRTs.ResetBindings(false);
-        }
+      //if ( DataSet.Tweets.Count > 0 )
+      //  if ( !DisplayManager.QueryYesNo("Replace all tweets in the database, else append?") )
+      //  {
+      //    var command = new OdbcCommand("DELETE FROM Tweets", LockFileConnection);
+      //    command.ExecuteNonQuery();
+      //    TweetsTableAdapter.Fill(DataSet.Tweets);
+      //    TweetsBindingSourceMain.ResetBindings(false);
+      //    TweetsBindingSourceReplies.ResetBindings(false);
+      //    TweetsBindingSourceRTs.ResetBindings(false);
+      //  }
       LoadingForm.Instance.Initialize("Loading JS...", 1);
       string filepath = OpenFileDialogJS.FileName;
       var tweets = JsonHelper.LoadTweets(filepath);
@@ -67,35 +67,35 @@ public partial class MainForm
               continue;
             }
           }
-          if ( !DataSet.Tweets.Rows.Contains(tweet.Id) )
-          {
-            var row = DataSet.Tweets.NewTweetsRow();
-            row.Id = tweet.Id;
-            var date = DateTime.ParseExact(tweet.CreatedAt, TwitterDateTemplate, CultureEN);
-            row.Date = SQLiteDate.ToString(date, true);
-            row.Message = tweet.FullText;
-            var recipients = new List<string>();
-            string replyto = tweet.InReplyToScreenName;
-            if ( !replyto.IsNullOrEmpty() ) recipients.Add(replyto);
-            foreach ( var mention in tweet.Entities.UserMentions )
-            {
-              string recipient = mention.ScreenName;
-              if ( !recipients.Contains(recipient) )
-                recipients.Add(recipient);
-            }
-            row.Recipients = string.Join(",", recipients);
-            if ( row.Message.StartsWith("RT @") )
-              row.Type = (int)TweetType.RT;
-            else
-            if ( row.Message.StartsWith("@") )
-              row.Type = (int)TweetType.Reply;
-            else
-              row.Type = (int)TweetType.Main;
-            DataSet.Tweets.AddTweetsRow(row);
-          }
+          //  if ( !DataSet.Tweets.Rows.Contains(tweet.Id) )
+          //  {
+          //    var row = DataSet.Tweets.NewTweetsRow();
+          //    row.Id = tweet.Id;
+          //    var date = DateTime.ParseExact(tweet.CreatedAt, TwitterDateTemplate, CultureEN);
+          //    row.Date = SQLiteDate.ToString(date, true);
+          //    row.Message = tweet.FullText;
+          //    var recipients = new List<string>();
+          //    string replyto = tweet.InReplyToScreenName;
+          //    if ( !replyto.IsNullOrEmpty() ) recipients.Add(replyto);
+          //    foreach ( var mention in tweet.Entities.UserMentions )
+          //    {
+          //      string recipient = mention.ScreenName;
+          //      if ( !recipients.Contains(recipient) )
+          //        recipients.Add(recipient);
+          //    }
+          //    row.Recipients = string.Join(",", recipients);
+          //    if ( row.Message.StartsWith("RT @") )
+          //      row.Type = (int)TweetType.RT;
+          //    else
+          //    if ( row.Message.StartsWith("@") )
+          //      row.Type = (int)TweetType.Reply;
+          //    else
+          //      row.Type = (int)TweetType.Main;
+          //    DataSet.Tweets.AddTweetsRow(row);
+          //  }
         }
-        TableAdapterManager.UpdateAll(DataSet);
-        SaveUsingTransaction(DataSet.Tweets, TweetsTableAdapter.Adapter);
+        //TableAdapterManager.UpdateAll(DataSet);
+        //SaveUsingTransaction(DataSet.Tweets, TweetsTableAdapter.Adapter);
       }
       catch ( Exception ex )
       {
@@ -125,8 +125,8 @@ public partial class MainForm
     catch
     {
       adapter.InsertCommand.Transaction.Rollback();
-      TweetsTableAdapter.Fill(DataSet.Tweets);
-      TweetsTableAdapter.Fill(DataSet.Tweets);
+      //TweetsTableAdapter.Fill(DataSet.Tweets);
+      //TweetsTableAdapter.Fill(DataSet.Tweets);
       TweetsBindingSourceMain.ResetBindings(false);
       TweetsBindingSourceReplies.ResetBindings(false);
       TweetsBindingSourceRTs.ResetBindings(false);

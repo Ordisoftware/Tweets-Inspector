@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -117,7 +117,7 @@ static partial class SystemManager
   static public long SizeOf(this object instance)
   {
     long result = -1;
-    if ( instance == null ) return 0;
+    if ( instance is null ) return 0;
     if ( instance.GetType().IsSerializable )
       try
       {

@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -76,7 +76,7 @@ partial class TextBoxEx
 
   static public void Relocalize()
   {
-    if ( ContextMenuEdit == null ) return;
+    if ( ContextMenuEdit is null ) return;
     var resources = new ComponentResourceManager(typeof(TextBoxEx));
     resources.ApplyResources(ContextMenuEdit, "ContextMenuEdit");
     resources.ApplyResources(ActionUndo, "ActionUndo");
@@ -95,7 +95,7 @@ partial class TextBoxEx
 
   static private void UpdateMenuItems(TextBoxEx textbox)
   {
-    if ( textbox == null ) return;
+    if ( textbox is null ) return;
     bool b1 = textbox.Enabled;
     bool b2 = textbox.Enabled && !textbox.ReadOnly;
     bool b3 = !textbox.SelectedText.IsNullOrEmpty();

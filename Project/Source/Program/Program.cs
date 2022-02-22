@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Tweets Inspector.
-/// Copyright 2021 Olivier Rogier.
+/// Copyright 2021-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -14,6 +14,7 @@
 /// <edited> 2021-11 </edited>
 namespace Ordisoftware.TweetsInspector;
 
+using SQLite;
 using System.IO.Pipes;
 using System.Runtime.Serialization.Formatters.Binary;
 

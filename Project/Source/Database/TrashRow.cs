@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Tweets Inspector.
-/// Copyright 2021 Olivier Rogier.
+/// Copyright 2021-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -11,29 +11,27 @@
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
 /// <created> 2021-04 </created>
-/// <edited> 2021-04 </edited>
-namespace Ordisoftware.TweetsInspector.Data;
+/// <edited> 2022-01 </edited>
+namespace Ordisoftware.TweetsInspector;
 
-partial class DataSet
+using SQLite;
+
+[Serializable]
+[Table("Trash")]
+public class TrashRow : TweetRow
 {
 
-  partial class TweetsRow
+  [NotNull]
+  public DateTime DateDeleted
   {
-
-    public string ScreenName
-      => MainForm.Tokens?.ScreenName.IsNullOrEmpty() != false
-         ? "ordisoftware"
-         : MainForm.Tokens.ScreenName;
-
-    public TweetType TypeAsEnum => (TweetType)Type;
-
-    public List<string> RecipientsAsList => Recipients.Split(',').ToList();
-
-    public string Url => $"https://twitter.com/{ScreenName}/status/{Id}";
-
-    public override string ToString()
-      => $"{Id}; {Date}; {string.Join(", ", Recipients)}; {Message}; {Url}";
-
+    get => _DateDeleted;
+    set
+    {
+      if ( _DateDeleted == value ) return;
+      _DateDeleted = value;
+      NotifyPropertyChanged(nameof(DateDeleted));
+    }
   }
+  private DateTime _DateDeleted = DateTime.MinValue;
 
 }

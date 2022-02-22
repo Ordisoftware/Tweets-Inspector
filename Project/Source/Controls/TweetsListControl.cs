@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Tweets Inspector.
-/// Copyright 2021 Olivier Rogier.
+/// Copyright 2021-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -15,6 +15,7 @@
 namespace Ordisoftware.TweetsInspector;
 
 using CoreTweet;
+using Equin.ApplicationFramework;
 
 public partial class ListTweets : UserControl
 {
@@ -40,8 +41,8 @@ public partial class ListTweets : UserControl
     set
     {
       DataGridView.DataSource = value;
-      if ( value != null )
-        DataGridView.Sort(ColumnDate, System.ComponentModel.ListSortDirection.Ascending);
+      if ( value is not null )
+        DataGridView.Sort(ColumnDate, ListSortDirection.Ascending);
     }
   }
 
@@ -73,26 +74,26 @@ public partial class ListTweets : UserControl
 
   private void EditFilter_TextChanged(object sender, EventArgs e)
   {
-    var ds = DataGridView.DataSource as BindingSource;
-    if ( EditFilter.Text != "" )
-    {
-      string filter = DefaultFilter.IsNullOrEmpty() ? "" : $"{DefaultFilter} AND";
-      if ( MainForm.Instance.EditSearchInRecipients.Checked && MainForm.Instance.EditSearchInMessage.Checked )
-        ds.Filter = $"{filter} ( Recipients LIKE '*{EditFilter.Text}*' OR Message LIKE '*{EditFilter.Text}*' )";
-      else
-      if ( MainForm.Instance.EditSearchInRecipients.Checked )
-        ds.Filter = $"{filter} Recipients LIKE '*{EditFilter.Text}*'";
-      else
-        ds.Filter = $"{filter} Message LIKE '*{EditFilter.Text}*'";
-    }
-    else
-      ds.Filter = DefaultFilter;
-    DataGridView.ClearSelection();
+    //var ds = DataGridView.DataSource as BindingSource;
+    //if ( EditFilter.Text != "" )
+    //{
+    //  string filter = DefaultFilter.IsNullOrEmpty() ? "" : $"{DefaultFilter} AND";
+    //  if ( MainForm.Instance.EditSearchInRecipients.Checked && MainForm.Instance.EditSearchInMessage.Checked )
+    //    ds.Filter = $"{filter} ( Recipients LIKE '*{EditFilter.Text}*' OR Message LIKE '*{EditFilter.Text}*' )";
+    //  else
+    //  if ( MainForm.Instance.EditSearchInRecipients.Checked )
+    //    ds.Filter = $"{filter} Recipients LIKE '*{EditFilter.Text}*'";
+    //  else
+    //    ds.Filter = $"{filter} Message LIKE '*{EditFilter.Text}*'";
+    //}
+    //else
+    //  ds.Filter = DefaultFilter;
+    //DataGridView.ClearSelection();
   }
 
-  private Data.DataSet.TweetsRow GetTweetRow(DataGridViewRow row)
+  private TweetRow GetTweetRow(DataGridViewRow row)
   {
-    return (Data.DataSet.TweetsRow)( (DataRowView)row.DataBoundItem ).Row;
+    return ( (ObjectView<TweetRow>)row.DataBoundItem ).Object;
   }
 
   private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -116,7 +117,7 @@ public partial class ListTweets : UserControl
 
   private void OpenTweet(DataGridViewRow row, bool delay = false)
   {
-    System.Diagnostics.Process.Start(GetTweetRow(row).Url);
+    Process.Start(GetTweetRow(row).Url);
     if ( delay ) Thread.Sleep(LimitDelay);
   }
 
@@ -175,12 +176,16 @@ public partial class ListTweets : UserControl
           {
             if ( delay ) Thread.Sleep(LimitDelay);
             MainForm.Tokens.Statuses.Destroy(long.Parse(tweet.Id));
-            tweet.Delete();
+            ApplicationDatabase.Instance.Connection.Delete(tweet);
+            ApplicationDatabase.Instance.Tweets.Remove(tweet);
           }
           catch ( TwitterException ex )
           {
-            if ( ex.Status == System.Net.HttpStatusCode.NotFound )
-              tweet.Delete();
+            if ( ex.Status == HttpStatusCode.NotFound )
+            {
+              ApplicationDatabase.Instance.Connection.Delete(tweet);
+              ApplicationDatabase.Instance.Tweets.Remove(tweet);
+            }
             else
               ex.Manage();
           }
@@ -202,7 +207,6 @@ public partial class ListTweets : UserControl
         LoadingForm.Instance.Hide();
       }
     }
-    MainForm.Instance.TableAdapterManager.UpdateAll(MainForm.Instance.DataSet);
   }
 
   // TODO move to trash on delete
@@ -241,9 +245,10 @@ public partial class ListTweets : UserControl
           }
           catch ( TwitterException ex )
           {
-            if ( ex.Status == System.Net.HttpStatusCode.NotFound )
+            if ( ex.Status == HttpStatusCode.NotFound )
             {
-              tweet.Delete();
+              ApplicationDatabase.Instance.Connection.Delete(tweet);
+              ApplicationDatabase.Instance.Tweets.Remove(tweet);
               count++;
             }
             else
@@ -268,6 +273,6 @@ public partial class ListTweets : UserControl
       }
     }
     DisplayManager.Show($"Deleted tweets: {count}");
-    MainForm.Instance.TableAdapterManager.UpdateAll(MainForm.Instance.DataSet);
   }
+
 }

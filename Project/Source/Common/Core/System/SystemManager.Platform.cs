@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -101,7 +101,7 @@ static partial class SystemManager
         {
           var attributes = Assembly.GetExecutingAssembly().CustomAttributes;
           var result = attributes.FirstOrDefault(a => a.AttributeType == typeof(TargetFrameworkAttribute));
-          return result == null
+          return result is null
                  ? ".NET " + SysTranslations.UndefinedSlot.GetLang()
                  : result.NamedArguments[0].TypedValue.Value.ToString();
         });
@@ -130,7 +130,7 @@ static partial class SystemManager
     get
     {
       object value = GetWin32OperatingSystemValue("FreePhysicalMemory");
-      return value != null ? ( (ulong)value * 1024 ).FormatBytesSize() : SysTranslations.UndefinedSlot.GetLang();
+      return value is not null ? ( (ulong)value * 1024 ).FormatBytesSize() : SysTranslations.UndefinedSlot.GetLang();
     }
   }
 
@@ -144,7 +144,7 @@ static partial class SystemManager
       if ( _TotalVisibleMemory.IsNullOrEmpty() )
       {
         object value = GetWin32OperatingSystemValue("TotalVisibleMemorySize");
-        _TotalVisibleMemory = value != null
+        _TotalVisibleMemory = value is not null
                               ? ( (ulong)value * 1024 ).FormatBytesSize()
                               : SysTranslations.UndefinedSlot.GetLang();
       }

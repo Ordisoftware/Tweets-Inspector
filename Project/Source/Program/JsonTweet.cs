@@ -14,10 +14,10 @@ namespace Ordisoftware.TweetsInspector
       using ( var stream = File.OpenText(filePath) )
       {
         string line = stream.ReadLine();
-        if ( line == null ) return new List<Json.Tweet.TweetItem>();
+        if ( line is null ) return new List<Json.Tweet.TweetItem>();
         line = line.Replace("window.YTD.tweet.part0 = ", "");
         builder.Append(line);
-        while ( ( line = stream.ReadLine() ) != null )
+        while ( ( line = stream.ReadLine() ) is not null )
           builder.Append(line);
       }
       return Json.Tweet.JsonTweet.FromJson(builder.ToString()).Select(tweet => tweet.Item).ToList();
@@ -408,7 +408,7 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
 
     public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
     {
-      if ( untypedValue == null )
+      if ( untypedValue is null )
       {
         serializer.Serialize(writer, null);
         return;
@@ -440,7 +440,7 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
 
     public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
     {
-      if ( untypedValue == null )
+      if ( untypedValue is null )
       {
         serializer.Serialize(writer, null);
         return;
@@ -483,7 +483,7 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
 
     public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
     {
-      if ( untypedValue == null )
+      if ( untypedValue is null )
       {
         serializer.Serialize(writer, null);
         return;
@@ -527,7 +527,7 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
 
     public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
     {
-      if ( untypedValue == null )
+      if ( untypedValue is null )
       {
         serializer.Serialize(writer, null);
         return;
@@ -622,7 +622,7 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
 
     public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
     {
-      if ( untypedValue == null )
+      if ( untypedValue is null )
       {
         serializer.Serialize(writer, null);
         return;

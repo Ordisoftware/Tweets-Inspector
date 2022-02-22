@@ -1,6 +1,6 @@
 /// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -54,7 +54,7 @@ partial class ExceptionForm : Form
     form.IsInner = isInner;
     form.PictureBox.Image = ShellIcons.Error;
     form.ActionViewLog.Enabled = DebugManager.TraceEnabled;
-    form.ActionViewInner.Enabled = einfo.InnerInfo != null;
+    form.ActionViewInner.Enabled = einfo.InnerInfo is not null;
     form.ActionTerminate.Enabled = DebugManager.UserCanTerminate && !isInner;
     if ( isInner )
     {
@@ -154,7 +154,7 @@ partial class ExceptionForm : Form
   /// <param name="e">Event information.</param>
   private void ActionSendToGitHub_Click(object sender, EventArgs e)
   {
-    if ( ErrorInfo == null ) return;
+    if ( ErrorInfo is null ) return;
     SystemManager.TryCatchManage(() =>
     {
       var query = new StringBuilder();
@@ -176,7 +176,7 @@ partial class ExceptionForm : Form
   /// <param name="e">Event information.</param>
   private void ActionSendMail_Click(object sender, EventArgs e)
   {
-    if ( ErrorInfo == null ) return;
+    if ( ErrorInfo is null ) return;
     SystemManager.TryCatchManage(() =>
     {
       using var message = new MailMessage();
@@ -219,7 +219,7 @@ partial class ExceptionForm : Form
     body.AppendLine(ErrorInfo.StackText);
     body.AppendLine("```");
     ExceptionInfo inner = ErrorInfo.InnerInfo;
-    while ( inner != null )
+    while ( inner is not null )
     {
       body.AppendLine();
       body.Append("## INNER : ").AppendLine(inner.Instance.GetType().Name);

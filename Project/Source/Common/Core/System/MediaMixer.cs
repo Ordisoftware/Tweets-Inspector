@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -62,7 +62,7 @@ static class MediaMixer
   static public float? GetApplicationVolume(int pid)
   {
     ISimpleAudioVolume volume = GetVolumeObject(pid);
-    if ( volume == null )
+    if ( volume is null )
       return null;
 
     volume.GetMasterVolume(out var level);
@@ -73,7 +73,7 @@ static class MediaMixer
   static public bool? GetApplicationMute(int pid)
   {
     ISimpleAudioVolume volume = GetVolumeObject(pid);
-    if ( volume == null )
+    if ( volume is null )
       return null;
 
     volume.GetMute(out var mute);
@@ -84,7 +84,7 @@ static class MediaMixer
   static public bool SetApplicationVolume(int pid, float level)
   {
     ISimpleAudioVolume volume = GetVolumeObject(pid);
-    if ( volume == null )
+    if ( volume is null )
       return false;
 
     Guid guid = Guid.Empty;
@@ -96,7 +96,7 @@ static class MediaMixer
   static public void SetApplicationMute(int pid, bool mute)
   {
     ISimpleAudioVolume volume = GetVolumeObject(pid);
-    if ( volume == null )
+    if ( volume is null )
       return;
 
     Guid guid = Guid.Empty;

@@ -1,6 +1,6 @@
 ﻿/// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -114,7 +114,7 @@ partial class LoadingForm : Form
       BringToFront();
     }
     if ( refresh ) Refresh();
-    if ( Progressing != null ) SystemManager.TryCatchManage(() => Progressing.Invoke());
+    if ( Progressing is not null ) SystemManager.TryCatchManage(() => Progressing.Invoke());
     if ( ActionCancel.Visible ) Application.DoEvents();
   }
 

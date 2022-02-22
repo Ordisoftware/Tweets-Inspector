@@ -1,6 +1,6 @@
 /// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -59,7 +59,7 @@ static partial class DebugManager
   [SuppressMessage("Redundancy", "RCS1163:Unused parameter.", Justification = "Event Handler")]
   static private void TraceEventAdded(string sourceContext, string str)
   {
-    if ( TraceForm == null ) return;
+    if ( TraceForm is null ) return;
     if ( TraceForm.IsDisposed ) return;
     TraceForm.AppendText(str);
   }
@@ -88,6 +88,7 @@ static partial class DebugManager
 
   static public readonly string EventSeparator = "|";
 
+  [SuppressMessage("CodeQuality", "Serilog004:Constant MessageTemplate verifier", Justification = "N/A")]
   static public void Trace(LogTraceEvent traceEvent, string text = "")
   {
     if ( !_Enabled || !_TraceEnabled ) return;

@@ -1,6 +1,6 @@
 /// <license>
 /// This file is part of Ordisoftware Core Library.
-/// Copyright 2004-2021 Olivier Rogier.
+/// Copyright 2004-2022 Olivier Rogier.
 /// See www.ordisoftware.com for more information.
 /// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 /// If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -177,7 +177,7 @@ class ExceptionInfo
       TypeText = type.ToString();
       type = type.BaseType;
       InheritsFrom += type.ToString();
-      while ( ( type = type.BaseType ) != null )
+      while ( ( type = type.BaseType ) is not null )
         InheritsFrom += " > " + type.ToString();
     }
     catch
@@ -194,7 +194,7 @@ class ExceptionInfo
     {
       if ( !DebugManager.UseStack ) return;
       var frames = full ? new StackTrace(true).GetFrames() : new StackTrace(Instance, true).GetFrames();
-      if ( frames == null ) return;
+      if ( frames is null ) return;
       string result = string.Empty;
       string partMethod = string.Empty;
       string partFileName = string.Empty;
@@ -312,7 +312,7 @@ class ExceptionInfo
   /// <param name="ex">The ex.</param>
   public ExceptionInfo(object sender, Exception ex)
   {
-    if ( ex == null ) return;
+    if ( ex is null ) return;
     Sender = sender;
     Instance = ex;
     TargetSite = ex.TargetSite;
@@ -333,7 +333,7 @@ class ExceptionInfo
       {
         InitializeTexts();
       }
-      if ( ex.InnerException != null )
+      if ( ex.InnerException is not null )
         InnerInfo = new ExceptionInfo(sender, ex.InnerException);
     }
     catch

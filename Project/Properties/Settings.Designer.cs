@@ -119,13 +119,39 @@ namespace Ordisoftware.TweetsInspector.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Dsn=Tweets-Inspector")]
-        public string ConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool VacuumAtStartup {
             get {
-                return ((string)(this["ConnectionString"]));
+                return ((bool)(this["VacuumAtStartup"]));
+            }
+            set {
+                this["VacuumAtStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2000-01-01")]
+        public global::System.DateTime VacuumLastDone {
+            get {
+                return ((global::System.DateTime)(this["VacuumLastDone"]));
+            }
+            set {
+                this["VacuumLastDone"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        public int VacuumAtStartupDaysInterval {
+            get {
+                return ((int)(this["VacuumAtStartupDaysInterval"]));
+            }
+            set {
+                this["VacuumAtStartupDaysInterval"] = value;
             }
         }
     }
