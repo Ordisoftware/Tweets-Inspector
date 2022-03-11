@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\CefSharp.Common.98.1.210\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.98.1.210\build\CefSharp.Common.props')" />
-  <Import Project="packages\cef.redist.x86.98.1.21\build\cef.redist.x86.props" Condition="Exists('packages\cef.redist.x86.98.1.21\build\cef.redist.x86.props')" />
-  <Import Project="packages\cef.redist.x64.98.1.21\build\cef.redist.x64.props" Condition="Exists('packages\cef.redist.x64.98.1.21\build\cef.redist.x64.props')" />
+  <Import Project="packages\CefSharp.Common.99.2.90\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.99.2.90\build\CefSharp.Common.props')" />
+  <Import Project="packages\cef.redist.x86.99.2.9\build\cef.redist.x86.props" Condition="Exists('packages\cef.redist.x86.99.2.9\build\cef.redist.x86.props')" />
+  <Import Project="packages\cef.redist.x64.99.2.9\build\cef.redist.x64.props" Condition="Exists('packages\cef.redist.x64.99.2.9\build\cef.redist.x64.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -46,14 +46,14 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CefSharp, Version=98.1.210.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
-      <HintPath>packages\CefSharp.Common.98.1.210\lib\net452\CefSharp.dll</HintPath>
+    <Reference Include="CefSharp, Version=99.2.90.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>packages\CefSharp.Common.99.2.90\lib\net452\CefSharp.dll</HintPath>
     </Reference>
-    <Reference Include="CefSharp.Core, Version=98.1.210.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
-      <HintPath>packages\CefSharp.Common.98.1.210\lib\net452\CefSharp.Core.dll</HintPath>
+    <Reference Include="CefSharp.Core, Version=99.2.90.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>packages\CefSharp.Common.99.2.90\lib\net452\CefSharp.Core.dll</HintPath>
     </Reference>
-    <Reference Include="CefSharp.WinForms, Version=98.1.210.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
-      <HintPath>packages\CefSharp.WinForms.98.1.210\lib\net462\CefSharp.WinForms.dll</HintPath>
+    <Reference Include="CefSharp.WinForms, Version=99.2.90.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+      <HintPath>packages\CefSharp.WinForms.99.2.90\lib\net462\CefSharp.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="CommandLine, Version=2.8.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
       <HintPath>packages\CommandLineParser.2.8.0\lib\net461\CommandLine.dll</HintPath>
@@ -82,8 +82,8 @@
     <Reference Include="Krypton.Workspace, Version=60.22.2.32, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Krypton.Workspace.60.22.2.32\lib\net48\Krypton.Workspace.dll</HintPath>
     </Reference>
-    <Reference Include="Markdig, Version=0.27.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Markdig.0.27.0\lib\net452\Markdig.dll</HintPath>
+    <Reference Include="Markdig, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Markdig.0.28.0\lib\net452\Markdig.dll</HintPath>
     </Reference>
     <Reference Include="MoreLinq, Version=3.3.2.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>packages\morelinq.3.3.2\lib\net451\MoreLinq.dll</HintPath>
@@ -523,11 +523,11 @@
       <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\SQLitePCLRaw.lib.e_sqlite3.2.0.7\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SQLitePCLRaw.lib.e_sqlite3.2.0.7\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets'))" />
-    <Error Condition="!Exists('packages\cef.redist.x64.98.1.21\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x64.98.1.21\build\cef.redist.x64.props'))" />
-    <Error Condition="!Exists('packages\cef.redist.x86.98.1.21\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x86.98.1.21\build\cef.redist.x86.props'))" />
-    <Error Condition="!Exists('packages\CefSharp.Common.98.1.210\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.98.1.210\build\CefSharp.Common.props'))" />
-    <Error Condition="!Exists('packages\CefSharp.Common.98.1.210\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.98.1.210\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('packages\cef.redist.x64.99.2.9\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x64.99.2.9\build\cef.redist.x64.props'))" />
+    <Error Condition="!Exists('packages\cef.redist.x86.99.2.9\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x86.99.2.9\build\cef.redist.x86.props'))" />
+    <Error Condition="!Exists('packages\CefSharp.Common.99.2.90\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.99.2.90\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('packages\CefSharp.Common.99.2.90\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.99.2.90\build\CefSharp.Common.targets'))" />
   </Target>
   <Import Project="packages\SQLitePCLRaw.lib.e_sqlite3.2.0.7\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets" Condition="Exists('packages\SQLitePCLRaw.lib.e_sqlite3.2.0.7\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" />
-  <Import Project="packages\CefSharp.Common.98.1.210\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.98.1.210\build\CefSharp.Common.targets')" />
+  <Import Project="packages\CefSharp.Common.99.2.90\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.99.2.90\build\CefSharp.Common.targets')" />
 </Project>
