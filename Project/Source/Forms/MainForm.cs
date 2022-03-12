@@ -12,7 +12,7 @@
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2021-08 </edited>
-namespace Ordisoftware.TweetsInspector;
+namespace Ordisoftware.Tweets.Inspector;
 
 using CoreTweet;
 using Equin.ApplicationFramework;
@@ -364,6 +364,7 @@ public partial class MainForm : Form
 
   private void ActionCheckOnlineDestroyed_Click(object sender, EventArgs e)
   {
-
+    //
   }
+
 }

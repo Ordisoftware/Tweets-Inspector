@@ -12,7 +12,7 @@
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2021-04 </edited>
-namespace Ordisoftware.TweetsInspector;
+namespace Ordisoftware.Tweets.Inspector;
 
 using CefSharp;
 using CefSharp.WinForms;
@@ -30,7 +30,7 @@ public partial class WebBrowserForm : Form
   {
     InitializeComponent();
     Icon = Globals.MainForm?.Icon;
-    var script = "document.getElementById('allow').click();";
+    const string script = "document.getElementById('allow').click();";
     WebBrowser.ExecuteScriptAsyncWhenPageLoaded(script);
   }
 

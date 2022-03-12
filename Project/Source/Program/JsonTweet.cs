@@ -4,7 +4,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ordisoftware.TweetsInspector
+#pragma warning disable S927 // Parameter names should match base declaration and other partial definitions
+namespace Ordisoftware.Tweets.Inspector
 {
   static public class JsonHelper
   {
@@ -26,7 +27,7 @@ namespace Ordisoftware.TweetsInspector
 }
 
 // https://github.com/quicktype/quicktype-vs
-namespace Ordisoftware.TweetsInspector.Json.Tweet
+namespace Ordisoftware.Tweets.Inspector.Json.Tweet
 {
 
   using System;
@@ -179,7 +180,7 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
     public Sizes Sizes { get; set; }
 
     [JsonProperty("type")]
-    public TypeEnum Type { get; set; }
+    public MediaType Type { get; set; }
 
     [JsonProperty("source_status_id_str", NullValueHandling = NullValueHandling.Ignore)]
     public string SourceStatusIdStr { get; set; }
@@ -326,7 +327,7 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
 
   public enum Resize { Crop, Fit };
 
-  public enum TypeEnum { AnimatedGif, Photo, Video };
+  public enum MediaType { AnimatedGif, Photo, Video };
 
   public enum ContentType { ApplicationXMpegUrl, VideoMp4 };
 
@@ -428,14 +429,12 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
     {
       if ( reader.TokenType == JsonToken.Null ) return null;
       var value = serializer.Deserialize<string>(reader);
-      switch ( value )
+      return value switch
       {
-        case "crop":
-          return Resize.Crop;
-        case "fit":
-          return Resize.Fit;
-      }
-      throw new Exception("Cannot unmarshal type Resize");
+        "crop" => Resize.Crop,
+        "fit" => Resize.Fit,
+        _ => throw new Exception("Cannot un-marshal type Resize"),
+      };
     }
 
     public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -463,22 +462,19 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
 
   internal class TypeEnumConverter : JsonConverter
   {
-    public override bool CanConvert(Type t) => t == typeof(TypeEnum) || t == typeof(TypeEnum?);
+    public override bool CanConvert(Type t) => t == typeof(MediaType) || t == typeof(MediaType?);
 
     public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
     {
       if ( reader.TokenType == JsonToken.Null ) return null;
       var value = serializer.Deserialize<string>(reader);
-      switch ( value )
+      return value switch
       {
-        case "animated_gif":
-          return TypeEnum.AnimatedGif;
-        case "photo":
-          return TypeEnum.Photo;
-        case "video":
-          return TypeEnum.Video;
-      }
-      throw new Exception("Cannot unmarshal type TypeEnum");
+        "animated_gif" => MediaType.AnimatedGif,
+        "photo" => MediaType.Photo,
+        "video" => MediaType.Video,
+        _ => throw new Exception("Cannot unmarshal type TypeEnum"),
+      };
     }
 
     public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -488,16 +484,16 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
         serializer.Serialize(writer, null);
         return;
       }
-      var value = (TypeEnum)untypedValue;
+      var value = (MediaType)untypedValue;
       switch ( value )
       {
-        case TypeEnum.AnimatedGif:
+        case MediaType.AnimatedGif:
           serializer.Serialize(writer, "animated_gif");
           return;
-        case TypeEnum.Photo:
+        case MediaType.Photo:
           serializer.Serialize(writer, "photo");
           return;
-        case TypeEnum.Video:
+        case MediaType.Video:
           serializer.Serialize(writer, "video");
           return;
       }
@@ -515,14 +511,12 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
     {
       if ( reader.TokenType == JsonToken.Null ) return null;
       var value = serializer.Deserialize<string>(reader);
-      switch ( value )
+      return value switch
       {
-        case "application/x-mpegURL":
-          return ContentType.ApplicationXMpegUrl;
-        case "video/mp4":
-          return ContentType.VideoMp4;
-      }
-      throw new Exception("Cannot unmarshal type ContentType");
+        "application/x-mpegURL" => ContentType.ApplicationXMpegUrl,
+        "video/mp4" => ContentType.VideoMp4,
+        _ => throw new Exception("Cannot unmarshal type ContentType"),
+      };
     }
 
     public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -556,68 +550,39 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
     {
       if ( reader.TokenType == JsonToken.Null ) return null;
       var value = serializer.Deserialize<string>(reader);
-      switch ( value )
+      return value switch
       {
-        case "ar":
-          return Lang.Ar;
-        case "ca":
-          return Lang.Ca;
-        case "cs":
-          return Lang.Cs;
-        case "cy":
-          return Lang.Cy;
-        case "da":
-          return Lang.Da;
-        case "de":
-          return Lang.De;
-        case "en":
-          return Lang.En;
-        case "es":
-          return Lang.Es;
-        case "et":
-          return Lang.Et;
-        case "eu":
-          return Lang.Eu;
-        case "fi":
-          return Lang.Fi;
-        case "fr":
-          return Lang.Fr;
-        case "hi":
-          return Lang.Hi;
-        case "ht":
-          return Lang.Ht;
-        case "hu":
-          return Lang.Hu;
-        case "in":
-          return Lang.In;
-        case "is":
-          return Lang.Is;
-        case "it":
-          return Lang.It;
-        case "iw":
-          return Lang.Iw;
-        case "lt":
-          return Lang.Lt;
-        case "nl":
-          return Lang.Nl;
-        case "no":
-          return Lang.No;
-        case "pt":
-          return Lang.Pt;
-        case "ro":
-          return Lang.Ro;
-        case "sl":
-          return Lang.Sl;
-        case "sv":
-          return Lang.Sv;
-        case "tl":
-          return Lang.Tl;
-        case "und":
-          return Lang.Und;
-        default:
-          return Lang.En;
-      }
-      throw new Exception("Cannot unmarshal type Lang");
+        "ar" => Lang.Ar,
+        "ca" => Lang.Ca,
+        "cs" => Lang.Cs,
+        "cy" => Lang.Cy,
+        "da" => Lang.Da,
+        "de" => Lang.De,
+        "en" => Lang.En,
+        "es" => Lang.Es,
+        "et" => Lang.Et,
+        "eu" => Lang.Eu,
+        "fi" => Lang.Fi,
+        "fr" => Lang.Fr,
+        "hi" => Lang.Hi,
+        "ht" => Lang.Ht,
+        "hu" => Lang.Hu,
+        "in" => Lang.In,
+        "is" => Lang.Is,
+        "it" => Lang.It,
+        "iw" => Lang.Iw,
+        "lt" => Lang.Lt,
+        "nl" => Lang.Nl,
+        "no" => Lang.No,
+        "pt" => Lang.Pt,
+        "ro" => Lang.Ro,
+        "sl" => Lang.Sl,
+        "sv" => Lang.Sv,
+        "tl" => Lang.Tl,
+        "und" => Lang.Und,
+        _ => Lang.En,
+      };
+      throw new Exception("Cannot un-marshal type Lang");
     }
 
     public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -722,3 +687,4 @@ namespace Ordisoftware.TweetsInspector.Json.Tweet
   }
 
 }
+#pragma warning restore S927 // Parameter names should match base declaration and other partial definitions

@@ -1,4 +1,4 @@
-﻿namespace Ordisoftware.TweetsInspector
+﻿namespace Ordisoftware.Tweets.Inspector
 {
   partial class MainForm
   {
@@ -43,7 +43,7 @@
       this.TabControl = new System.Windows.Forms.TabControl();
       this.TabPageTweets = new System.Windows.Forms.TabPage();
       this.SplitContainerMain = new System.Windows.Forms.SplitContainer();
-      this.TweetsControl = new Ordisoftware.TweetsInspector.TweetsControl();
+      this.TweetsControl = new Ordisoftware.Tweets.Inspector.TweetsControl();
       this.panel1 = new System.Windows.Forms.Panel();
       this.DataGridViewUsers = new System.Windows.Forms.DataGridView();
       this.ColumnUserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,7 +67,7 @@
       this.ActionLoadFromJS = new System.Windows.Forms.Button();
       this.ActionSaveToCSV = new System.Windows.Forms.Button();
       this.TabPageDestroyed = new System.Windows.Forms.TabPage();
-      this.ListTweetsTrash = new Ordisoftware.TweetsInspector.ListTweets();
+      this.ListTweetsTrash = new Ordisoftware.Tweets.Inspector.ListTweets();
       this.TabPageMessages = new System.Windows.Forms.TabPage();
       this.TabPageUsers = new System.Windows.Forms.TabPage();
       this.EditUsers = new Ordisoftware.Core.RichTextBoxEx();
@@ -96,7 +96,7 @@
       this.TweetsBindingSourceRTs = new System.Windows.Forms.BindingSource(this.components);
       this.TrashBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.TabPageLikes = new System.Windows.Forms.TabPage();
-      this.ListTweetsLikes = new Ordisoftware.TweetsInspector.ListTweets();
+      this.ListTweetsLikes = new Ordisoftware.Tweets.Inspector.ListTweets();
       LabelConsumerBackUrl = new System.Windows.Forms.Label();
       LabelConsumerKey = new System.Windows.Forms.Label();
       LabelConsumerSecret = new System.Windows.Forms.Label();
@@ -391,8 +391,8 @@
       this.EditSingleClickUserFilter.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
       this.EditSingleClickUserFilter.AutoSize = true;
       this.EditSingleClickUserFilter.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-      this.EditSingleClickUserFilter.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.SingleClickUserFilter;
-      this.EditSingleClickUserFilter.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "SingleClickUserFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.EditSingleClickUserFilter.Checked = global::Ordisoftware.Tweets.Inspector.Properties.Settings.Default.SingleClickUserFilter;
+      this.EditSingleClickUserFilter.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.Tweets.Inspector.Properties.Settings.Default, "SingleClickUserFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
       this.EditSingleClickUserFilter.Location = new System.Drawing.Point(731, 16);
       this.EditSingleClickUserFilter.Name = "EditSingleClickUserFilter";
       this.EditSingleClickUserFilter.Size = new System.Drawing.Size(139, 17);
@@ -416,9 +416,9 @@
       this.EditSearchInMessage.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
       this.EditSearchInMessage.AutoSize = true;
       this.EditSearchInMessage.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-      this.EditSearchInMessage.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.SearchInMessage;
+      this.EditSearchInMessage.Checked = global::Ordisoftware.Tweets.Inspector.Properties.Settings.Default.SearchInMessage;
       this.EditSearchInMessage.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.EditSearchInMessage.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "SearchInMessage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.EditSearchInMessage.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.Tweets.Inspector.Properties.Settings.Default, "SearchInMessage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
       this.EditSearchInMessage.Location = new System.Drawing.Point(754, 48);
       this.EditSearchInMessage.Name = "EditSearchInMessage";
       this.EditSearchInMessage.Size = new System.Drawing.Size(116, 17);
@@ -432,9 +432,9 @@
       this.EditSearchInRecipients.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
       this.EditSearchInRecipients.AutoSize = true;
       this.EditSearchInRecipients.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-      this.EditSearchInRecipients.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.SearchInRecipients;
+      this.EditSearchInRecipients.Checked = global::Ordisoftware.Tweets.Inspector.Properties.Settings.Default.SearchInRecipients;
       this.EditSearchInRecipients.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.EditSearchInRecipients.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "SearchInRecipients", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.EditSearchInRecipients.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.Tweets.Inspector.Properties.Settings.Default, "SearchInRecipients", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
       this.EditSearchInRecipients.Location = new System.Drawing.Point(762, 32);
       this.EditSearchInRecipients.Name = "EditSearchInRecipients";
       this.EditSearchInRecipients.Size = new System.Drawing.Size(108, 17);
@@ -481,8 +481,8 @@
       this.EditDeleteOnlyLocal.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
       this.EditDeleteOnlyLocal.AutoSize = true;
       this.EditDeleteOnlyLocal.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-      this.EditDeleteOnlyLocal.Checked = global::Ordisoftware.TweetsInspector.Properties.Settings.Default.DeleteOnlyLocalMode;
-      this.EditDeleteOnlyLocal.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.TweetsInspector.Properties.Settings.Default, "DeleteOnlyLocalMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.EditDeleteOnlyLocal.Checked = global::Ordisoftware.Tweets.Inspector.Properties.Settings.Default.DeleteOnlyLocalMode;
+      this.EditDeleteOnlyLocal.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Ordisoftware.Tweets.Inspector.Properties.Settings.Default, "DeleteOnlyLocalMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
       this.EditDeleteOnlyLocal.Location = new System.Drawing.Point(737, 0);
       this.EditDeleteOnlyLocal.Name = "EditDeleteOnlyLocal";
       this.EditDeleteOnlyLocal.Size = new System.Drawing.Size(133, 17);

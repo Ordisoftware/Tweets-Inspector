@@ -12,11 +12,7 @@
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2021-11 </edited>
-namespace Ordisoftware.TweetsInspector;
-
-using SQLite;
-using System.IO.Pipes;
-using System.Runtime.Serialization.Formatters.Binary;
+namespace Ordisoftware.Tweets.Inspector;
 
 public enum TweetType { Main, Reply, RT };
 
@@ -70,6 +66,7 @@ static partial class Program
       //AboutBox.Instance.ActionViewStats.Enabled = Settings.UsageStatisticsEnabled;
       DebugManager.Enabled = true;
       DebugManager.TraceEnabled = true;
+      // TODO check old config TweetsInsoector -> Tweets.Inspector
     }
     catch ( Exception ex )
     {

@@ -12,7 +12,7 @@
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2022-01 </edited>
-namespace Ordisoftware.TweetsInspector;
+namespace Ordisoftware.Tweets.Inspector;
 
 using Equin.ApplicationFramework;
 
@@ -96,6 +96,15 @@ class ApplicationDatabase : SQLiteDatabase
   protected override bool CreateDataIfNotExist(bool reset = false)
   {
     return false;
+  }
+
+  protected override void UpgradeSchema()
+  {
+    base.UpgradeSchema();
+    if ( Connection.CheckTable(nameof(TweetsTableName)) )
+    {
+      // TODO upgrade date column to SQLineNet format
+    }
   }
 
 }

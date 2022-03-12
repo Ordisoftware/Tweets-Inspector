@@ -12,7 +12,7 @@
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2021-04 </edited>
-namespace Ordisoftware.TweetsInspector;
+namespace Ordisoftware.Tweets.Inspector;
 
 using CoreTweet;
 using Equin.ApplicationFramework;
@@ -20,10 +20,10 @@ using Equin.ApplicationFramework;
 public partial class ListTweets : UserControl
 {
 
-  static public int ConfirmDeleteMaxIdsToShow = 10;
-  static public int ConfirmOpenMaxIds = 5;
-  static public int OpenMaxIds = 20;
-  static public int LimitDelay = 1000;
+  public const int ConfirmDeleteMaxIdsToShow = 10;
+  public const int ConfirmOpenMaxIds = 5;
+  public const int OpenMaxIds = 20;
+  public const int LimitDelay = 1000;
 
   public event EventHandler Modified;
 
@@ -69,7 +69,8 @@ public partial class ListTweets : UserControl
   private void ActionFilterClear_Click(object sender, EventArgs e)
   {
     EditFilter.Text = "";
-    ( DataGridView.DataSource as BindingSource ).Filter = DefaultFilter;
+    var source = DataGridView.DataSource as BindingSource;
+    if ( source is not null ) source.Filter = DefaultFilter;
   }
 
   private void EditFilter_TextChanged(object sender, EventArgs e)
@@ -146,7 +147,7 @@ public partial class ListTweets : UserControl
                                .Cast<DataGridViewRow>()
                                .Select(item => GetTweetRow(item))
                                .ToList();
-    var listIds = listRows.Select(tweet => tweet.Id).ToList();
+    var listIds = listRows.ConvertAll(tweet => tweet.Id);
     string msg = listIds.Count > ConfirmDeleteMaxIdsToShow
                  ? string.Join(Globals.NL, listIds.Take(ConfirmDeleteMaxIdsToShow)) + Globals.NL + "..."
                  : string.Join(Globals.NL, listIds);

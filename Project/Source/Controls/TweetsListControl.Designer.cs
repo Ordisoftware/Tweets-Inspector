@@ -1,4 +1,4 @@
-﻿namespace Ordisoftware.TweetsInspector
+﻿namespace Ordisoftware.Tweets.Inspector
 {
   partial class ListTweets
   {

@@ -12,7 +12,7 @@
 /// </license>
 /// <created> 2021-12 </created>
 /// <edited> 2022-01 </edited>
-namespace Ordisoftware.TweetsInspector;
+namespace Ordisoftware.Tweets.Inspector;
 
 using SQLite;
 
