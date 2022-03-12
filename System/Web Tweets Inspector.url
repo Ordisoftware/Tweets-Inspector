@@ -1,4 +1,4 @@
 [DEFAULT]
 BASEURL=https://www.ordisoftware.com/projects/tweets-inspector
 [InternetShortcut]
-URL=https://www.ordisoftware.com/projects/tweets-inspector/?referer=Ordisoftware.TweetsInspector
+URL=https://www.ordisoftware.com/projects/tweets-inspector/?referer=Ordisoftware.Tweets.Inspector

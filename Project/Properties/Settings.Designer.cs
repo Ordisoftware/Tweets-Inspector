@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ordisoftware.TweetsInspector.Properties {
+namespace Ordisoftware.Tweets.Inspector.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -98,9 +98,9 @@ namespace Ordisoftware.TweetsInspector.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::Ordisoftware.TweetsInspector.StartupConnectAction StartupConnectAction {
+        public global::Ordisoftware.Tweets.Inspector.StartupConnectAction StartupConnectAction {
             get {
-                return ((global::Ordisoftware.TweetsInspector.StartupConnectAction)(this["StartupConnectAction"]));
+                return ((global::Ordisoftware.Tweets.Inspector.StartupConnectAction)(this["StartupConnectAction"]));
             }
             set {
                 this["StartupConnectAction"] = value;

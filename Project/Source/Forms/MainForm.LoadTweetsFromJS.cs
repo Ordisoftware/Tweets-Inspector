@@ -12,7 +12,7 @@
 /// </license>
 /// <created> 2021-04 </created>
 /// <edited> 2021-04 </edited>
-namespace Ordisoftware.TweetsInspector;
+namespace Ordisoftware.Tweets.Inspector;
 
 using System.Data.Odbc;
 using System.Net;
@@ -64,7 +64,6 @@ public partial class MainForm
             }
             catch
             {
-              continue;
             }
           }
           //  if ( !DataSet.Tweets.Rows.Contains(tweet.Id) )

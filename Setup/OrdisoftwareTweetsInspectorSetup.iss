@@ -1,7 +1,7 @@
 #define MyAppVersion "0.3"
 #define MyAppName "Tweets Inspector"
 #define MyAppNameNoSpace "TweetsInspector"
-#define MyAppExeName "Ordisoftware.TweetsInspector.exe"
+#define MyAppExeName "Ordisoftware.Tweets.Inspector.exe"
 #define MyAppPublisher "Ordisoftware"
 #define MyAppURL "https://www.ordisoftware.com/projects/tweets-inspector"
 

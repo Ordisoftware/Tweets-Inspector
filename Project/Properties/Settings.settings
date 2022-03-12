@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Ordisoftware.TweetsInspector.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Ordisoftware.Tweets.Inspector.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="DeleteOnlyLocalMode" Type="System.Boolean" Scope="User">
@@ -20,7 +20,7 @@
     <Setting Name="SearchInMessage" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="StartupConnectAction" Type="Ordisoftware.TweetsInspector.StartupConnectAction" Scope="User">
+    <Setting Name="StartupConnectAction" Type="Ordisoftware.Tweets.Inspector.StartupConnectAction" Scope="User">
       <Value Profile="(Default)">None</Value>
     </Setting>
     <Setting Name="SingleClickUserFilter" Type="System.Boolean" Scope="User">
