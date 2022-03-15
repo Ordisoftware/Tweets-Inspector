@@ -32,7 +32,7 @@ static partial class Program
   /// Process startup method.
   /// </summary>
   [STAThread]
-  static void Main(string[] args)
+  static void Main()
   {
     try
     {
