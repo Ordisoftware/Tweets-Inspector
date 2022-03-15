@@ -78,7 +78,11 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 
 #### What are the difference between installing "only for me" and "for all users"?
 
-The first option does not need to have administrator rights and the software is installed in the `AppData\Local` user folder. The second option uses the common `Program Files` folder and requires the use of an elevated account. There is no other difference for the application that uses a per user data storage, except what is mentioned later in the command-line section in case of running the program under a limited account.
+The first option does not need to have administrator rights and the software is installed in the `AppData\Local` user folder.
+
+The second option uses the common `Program Files` folder and requires the use of an elevated account.
+
+There is no other difference for the application that uses a per user data storage, except what is mentioned later in the command-line section in case of running the program under a limited account.
 
 Inter-process communication will therefore not be available for limited user accounts for the time being.
 
