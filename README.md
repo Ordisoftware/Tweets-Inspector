@@ -67,7 +67,7 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 
 ## Frequently asked questions
 
-#### What code analyzers are used?
+#### What code analyzers are used in addition to Visual Studio?
 
 - [SonarLint](https://marketplace.visualstudio.com/items?itemName=SonarSource.SonarLintforVisualStudio2022)
 - [Roslynator](https://marketplace.visualstudio.com/items?itemName=josefpihrt.Roslynator2022)
