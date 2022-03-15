@@ -75,7 +75,7 @@ The author is not responsible for tweets destroyed if you click on "Delete".
 - [Parallel Helper](https://marketplace.visualstudio.com/items?itemName=camrein.ParallelHelper)
 - [Parallel Checker](https://marketplace.visualstudio.com/items?itemName=LBHSR.ParallelChecker)
 - [Security Code Scan](https://marketplace.visualstudio.com/items?itemName=JaroslavLobacevski.SecurityCodeScanVS2019)
-- [PumaScan](https://marketplace.visualstudio.com/items?itemName=PumaSecurity.PumaScan)
+- [Puma Scan](https://marketplace.visualstudio.com/items?itemName=PumaSecurity.PumaScan)
 
 #### What are the differences between "only for me" and "for all users" installation?
 
@@ -89,7 +89,9 @@ Inter-process communication will therefore not be available for limited user acc
 
 #### What to do if the check update tells that the SSL certificate is wrong or expired?
 
-The software verifies the validity of the certificate of the update server in addition to the SHA-512 checksum of the installation file before downloading and running it. You can manually check the latest version available online in case of problem.
+The software verifies the validity of the certificate of the update server in addition to the SHA-512 checksum of the installation file before downloading and running it.
+
+You can manually check the latest version available online in case of problem.
 
 #### What to do if the application does not work normally despite restoring settings?
 
