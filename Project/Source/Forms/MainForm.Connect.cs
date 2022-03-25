@@ -22,7 +22,7 @@ public partial class MainForm
 
   private const string OAuthVerifierTag = "oauth_verifier";
 
-  private async void DoConnect()
+  private async void DoConnectAsync()
   {
     if ( IsConnected(false) ) return;
     if ( Settings.ConsumerKey.IsNullOrEmpty()
@@ -33,7 +33,9 @@ public partial class MainForm
     {
       bool done = false;
       bool cancelled = false;
+#pragma warning disable PH_S019 // Blocking Method in Async Method - N/A
       Session = OAuth.Authorize(Settings.ConsumerKey, Settings.ConsumerSecret, Settings.ConsumerBackUrl);
+#pragma warning restore PH_S019 // Blocking Method in Async Method
       var form = new WebBrowserForm();
       form.FormClosed += (_s, _e) => cancelled = !done;
       form.WebBrowser.AddressChanged += (_s, _e) => done |= _e.Address.Contains(Settings.ConsumerBackUrl);
@@ -48,7 +50,7 @@ public partial class MainForm
         Enabled = true;
         if ( cancelled ) return;
         var items = form.WebBrowser.Address.SplitNoEmptyLines($"&{OAuthVerifierTag}=");
-        if ( items.Length == 2 && items[1].Trim() != "" )
+        if ( items.Length == 2 && items[1].Trim().Length != 0 )
         {
           Tokens = Session.GetTokens(items[1]);
           Text = $"{Globals.AssemblyTitle} - Connected @{Tokens.ScreenName}";
