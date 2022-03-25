@@ -523,5 +523,10 @@
       <Version>6.0.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Setup\OrdisoftwareTweetsInspectorSetup.iss">
+      <Link>Properties\OrdisoftwareTweetsInspectorSetup.iss</Link>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
