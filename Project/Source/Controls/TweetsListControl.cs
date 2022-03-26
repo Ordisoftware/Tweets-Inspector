@@ -149,9 +149,9 @@ public partial class ListTweets : UserControl
                                .ToList();
     var listIds = listRows.ConvertAll(tweet => tweet.Id);
     string msg = listIds.Count > ConfirmDeleteMaxIdsToShow
-                 ? string.Join(Globals.NL, listIds.Take(ConfirmDeleteMaxIdsToShow)) + Globals.NL + "..."
-                 : string.Join(Globals.NL, listIds);
-    if ( !DisplayManager.QueryYesNo($"Delete {listRows.Count} {LabelTitle.Text} ?" + Globals.NL2 + msg) )
+                 ? listIds.Take(ConfirmDeleteMaxIdsToShow).AsMultiLine() + Globals.NL + "..."
+                 : listIds.AsMultiLine();
+    if ( !DisplayManager.QueryYesNo($"Delete {listRows.Count} {LabelTitle.Text} ?{Globals.NL2}{msg}") )
       return;
     if ( Properties.Settings.Default.DeleteOnlyLocalMode )
       if ( !DisplayManager.QueryYesNo("Tweets will be deleted in the database but not in Twitter. Continue?") )

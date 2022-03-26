@@ -15,7 +15,6 @@
 namespace Ordisoftware.Tweets.Inspector;
 
 using CoreTweet;
-using Equin.ApplicationFramework;
 
 // TODO encrypt login
 
@@ -246,7 +245,7 @@ public partial class MainForm : Form
     var items = users.Select((user, index) => $"{( index + 1 ).ToString(sizeIndex)}. {user.ScreenName} : {user.Name} - {user.Description.Replace(Environment.NewLine, " | ").Replace("\n", " | ")}");
     EditUsers.Text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
                      Environment.NewLine +
-                     string.Join(Environment.NewLine, items);
+                     items.AsMultiLine();
     EditUsers.SelectionStart = 0;
     EditUsers.SelectionLength = 0;
   }

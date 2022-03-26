@@ -82,7 +82,7 @@ public partial class MainForm
           //      if ( !recipients.Contains(recipient) )
           //        recipients.Add(recipient);
           //    }
-          //    row.Recipients = string.Join(",", recipients);
+          //    row.Recipients = recipients.AsMultiComma();
           //    if ( row.Message.StartsWith("RT @") )
           //      row.Type = (int)TweetType.RT;
           //    else

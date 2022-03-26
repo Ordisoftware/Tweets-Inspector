@@ -11,7 +11,7 @@
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
 /// <created> 2021-04 </created>
-/// <edited> 2022-01 </edited>
+/// <edited> 2022-03 </edited>
 namespace Ordisoftware.Tweets.Inspector;
 
 using SQLite;
@@ -83,6 +83,6 @@ public class TweetRow : AbstractRow
   public string Url => $"https://twitter.com/{ScreenName}/status/{Id}";
 
   public override string ToString()
-    => $"{Id}; {Date}; {string.Join(", ", Recipients)}; {Message}; {Url}";
+    => $"{Id}; {Date}; {Recipients}; {Message}; {Url}";
 
 }
