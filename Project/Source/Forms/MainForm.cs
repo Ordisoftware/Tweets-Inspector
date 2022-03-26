@@ -15,7 +15,6 @@
 namespace Ordisoftware.Tweets.Inspector;
 
 using CoreTweet;
-using Equin.ApplicationFramework;
 
 // TODO encrypt login
 
@@ -117,7 +116,7 @@ public partial class MainForm : Form
 
   private void ActionConnect_Click(object sender, EventArgs e)
   {
-    DoConnect();
+    DoConnectAsync();
   }
 
   private void ActionLoadFromJS_Click(object sender, EventArgs e)
@@ -169,7 +168,7 @@ public partial class MainForm : Form
   private void EditFilterUsers_TextChanged(object sender, EventArgs e)
   {
     var ds = DataGridViewUsers.DataSource as BindingSource;
-    if ( EditFilterUsers.Text != "" )
+    if ( EditFilterUsers.Text.Length != 0 )
       ds.Filter = $"User LIKE '*{EditFilterUsers.Text}*'";
     else
       ds.Filter = "";
@@ -246,7 +245,7 @@ public partial class MainForm : Form
     var items = users.Select((user, index) => $"{( index + 1 ).ToString(sizeIndex)}. {user.ScreenName} : {user.Name} - {user.Description.Replace(Environment.NewLine, " | ").Replace("\n", " | ")}");
     EditUsers.Text = title + " " + DateTime.Today.ToString("yyyy.MM.dd") + Environment.NewLine +
                      Environment.NewLine +
-                     string.Join(Environment.NewLine, items);
+                     items.AsMultiLine();
     EditUsers.SelectionStart = 0;
     EditUsers.SelectionLength = 0;
   }
@@ -288,7 +287,7 @@ public partial class MainForm : Form
         var list = Tokens.Followers.List(Tokens.UserId, count: APIStep, cursor: cursor);
         cursor = list.NextCursor;
         count = list.Count;
-        users.AddRange(list.ToList());
+        users.AddRange(list);
         Thread.Sleep(ListTweets.LimitDelay * 2);
       }
     });
@@ -307,7 +306,7 @@ public partial class MainForm : Form
         var list = Tokens.Friends.List(Tokens.UserId, count: APIStep, cursor: cursor);
         cursor = list.NextCursor;
         count = list.Count;
-        users.AddRange(list.ToList());
+        users.AddRange(list);
         Thread.Sleep(ListTweets.LimitDelay * 2);
       }
     });
@@ -326,7 +325,7 @@ public partial class MainForm : Form
         var list = Tokens.Mutes.Users.List(cursor: cursor);
         cursor = list.NextCursor;
         count = list.Count;
-        users.AddRange(list.ToList());
+        users.AddRange(list);
         Thread.Sleep(ListTweets.LimitDelay * 5);
       }
     });
@@ -345,7 +344,7 @@ public partial class MainForm : Form
         var list = Tokens.Blocks.List(cursor: cursor);
         cursor = list.NextCursor;
         count = list.Count;
-        users.AddRange(list.ToList());
+        users.AddRange(list);
         Thread.Sleep(ListTweets.LimitDelay * 5);
       }
     });

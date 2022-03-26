@@ -82,7 +82,7 @@ public partial class MainForm
           //      if ( !recipients.Contains(recipient) )
           //        recipients.Add(recipient);
           //    }
-          //    row.Recipients = string.Join(",", recipients);
+          //    row.Recipients = recipients.AsMultiComma();
           //    if ( row.Message.StartsWith("RT @") )
           //      row.Type = (int)TweetType.RT;
           //    else
@@ -109,34 +109,34 @@ public partial class MainForm
     }
   }
 
-  private void SaveUsingTransaction(DataTable table, OdbcDataAdapter adapter)
-  {
-    string str = SysTranslations.SavingData.GetLang() + " " + table.TableName;
-    LoadingForm.Instance.Initialize(str, table.Rows.Count, 0, true, 100);
-    adapter.RowUpdated += update;
-    adapter.InsertCommand.Connection.Open();
-    adapter.InsertCommand.Transaction = adapter.InsertCommand.Connection.BeginTransaction();
-    adapter.Update(table);
-    try
-    {
-      adapter.InsertCommand.Transaction.Commit();
-    }
-    catch
-    {
-      adapter.InsertCommand.Transaction.Rollback();
-      //TweetsTableAdapter.Fill(DataSet.Tweets);
-      //TweetsTableAdapter.Fill(DataSet.Tweets);
-      TweetsBindingSourceMain.ResetBindings(false);
-      TweetsBindingSourceReplies.ResetBindings(false);
-      TweetsBindingSourceRTs.ResetBindings(false);
-    }
-    adapter.InsertCommand.Connection.Close();
-    adapter.RowUpdated -= update;
-    //
-    static void update(object sender, OdbcRowUpdatedEventArgs rowEvent)
-    {
-      if ( !Globals.IsGenerating ) LoadingForm.Instance.DoProgress();
-    }
-  }
+  //private void SaveUsingTransaction(DataTable table, OdbcDataAdapter adapter)
+  //{
+  //  string str = SysTranslations.SavingData.GetLang() + " " + table.TableName;
+  //  LoadingForm.Instance.Initialize(str, table.Rows.Count, 0, true, 100);
+  //  adapter.RowUpdated += update;
+  //  adapter.InsertCommand.Connection.Open();
+  //  adapter.InsertCommand.Transaction = adapter.InsertCommand.Connection.BeginTransaction();
+  //  adapter.Update(table);
+  //  try
+  //  {
+  //    adapter.InsertCommand.Transaction.Commit();
+  //  }
+  //  catch
+  //  {
+  //    adapter.InsertCommand.Transaction.Rollback();
+  //    //TweetsTableAdapter.Fill(DataSet.Tweets);
+  //    //TweetsTableAdapter.Fill(DataSet.Tweets);
+  //    TweetsBindingSourceMain.ResetBindings(false);
+  //    TweetsBindingSourceReplies.ResetBindings(false);
+  //    TweetsBindingSourceRTs.ResetBindings(false);
+  //  }
+  //  adapter.InsertCommand.Connection.Close();
+  //  adapter.RowUpdated -= update;
+  //  //
+  //  void update(object sender, OdbcRowUpdatedEventArgs rowEvent)
+  //  {
+  //    if ( !Globals.IsGenerating ) LoadingForm.Instance.DoProgress();
+  //  }
+  //}
 
 }
