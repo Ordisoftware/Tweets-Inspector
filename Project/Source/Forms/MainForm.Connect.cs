@@ -34,7 +34,9 @@ public partial class MainForm
       bool done = false;
       bool cancelled = false;
 #pragma warning disable PH_S019 // Blocking Method in Async Method - N/A
+#pragma warning disable MA0042 // Do not use blocking calls in an async method - N/A
       Session = OAuth.Authorize(Settings.ConsumerKey, Settings.ConsumerSecret, Settings.ConsumerBackUrl);
+#pragma warning restore MA0042 // Do not use blocking calls in an async method
 #pragma warning restore PH_S019 // Blocking Method in Async Method
       var form = new WebBrowserForm();
       form.FormClosed += (_s, _e) => cancelled = !done;
