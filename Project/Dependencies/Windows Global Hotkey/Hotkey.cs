@@ -21,6 +21,7 @@ namespace Base.Hotkeys
     Win = 8
   }
 
+  [SuppressMessage("Design", "GCop132:Since the type is inferred, use 'var' instead", Justification = "<En attente>")]
   public class Hotkey
   {
 
@@ -69,6 +70,7 @@ namespace Base.Hotkeys
       ID = id;
     }
 
+    [SuppressMessage("Style", "GCop442:Use return instead of assignment.", Justification = "<En attente>")]
     public override string ToString()
     {
       string toString = string.Empty;
@@ -96,12 +98,12 @@ namespace Base.Hotkeys
         toString += "Backspace";
       else
       if ( KeyCode <= Keys.D9 && KeyCode >= Keys.D0 )
-        toString += ( KeyCode - Keys.D0 ).ToString();
+        toString += KeyCode - Keys.D0;
       else
       if ( KeyCode <= Keys.NumPad9 && KeyCode >= Keys.NumPad0 )
-        toString += ( KeyCode - Keys.NumPad0 ).ToString();
+        toString += KeyCode - Keys.NumPad0;
       else
-        toString += KeyCode.ToString();
+        toString += KeyCode;
       //
       return toString;
     }

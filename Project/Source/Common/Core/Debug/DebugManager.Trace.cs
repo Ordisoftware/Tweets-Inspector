@@ -48,6 +48,8 @@ static partial class DebugManager
   static private int EnterCount;
   static private int CurrentMargin;
   static private readonly int TraceEventMaxLength;
+
+  [SuppressMessage("Design", "GCop139:Use constant instead of field.", Justification = "Analysis error")]
   static private readonly string Separator = new('-', 120);
 
   static DebugManager()
@@ -57,6 +59,7 @@ static partial class DebugManager
   }
 
   [SuppressMessage("Redundancy", "RCS1163:Unused parameter.", Justification = "Event Handler")]
+  [SuppressMessage("Usage", "GCop502:The parameter '{0}' doesn't seem to be used in this method. Consider removing it. If the argument must be declared for compiling reasons, rename it to contain only underscore character.", Justification = "N/A (event)")]
   static private void TraceEventAdded(string sourceContext, string str)
   {
     if ( TraceForm is null ) return;
@@ -141,7 +144,7 @@ static partial class DebugManager
     var list = Directory.GetFiles(folder, code + "*" + extension)
                         .Where(f => !SystemManager.IsFileLocked(f))
                         .OrderBy(f => new FileInfo(f).CreationTime);
-    return sortByDateOnly ? list : list.OrderBy(f => new FileInfo(f).CreationTime).ThenBy(f => f);
+    return sortByDateOnly ? list : list.ThenBy(f => new FileInfo(f).CreationTime).ThenBy(f => f);
   }
 
   static public void ClearTraces(bool norestart = false, bool all = false)
@@ -159,6 +162,8 @@ static partial class DebugManager
           case TraceFileRollOverMode.SinkFile:
             if ( !all || !delete(Globals.SinkFileRetainedFileCountLimit) ) return;
             break;
+          default:
+            throw new AdvancedNotImplementedException(Globals.TraceFileRollOverMode);
         }
         TraceForm?.TextBoxCurrent.Clear();
         //

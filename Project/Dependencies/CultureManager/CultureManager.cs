@@ -33,6 +33,10 @@ namespace Infralution.Localization
   /// handles resource naming and serialization.
   /// </remarks>
   [ToolboxItem(true)]
+  [SuppressMessage("Design", "GCop132:Since the type is inferred, use 'var' instead", Justification = "<En attente>")]
+  [SuppressMessage("Refactoring", "GCop647:Shorten this property by defining it as expression-bodied.", Justification = "<En attente>")]
+  [SuppressMessage("Usage", "GCop536:Remove empty xml node documentation", Justification = "<En attente>")]
+  [SuppressMessage("Naming", "GCop209:Use PascalCasing for {0} names", Justification = "<En attente>")]
   public class CultureManager : Component
   {
 
@@ -528,6 +532,7 @@ namespace Infralution.Localization
     }
 
 
+
     /// <summary>
     /// Apply a resource for an extender provider to the given control
     /// </summary>
@@ -540,6 +545,7 @@ namespace Infralution.Localization
     /// handles <see cref="ToolTip">ToolTips</see>, <see cref="HelpProvider">HelpProviders</see>,
     /// and <see cref="ErrorProvider">ErrorProviders</see>
     /// </remarks>
+    [SuppressMessage("Style", "GCop404:Multiple 'if' and 'else if' on the same variable can be replaced with a 'switch'", Justification = "<En attente>")]
     protected virtual void ApplyExtenderResource(Dictionary<Type, IExtenderProvider> extenderProviders,
                                                  Control control, string propertyName, object value)
     {
@@ -650,6 +656,9 @@ namespace Infralution.Localization
     [SuppressMessage("Major Code Smell", "S3011:Reflection should not be used to increase accessibility of classes, methods, or fields", Justification = "N/A")]
     [SuppressMessage("Design", "MA0051:Method is too long", Justification = "N/A")]
     [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP001:Dispose created", Justification = "<En attente>")]
+    [SuppressMessage("Design", "GCop132:Since the type is inferred, use 'var' instead", Justification = "<En attente>")]
+    [SuppressMessage("Design", "GCop135:{0}", Justification = "<En attente>")]
+    [SuppressMessage("Performance", "GCop318:This will cause the query to be computed multiple times. Instead call .ToList() on the variable declaration line to avoid unwanted extra processing.", Justification = "<En attente>")]
     protected virtual void ApplyResources(Type componentType, IComponent instance, CultureInfo culture)
     {
       // check whether there are localizable resources for the type - if not we are done

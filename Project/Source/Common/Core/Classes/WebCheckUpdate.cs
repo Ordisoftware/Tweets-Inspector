@@ -22,7 +22,7 @@ static class WebCheckUpdate
 
   static private bool Mutex;
 
-  static public int DefaultCheckDaysInterval { get; set; } = 7;
+  static public int DefaultCheckDaysInterval { get; set; } = Globals.DaysOfWeekCount;
 
   /// <summary>
   /// Deletes temp files.
@@ -43,12 +43,12 @@ static class WebCheckUpdate
   /// <returns>
   /// True if application must exist else false.
   /// </returns>
-  /// <param name="checkAtStartup">True if it is a startup check.</param>
   /// <param name="lastdone">The last done date.</param>
   /// <param name="interval">Days interval to check.</param>
   /// <param name="auto">True if no user interaction else false.</param>
+  /// <param name="checkAtStartup">True if it is a startup check.</param>
   /// <param name="useGitHub">True to use GitHub.</param>
-  static public bool Run(bool checkAtStartup, ref DateTime lastdone, int interval, bool auto, bool useGitHub = false)
+  static public bool Run(ref DateTime lastdone, int interval, bool auto, bool checkAtStartup, bool useGitHub = false)
   {
     if ( interval == -1 ) interval = DefaultCheckDaysInterval;
     CleanTemp();
@@ -106,12 +106,12 @@ static class WebCheckUpdate
           if ( useGitHub )
             return false;
           else
-            return Run(checkAtStartup, ref lastdone, interval, auto, true);
+            return Run(ref lastdone, interval, auto, checkAtStartup, true);
         else
         if ( useGitHub )
           msg += Globals.NL2 + SysTranslations.CheckInternetConnection.GetLang();
         else
-          return Run(checkAtStartup, ref lastdone, interval, auto, true);
+          return Run(ref lastdone, interval, auto, checkAtStartup, true);
       }
       DisplayManager.ShowWarning(SysTranslations.CheckUpdate.GetLang(Globals.AssemblyTitle), msg);
     }
@@ -169,7 +169,7 @@ static class WebCheckUpdate
     string fileChecksum = list["Checksum"];
     if ( fileVersion.IsNullOrEmpty() || fileChecksum.IsNullOrEmpty() )
       throw new WebException(SysTranslations.CheckUpdateFileError.GetLang(lines.AsMultiLine()));
-    string[] partsVersion = fileVersion.Split('.');
+    var partsVersion = fileVersion.Split('.');
     Version version;
     try
     {
@@ -203,7 +203,7 @@ static class WebCheckUpdate
   {
     LoadingForm.Instance.Hide();
     string path = useGitHub ? Globals.SetupFileGitHubURL : Globals.SetupFileURL;
-    string fileURL = string.Format(path, fileInfo.version.ToString());
+    string fileURL = string.Format(path, fileInfo.version);
     var result = WebUpdateForm.Run(fileInfo.version);
     switch ( result )
     {
@@ -238,7 +238,7 @@ static class WebCheckUpdate
       LoadingForm.Instance.Hidden = false;
       LoadingForm.Instance.Initialize(SysTranslations.DownloadingNewVersion.GetLang(), 100, 0, false);
       SystemManager.CheckServerCertificate(fileURL, useGitHub, false);
-      string filePathTemp = Path.GetTempPath() + string.Format(Globals.SetupFileName, fileInfo.version.ToString());
+      string filePathTemp = Path.GetTempPath() + string.Format(Globals.SetupFileName, fileInfo.version);
       client.DownloadProgressChanged += progress;
       client.DownloadFileCompleted += completed;
       client.DownloadFileAsync(new Uri(fileURL), filePathTemp);
@@ -309,9 +309,9 @@ public class WebClientEx : WebClient
 
   protected override WebRequest GetWebRequest(Uri address)
   {
-    var request = base.GetWebRequest(address);
-    request.Timeout = TimeOutSeconds * 1000;
-    return request;
+    var result = base.GetWebRequest(address);
+    result.Timeout = TimeOutSeconds * 1000;
+    return result;
   }
 
 }

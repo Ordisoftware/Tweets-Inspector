@@ -116,7 +116,6 @@
     <Compile Include="Source\Common\Core\Data\SQLiteDatabase.cs" />
     <Compile Include="Source\Common\Core\Data\SQLiteDate.cs" />
     <Compile Include="Source\Common\Core\Data\SQLiteNetHelper.cs" />
-    <Compile Include="Source\Common\Core\Data\SQLiteOdbcHelper.cs" />
     <Compile Include="Source\Common\Core\Debug\DebugManager.cs" />
     <Compile Include="Source\Common\Core\Debug\DebugManager.Delegates.cs" />
     <Compile Include="Source\Common\Core\Debug\DebugManager.Trace.cs" />
@@ -441,7 +440,6 @@
     <EmbeddedResource Include="Source\Controls\TweetsListsControl.resx">
       <DependentUpon>TweetsListsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Licenses\MPL 2.0.rtf" />
     <None Include=".editorconfig" />
     <None Include="Properties\DataSources\Ordisoftware.Tweets.Inspector.Properties.Settings.datasource" />
     <None Include="Properties\DataSources\TweetRow.datasource" />

@@ -4,21 +4,22 @@ using System.Threading;
 
 namespace Base.Hotkeys
 {
+  [SuppressMessage("Design", "GCop132:Since the type is inferred, use 'var' instead", Justification = "<En attente>")]
   public class HotkeyManager : IDisposable
   {
 
     public Dictionary<ushort, HotkeyAction> Hotkeys { get; }
     public Dictionary<int, ushort> IDs { get; }
     public bool Active { get; set; }
-    private readonly HotkeyForm form;
+    private readonly HotkeyForm Form;
 
     public HotkeyManager()
     {
       Active = true;
       IDs = new Dictionary<int, ushort>();
       Hotkeys = new Dictionary<ushort, HotkeyAction>();
-      form = new HotkeyForm();
-      form.HotkeyPressed += HotkeyPressed;
+      Form = new HotkeyForm();
+      Form.HotkeyPressed += HotkeyPressed;
     }
 
     [SuppressMessage("Design", "MA0055:Do not use finalizer", Justification = "N/A")]
@@ -35,7 +36,7 @@ namespace Base.Hotkeys
 
     protected virtual void Dispose(bool disposing)
     {
-      if ( disposing ) form?.Dispose();
+      if ( disposing ) Form?.Dispose();
     }
 
     private void HotkeyPressed(object sender, HotkeyEventArgs args)
@@ -52,7 +53,7 @@ namespace Base.Hotkeys
     {
       if ( ha is not null && ha.Hotkey.Status != HotkeyStatus.Registered && ha.Hotkey.IsValid )
       {
-        form.RegisterHotkey(ha.Hotkey);
+        Form.RegisterHotkey(ha.Hotkey);
         if ( ha.Hotkey.Status == HotkeyStatus.Registered )
         {
           IDs.Add(id, ha.Hotkey.ID);
@@ -69,7 +70,7 @@ namespace Base.Hotkeys
       HotkeyAction ha = Hotkeys[IDs[id]];
       if ( ha.Hotkey.Status == HotkeyStatus.Registered )
       {
-        form.UnregisterHotkey(ha.Hotkey);
+        Form.UnregisterHotkey(ha.Hotkey);
         if ( ha.Hotkey.Status == HotkeyStatus.None )
         {
           Hotkeys.Remove(ha.Hotkey.ID);
