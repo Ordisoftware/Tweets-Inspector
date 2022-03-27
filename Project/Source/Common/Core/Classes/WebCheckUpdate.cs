@@ -140,7 +140,6 @@ static class WebCheckUpdate
     }
   }
 
-
   /// <summary>
   /// Gets the version available online with the file checksum.
   /// </summary>
@@ -222,7 +221,6 @@ static class WebCheckUpdate
     return false;
   }
 
-
   /// <summary>
   /// Processes the automatic download and installation.
   /// </summary>
@@ -254,7 +252,8 @@ static class WebCheckUpdate
         throw new IOException(SysTranslations.NotAnExecutableFile.GetLang(filePathTemp));
       if ( SystemManager.GetChecksumSha512(filePathTemp) != fileInfo.checksum )
         throw new IOException(SysTranslations.WrongFileChecksum.GetLang(filePathTemp));
-      if ( SystemManager.RunShell(filePathTemp, "/SP- /SILENT") is not null )
+      using var process = SystemManager.GetRunShell(filePathTemp, "/SP- /SILENT");
+      if ( process is not null )
       {
         Globals.IsExiting = true;
         return true;

@@ -505,7 +505,7 @@
       <Version>60.22.2.32</Version>
     </PackageReference>
     <PackageReference Include="Markdig">
-      <Version>0.28.0</Version>
+      <Version>0.28.1</Version>
     </PackageReference>
     <PackageReference Include="morelinq">
       <Version>3.3.2</Version>

@@ -12,7 +12,6 @@
 /// </license>
 /// <created> 2020-04 </created>
 /// <edited> 2022-03 </edited>
-
 namespace Ordisoftware.Core;
 
 partial class TextBoxEx
@@ -33,7 +32,9 @@ partial class TextBoxEx
 
   static void InitializeContextMenu()
   {
+    _Container?.Dispose();
     _Container = new Container();
+    ContextMenuEdit?.Dispose();
     ContextMenuEdit = new ContextMenuStrip(_Container);
     ContextMenuEdit.Opened += ContextMenuEdit_Opened;
     ActionUndo.Click += ActionUndo_Click;
@@ -75,7 +76,6 @@ partial class TextBoxEx
                                    });
   }
 
-  [SuppressMessage("Usage", "MA0011:IFormatProvider is missing", Justification = "N/A")]
   static public void Relocalize()
   {
     if ( ContextMenuEdit is null ) return;

@@ -18,6 +18,7 @@ using System.Windows.Forms;
 /// </summary>
 public static class ToolStripMenuItemHelper
 {
+
   //////////////////////////////////////////////////
   // Private static fields
   //////////////////////////////////////////////////
@@ -41,6 +42,7 @@ public static class ToolStripMenuItemHelper
   /// <param name="sourceToolStripMenuItem">The source tool strip menu item.</param>
   /// <returns>A cloned version of the toolstrip menu item</returns>
   [SuppressMessage("Usage", "RCS1202:Avoid NullReferenceException.", Justification = "N/A")]
+  [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP003:Dispose previous before re-assigning", Justification = "N/A")]
   public static ToolStripMenuItem Clone(this ToolStripMenuItem sourceToolStripMenuItem)
   {
     var menuItem = new ToolStripMenuItem();
@@ -119,7 +121,6 @@ public static class ToolStripMenuItemHelper
     destEventHandlerList.AddHandlers(sourceEventHandlerList);
   }
 
-
   /// <summary>
   /// Gets the event handler list from a component
   /// </summary>
@@ -138,4 +139,5 @@ public static class ToolStripMenuItemHelper
   //////////////////////////////////////////////////
   // Private static methods
   //////////////////////////////////////////////////
+
 }
