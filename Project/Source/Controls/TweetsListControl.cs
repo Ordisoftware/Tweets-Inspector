@@ -118,7 +118,7 @@ public partial class ListTweets : UserControl
 
   private void OpenTweet(DataGridViewRow row, bool delay = false)
   {
-    Process.Start(GetTweetRow(row).Url);
+    SystemManager.RunShell(GetTweetRow(row).Url);
     if ( delay ) Thread.Sleep(LimitDelay);
   }
 

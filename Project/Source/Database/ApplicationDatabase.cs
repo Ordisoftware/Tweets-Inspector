@@ -16,6 +16,7 @@ namespace Ordisoftware.Tweets.Inspector;
 
 using Equin.ApplicationFramework;
 
+[SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP006:Implement IDisposable", Justification = "<En attente>")]
 class ApplicationDatabase : SQLiteDatabase
 {
 
@@ -71,6 +72,9 @@ class ApplicationDatabase : SQLiteDatabase
   protected override void CreateBindingLists()
   {
     OnLoadingData(SysTranslations.BindingData.GetLang());
+    TweetsMainAsBindingList?.Dispose();
+    TweetsRepliesAsBindingList?.Dispose();
+    TweetsRTsAsBindingList?.Dispose();
     TweetsMainAsBindingList = new BindingListView<TweetRow>(Tweets.Where(t => t.Type == TweetType.Main).ToList());
     TweetsRepliesAsBindingList = new BindingListView<TweetRow>(Tweets.Where(t => t.Type == TweetType.Reply).ToList());
     TweetsRTsAsBindingList = new BindingListView<TweetRow>(Tweets.Where(t => t.Type == TweetType.RT).ToList());

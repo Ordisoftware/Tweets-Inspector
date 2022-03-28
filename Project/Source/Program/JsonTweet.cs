@@ -585,6 +585,7 @@ namespace Ordisoftware.Tweets.Inspector.Json.Tweet
       throw new Exception("Cannot un-marshal type Lang");
     }
 
+    [SuppressMessage("Design", "MA0051:Method is too long", Justification = "N/A")]
     public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
     {
       if ( untypedValue is null )

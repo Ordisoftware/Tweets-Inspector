@@ -64,7 +64,11 @@ public partial class MainForm : Form
     TabControl.TabPages.Remove(TabPageMessages);
     SplitContainerMain.Panel1MinSize = TweetsControl.ListTweetsMain.MinimumSize.Width;
     Text = $"{Globals.AssemblyTitle} - Not connected";
-    SystemManager.TryCatch(() => Icon = new Icon(Globals.ApplicationIconFilePath));
+    SystemManager.TryCatch(() =>
+    {
+      Icon?.Dispose();
+      Icon = new Icon(Globals.ApplicationIconFilePath);
+    });
     var pkey = UsersDataTable.Columns.Add("User", typeof(string));
     UsersDataTable.Columns.Add("Count", typeof(int));
     UsersDataTable.PrimaryKey = new DataColumn[] { pkey };
