@@ -95,6 +95,9 @@
     <Compile Include="Dependencies\Meziantou.AccessToken\WellKnownSidType.cs" />
     <Compile Include="Source\Common\Core\Classes\CompilerHelper.cs" />
     <Compile Include="Source\Common\Core\Classes\CustomColor.cs" />
+    <Compile Include="Source\Common\Core\Data\SQLiteDate.Enums.cs" />
+    <Compile Include="Source\Common\Core\Data\SQLiteDate.Separators.cs" />
+    <Compile Include="Source\Common\Core\Data\SQLiteDate.Settings.cs" />
     <Compile Include="Source\Common\Core\Debug\Chronometer.cs" />
     <Compile Include="Source\Common\Core\Classes\EnumHelper.cs" />
     <Compile Include="Source\Common\Core\Classes\ExportHelper.cs" />

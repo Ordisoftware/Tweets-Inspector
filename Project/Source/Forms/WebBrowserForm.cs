@@ -22,7 +22,7 @@ public partial class WebBrowserForm : Form
 
   static WebBrowserForm()
   {
-    var settings = new CefSettings { CachePath = Path.Combine(Globals.UserDataFolderPath, "ChromiumCache") };
+    using var settings = new CefSettings { CachePath = Path.Combine(Globals.UserDataFolderPath, "ChromiumCache") };
     Cef.Initialize(settings);
   }
 
