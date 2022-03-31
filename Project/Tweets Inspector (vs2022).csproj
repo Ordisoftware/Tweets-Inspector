@@ -477,7 +477,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CefSharp.WinForms">
-      <Version>99.2.120</Version>
+      <Version>99.2.140</Version>
     </PackageReference>
     <PackageReference Include="CommandLineParser">
       <Version>2.8.0</Version>
