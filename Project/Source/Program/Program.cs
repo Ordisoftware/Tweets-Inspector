@@ -73,6 +73,7 @@ static partial class Program
       ex.Manage();
     }
     Application.Run(MainForm.Instance);
+    SystemManager.Exit();
   }
 
 }
