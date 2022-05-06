@@ -477,7 +477,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CefSharp.WinForms">
-      <Version>100.0.230</Version>
+      <Version>101.0.150</Version>
     </PackageReference>
     <PackageReference Include="CommandLineParser">
       <Version>2.8.0</Version>
@@ -500,7 +500,7 @@
       <Version>3.5.1</Version>
     </PackageReference>
     <PackageReference Include="GregsStack.InputSimulatorStandard">
-      <Version>1.3.3</Version>
+      <Version>1.3.4</Version>
     </PackageReference>
     <PackageReference Include="Markdig">
       <Version>0.30.2</Version>
