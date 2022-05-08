@@ -57,13 +57,17 @@ public partial class MainForm
           {
             string url = $"https://twitter.com/{Tokens.ScreenName}/status/{tweet.Id}";
             WebRequest webRequest = WebRequest.Create(url);
-            WebResponse webResponse;
+            WebResponse webResponse = null;
             try
             {
               webResponse = webRequest.GetResponse();
             }
             catch
             {
+            }
+            finally
+            {
+              webResponse?.Close();
             }
           }
           //  if ( !DataSet.Tweets.Rows.Contains(tweet.Id) )

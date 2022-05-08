@@ -78,9 +78,11 @@ public class TweetRow : AbstractRow
        ? "ordisoftware"
        : MainForm.Tokens.ScreenName;
 
-  public List<string> RecipientsAsList => Recipients.Split(',').ToList();
+  public List<string> RecipientsAsList
+    => Recipients.Split(',').ToList();
 
-  public string Url => $"https://twitter.com/{ScreenName}/status/{Id}";
+  public string Url
+    => $"https://twitter.com/{ScreenName}/status/{Id}";
 
   public override string ToString()
     => $"{Id}; {Date}; {Recipients}; {Message}; {Url}";

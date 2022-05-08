@@ -15,9 +15,12 @@
 
 # Tweets Inspector
 
-A libre and open-source software written in C# that allows to list, filter and delete tweets from a Twitter account.
+A libre and open-source software written in C# that allows to list, filter and delete tweets from a Twitter account, as well as to get following and followers list.
 
 The author is not responsible for tweets destroyed if you click on "Delete".
+
+__NOTE 2022.05.08__: CoreTweet no longer connects to Twitter since less than one month. Will try LinqToTwitter. Used the new advanced application registration system for the developer portal..<br>
+https://developer.twitter.com/en/updates/changelog
 
 ## Table of content
 

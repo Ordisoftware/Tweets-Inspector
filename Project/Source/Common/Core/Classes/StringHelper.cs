@@ -11,7 +11,7 @@
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
 /// <created> 2016-04 </created>
-/// <edited> 2022-03 </edited>
+/// <edited> 2022-04 </edited>
 namespace Ordisoftware.Core;
 
 /// <summary>
@@ -19,6 +19,24 @@ namespace Ordisoftware.Core;
 /// </summary>
 static partial class StringHelper
 {
+
+  /// <summary>
+  /// RegEx to replace multiple spaces by one.
+  /// </summary>
+  static private readonly Regex RegExReplaceMultipleSpaces
+    = new("[ ]+", RegexOptions.None, TimeSpan.FromSeconds(1));
+
+  /// <summary>
+  /// Array to trim empty lines.
+  /// </summary>
+  static private readonly char[] EmptyLineCharArray
+    = Globals.NL.ToCharArray();
+
+  /// <summary>
+  /// Array to trim empty lines and spaces.
+  /// </summary>
+  static private readonly char[] EmptyLineAndSpaceCharArray
+    = ( Globals.NL + ' ' ).ToCharArray();
 
   /// <summary>
   /// Indicates if a string is empty.
@@ -62,13 +80,24 @@ static partial class StringHelper
   static public bool RawContains(this string str, string substr)
     => RawComparer.IndexOf(str, substr, RawContainsFlags) >= 0;
 
+  static readonly private CompareInfo RawComparer = CultureInfo.InvariantCulture.CompareInfo;
+
   [SuppressMessage("Design", "IDE0036:Use constant instead of field.", Justification = "Opinion")]
   [SuppressMessage("Design", "RCS1187:Use constant instead of field.", Justification = "Opinion")]
   static readonly private CompareOptions RawContainsFlags = CompareOptions.IgnoreCase
                                                           | CompareOptions.IgnoreNonSpace
                                                           | CompareOptions.IgnoreSymbols;
 
-  static readonly private CompareInfo RawComparer = CultureInfo.InvariantCulture.CompareInfo;
+  /// <summary>
+  /// Indicates if a string starts with one of these comment symbol: # - ; /* //
+  /// </summary>
+  /// <param name="str"></param>
+  static public bool IsCommentedText(this string str)
+    => str.StartsWith("/*", StringComparison.Ordinal)
+    || str.StartsWith("//", StringComparison.Ordinal)
+    || str.StartsWith(";", StringComparison.Ordinal)
+    || str.StartsWith("#", StringComparison.Ordinal)
+    || str.StartsWith("--", StringComparison.Ordinal);
 
   /// <summary>
   /// Sets all first letter to upper case.
@@ -76,6 +105,82 @@ static partial class StringHelper
   /// <param name="str">The string to act on.</param>
   static public string Titleize(this string str)
     => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str);
+
+  /// <summary>
+  /// Replaces all double and more contiguous empty lines by one.
+  /// Also replace \n alone by Windows NewLine.
+  /// </summary>
+  /// <param name="str">The string to act on.</param>
+  static public string SanitizeEmptyLines(this string str)
+  {
+    if ( str.IsNullOrEmpty() ) return str;
+    if ( str.IndexOf('\n') >= 0 && !str.Contains(Globals.NL) )
+      str = str.Replace("\n", Globals.NL);
+    var lines = str.SplitKeepEmptyLines();
+    var result = new List<string>();
+    bool isPreviousEmpty = false;
+    for ( int index = 0; index < lines.Length; index++ )
+    {
+      ref string line = ref lines[index];
+      bool isEmpty = line.IsNullOrEmpty();
+      if ( isEmpty )
+      {
+        if ( !isPreviousEmpty )
+        {
+          result.Add(line);
+          isPreviousEmpty = true;
+        }
+      }
+      else
+      {
+        result.Add(line);
+        isPreviousEmpty = false;
+      }
+    }
+    return result.AsMultiLine();
+  }
+
+  /// <summary>
+  /// Replaces all double and more contiguous spaces by one.
+  /// </summary>
+  /// <param name="str">The string to act on.</param>
+  static public string SanitizeSpaces(this string str)
+    => RegExReplaceMultipleSpaces.Replace(str, " ");
+
+  /// <summary>
+  /// Replaces all double and more contiguous empty lines as well as spaces by one.
+  /// </summary>
+  /// <param name="str">The string to act on.</param>
+  static public string SanitizeEmptyLinesAndSpaces(this string str)
+    => str.SanitizeSpaces().SanitizeEmptyLines();
+
+  /// <summary>
+  /// Removes all starting and ending empty lines.
+  /// </summary>
+  /// <param name="str">The string to act on.</param>
+  static public string TrimEmptyLines(this string str)
+    => str.Trim(EmptyLineCharArray);
+
+  /// <summary>
+  /// Removes all starting and ending spaces.
+  /// </summary>
+  /// <param name="str">The string to act on.</param>
+  static public string TrimSpaces(this string str)
+    => str.Trim(' ');
+
+  /// <summary>
+  /// Removes all starting and ending empty lines and spaces.
+  /// </summary>
+  /// <param name="str">The string to act on.</param>
+  static public string TrimEmptyLinesAndSpaces(this string str)
+    => str.Trim(EmptyLineAndSpaceCharArray);
+
+  /// <summary>
+  /// Sanitizes and trims empty lines and spaces a string.
+  /// </summary>
+  /// <param name="str"></param>
+  static public string SanitizeAndTrimEmptyLinesAndSpaces(this string str)
+    => str.SanitizeEmptyLinesAndSpaces().TrimEmptyLinesAndSpaces();
 
   /// <summary>
   /// Trims any first and last char.
@@ -168,6 +273,16 @@ static partial class StringHelper
   /// A string.
   /// </returns>
   /// <param name="list">The enumeration to act on.</param>
+  static public string AsMultiSpace(this IEnumerable<object> list)
+    => string.Join(" ", list);
+
+  /// <summary>
+  /// Creates a multi-spaced string from a string enumeration.
+  /// </summary>
+  /// <returns>
+  /// A string.
+  /// </returns>
+  /// <param name="list">The enumeration to act on.</param>
   static public string AsMultiSpace(this IEnumerable<string> list)
     => string.Join(" ", list);
 
@@ -194,7 +309,7 @@ static partial class StringHelper
     => string.Join(withSpaceAfter ? ", " : ",", list.Select(o => o.ToString()));
 
   /// <summary>
-  /// Creates a multi-newlined string from a string enumeration.
+  /// Creates a multi-newlines string from a string enumeration.
   /// </summary>
   /// <returns>
   /// A string.
@@ -204,7 +319,7 @@ static partial class StringHelper
     => string.Join(Globals.NL, list);
 
   /// <summary>
-  /// Creates a multi-newlined string from a string enumeration.
+  /// Creates a multi-newlines string from a string enumeration.
   /// </summary>
   /// <returns>
   /// A string.

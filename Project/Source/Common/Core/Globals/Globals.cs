@@ -11,7 +11,7 @@
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
 /// <created> 2016-04 </created>
-/// <edited> 2022-03 </edited>
+/// <edited> 2022-05 </edited>
 namespace Ordisoftware.Core;
 
 using Meziantou.Framework.Win32;
@@ -44,12 +44,11 @@ static partial class Globals
   static public readonly int DaysOfWeekCount = Enums.GetValues<DayOfWeek>().Count;
 
   public const int MilliSecondsInOneMinute = 60000;
+  public const int MilliSecondsInOneSecond = 1000;
   public const int SecondsInOneMinute = 60;
   public const int HoursInOneDay = 24;
 
   static public readonly Size IconSize16 = new(16, 16);
-
-  static public readonly Color VeryLightGray = Color.FromArgb(250, 250, 250);
 
   /// <summary>
   /// Indicates bullet.
@@ -239,7 +238,7 @@ static partial class Globals
   /// Indicates if the code is in design time
   /// </summary>
   public static bool IsDesignTime
-    => System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime;
+    => LicenseManager.UsageMode == LicenseUsageMode.Designtime;
 
   /// <summary>
   /// Indicates if the code is executed from the IDE else from a running app.
@@ -261,6 +260,11 @@ static partial class Globals
   /// Indicates brint to front application system hot key.
   /// </summary>
   static public readonly SystemHotKey BringToFrontApplicationHotKey = new();
+
+  /// <summary>
+  /// Indicates if spell check is enabled.
+  /// </summary>
+  static public bool SpellCheckEnabled;
 
   /// <summary>
   /// Static constructor.

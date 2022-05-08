@@ -11,8 +11,58 @@
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
 /// <created> 2016-04 </created>
-/// <edited> 2022-03 </edited>
+/// <edited> 2022-05 </edited>
 namespace Ordisoftware.Core;
+
+/// <summary>
+/// Provides a solid brushes buffer.
+/// </summary>
+static public class SolidBrushesPool
+{
+  static private readonly Dictionary<Color, SolidBrush> Items = new();
+  static public void Clear()
+  {
+    foreach ( var item in Items )
+      item.Value.Dispose();
+  }
+  static public Brush Get(Color color)
+  {
+
+    if ( Items.TryGetValue(color, out var result) )
+      return result;
+    else
+    {
+      var brush = new SolidBrush(color);
+      Items.Add(color, brush);
+      return brush;
+    }
+  }
+}
+
+/// <summary>
+/// Provides a pens buffer.
+/// </summary>
+static public class PensPool
+{
+  static private readonly Dictionary<Color, Pen> Items = new();
+  static public void Clear()
+  {
+    foreach ( var item in Items )
+      item.Value.Dispose();
+  }
+  static public Pen Get(Color color)
+  {
+
+    if ( Items.TryGetValue(color, out var result) )
+      return result;
+    else
+    {
+      var pen = new Pen(color);
+      Items.Add(color, pen);
+      return pen;
+    }
+  }
+}
 
 /// <summary>
 /// Provides win forms helper.
@@ -211,11 +261,11 @@ static class FormsHelper
   /// <summary>
   /// Checks if location is in the screen else center to main form else to screen.
   /// </summary>
-  /// <param name="form">The form.</param>
-  static public void CheckLocationOrCenterToMainFormElseScreen(this Form form)
+  static public void CheckLocationOrCenterToMainFormElseScreen(this Form form, bool includeZero = false)
   {
+    int min = includeZero ? 1 : 0;
     if ( form is null ) return;
-    if ( form.Location.X < 0 || form.Location.Y < 0
+    if ( form.Location.X < min || form.Location.Y < min
       || form.Left > SystemInformation.WorkingArea.Width - form.Width / 2
       || form.Top > SystemInformation.WorkingArea.Height - form.Height / 2 )
       form.CenterToMainFormElseScreen();

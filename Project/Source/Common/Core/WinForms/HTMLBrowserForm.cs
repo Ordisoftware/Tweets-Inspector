@@ -11,7 +11,7 @@
 /// You may add additional accurate notices of copyright ownership.
 /// </license>
 /// <created> 2019-09 </created>
-/// <edited> 2021-04 </edited>
+/// <edited> 2022-04 </edited>
 namespace Ordisoftware.Core;
 
 partial class HTMLBrowserForm : Form
@@ -23,6 +23,14 @@ partial class HTMLBrowserForm : Form
   private readonly TranslationsDictionary Title;
 
   private readonly string FilePathTemplate;
+
+  static public void Run(HTMLBrowserForm form)
+  {
+    if ( form.WindowState == FormWindowState.Minimized )
+      form.WindowState = FormWindowState.Normal;
+    form.Show();
+    form.BringToFront();
+  }
 
   private HTMLBrowserForm()
   {
@@ -42,15 +50,15 @@ partial class HTMLBrowserForm : Form
     FilePathTemplate = filePathTemplate;
     LocationPropertyName = locationPropertyName;
     ClientSizePropertyName = clientSizePropertyName;
-    if ( !LocationPropertyName.IsNullOrEmpty() && !ClientSizePropertyName.IsNullOrEmpty() )
-    {
-      Location = (Point)Globals.Settings[locationPropertyName];
-      ClientSize = (Size)Globals.Settings[clientSizePropertyName];
-    }
   }
 
   private void HTMLBrowserForm_Load(object sender, EventArgs e)
   {
+    if ( !LocationPropertyName.IsNullOrEmpty() && !ClientSizePropertyName.IsNullOrEmpty() )
+    {
+      Location = (Point)Globals.Settings[LocationPropertyName];
+      ClientSize = (Size)Globals.Settings[ClientSizePropertyName];
+    }
     this.CheckLocationOrCenterToMainFormElseScreen();
   }
 
