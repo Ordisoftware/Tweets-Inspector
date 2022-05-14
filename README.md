@@ -19,8 +19,13 @@ A libre and open-source software written in C# that allows to list, filter and d
 
 The author is not responsible for tweets destroyed if you click on "Delete".
 
-___NOTE 2022.05.08___: CoreTweet no longer connects to Twitter since less than one month. Will try LinqToTwitter. Used the new advanced application registration system for the developer portal.<br>
+___NOTE 2022.05.08___:<br>
+CoreTweet seems to no longer connects to Twitter since less than one month. Will try LinqToTwitter. Used the new advanced application registration system for the developer portal.<br>
 https://developer.twitter.com/en/updates/changelog
+
+___NOTE 2022.05.14___:<br>
+I found the cause of the problem which is the timeout of the Twitter logged session in CefSharp not currently managed by the software - a trick for now is to erase this folder:<br>
+`c:\Users\[name]\AppData\Roaming\Ordisoftware\Tweets Inspector\ChromiumCache\`.
 
 ## Table of content
 
