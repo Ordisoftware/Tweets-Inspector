@@ -37,7 +37,7 @@ static partial class Program
     try
     {
       Globals.ChronoStartingApp.Start();
-      Globals.SoftpediaURL = "https://www.softpedia.com/get/Others/Home-Education/Hebrew-Letters.shtml";
+      Globals.SoftpediaURL = "";
       Globals.AlternativeToURL = "";
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
