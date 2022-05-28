@@ -54,7 +54,7 @@ In case of error 404 or 403 while connecting to Twitter, the problem which is th
 - Screen 1024x768 or higher
 - Windows 10 x32/x64 or higher
 - Framework .NET 4.8
-- SQLite 3.35.5
+- SQLite 3.38.3
 - CefSharp for automatic authentication
 
 ## Download
