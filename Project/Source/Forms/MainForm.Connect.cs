@@ -22,7 +22,7 @@ public partial class MainForm
 
   private const string OAuthVerifierTag = "oauth_verifier";
 
-  private async void DoConnectAsync()
+  private async Task DoConnectAsync()
   {
     if ( IsConnected(false) ) return;
     if ( Settings.ConsumerKey.IsNullOrEmpty()

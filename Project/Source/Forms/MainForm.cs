@@ -58,6 +58,7 @@ public partial class MainForm : Form
     return false;
   }
 
+  [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP004:Don't ignore created IDisposable", Justification = "<En attente>")]
   public MainForm()
   {
     InitializeComponent();
@@ -118,9 +119,9 @@ public partial class MainForm : Form
     File.WriteAllLines(Path.Combine(path, name + " - RT.txt"), SelectTweetsRT.Items.Cast<string>());*/
   }
 
-  private void ActionConnect_Click(object sender, EventArgs e)
+  private async void ActionConnect_ClickAsync(object sender, EventArgs e)
   {
-    DoConnectAsync();
+    await DoConnectAsync();
   }
 
   private void ActionLoadFromJS_Click(object sender, EventArgs e)

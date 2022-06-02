@@ -20,11 +20,11 @@ using System.Net;
 public partial class MainForm
 {
 
-  private const string TwitterDateTemplate = "ddd MMM dd HH:mm:ss +ffff yyyy";
+  //private const string TwitterDateTemplate = "ddd MMM dd HH:mm:ss +ffff yyyy";
 
-  private readonly CultureInfo CultureEN = new("en-US");
+  //private readonly CultureInfo CultureEN = new("en-US");
 
-  private readonly WebClientEx WebClient = new(3000);
+  //private readonly WebClientEx WebClient = new(3000);
 
   private void DoLoadTweetsFromJS()
   {
@@ -68,6 +68,7 @@ public partial class MainForm
             finally
             {
               webResponse?.Close();
+              webResponse?.Dispose();
             }
           }
           //  if ( !DataSet.Tweets.Rows.Contains(tweet.Id) )

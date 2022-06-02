@@ -506,7 +506,7 @@
       this.ActionConnect.TabIndex = 0;
       this.ActionConnect.Text = "Connect";
       this.ActionConnect.UseVisualStyleBackColor = true;
-      this.ActionConnect.Click += new System.EventHandler(this.ActionConnect_Click);
+      this.ActionConnect.Click += new System.EventHandler(this.ActionConnect_ClickAsync);
       // 
       // ActionLoadFromJS
       // 
