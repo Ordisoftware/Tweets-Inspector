@@ -58,6 +58,7 @@ public partial class MainForm : Form
     return false;
   }
 
+  [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP004:Don't ignore created IDisposable", Justification = "<En attente>")]
   public MainForm()
   {
     InitializeComponent();
